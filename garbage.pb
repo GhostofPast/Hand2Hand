@@ -1538,9 +1538,291 @@ EndProcedure
 			PlaySound(*b\music,#PB_Sound_Loop,musicLevel)
 		EndIf
 	EndIf
-; 	gameloop(0,*mainGame\type)
+	; 	gameloop(0,*mainGame\type)
+	
+
+; Ahah tartine
+;Procedure AfftextTartine(Text$,x.f,y.f,textColor.i=0,textColorIntensity=128,scale.f=1,thickness.i=2)
+; 	s.d=scale
+; 	If s<1
+; 		s=1
+; 	EndIf
+; 	For h=-thickness To thickness
+; 		For v=-thickness To thickness
+; 			If v Or h
+; 				AfftextColor(Text$,x+h*s,y+v*s,textColor,textColorIntensity,scale)
+; 			EndIf
+; 		Next
+; 	Next
+	
+; 	AfftextColor(Text$,x+thickness,y,textColor,textColorIntensity,scale)
+; 	AfftextColor(Text$,x-thickness,y-thickness,textColor,textColorIntensity,scale)
+; 	AfftextColor(Text$,x+thickness,y-thickness,textColor,textColorIntensity,scale)
+; 	AfftextColor(Text$,x-thickness,y+thickness,textColor,textColorIntensity,scale)
+; 	AfftextColor(Text$,x+thickness,y+thickness,textColor,textColorIntensity,scale)
+; 	AfftextColor(Text$,x,y-thickness,textColor,textColorIntensity,scale)
+; 	AfftextColor(Text$,x,y+thickness,textColor,textColorIntensity,scale)
+;EndProcedure
+	
+	
+; Procedure AfftextBorderCreate(thickness.i=3)
+; 	If Not IsSprite(textBorder)
+; 		ZoomSprite(textWhite,#PB_Default,#PB_Default)
+; 		RotateSprite(textWhite,0,#PB_Absolute)
+; 		max.i=SpriteWidth(textWhite)/#CHAR_SIZE_X
+; 		CreateSprite(textBorder,(SpriteWidth(textWhite)/#CHAR_SIZE_X)*(#CHAR_SIZE_X+thickness),#CHAR_SIZE_Y+thickness*2,#PB_Sprite_AlphaBlending)
+; 		image=spriteIndexAdd()
+; 		LoadImage(image,"image/letter_white.png")
+; 		; draw the whole image once
+; 		StartDrawing(ImageOutput(image))
+; 		For i=0 To max-1
+; 			ClipOutput(thickness+i*(#CHAR_SIZE_X*thickness),thickness+(#CHAR_SIZE_Y*thickness)+1,#CHAR_SIZE_X,#CHAR_SIZE_Y)
+; 			DrawImage(ImageID(image),thickness+i*(#CHAR_SIZE_X*thickness),thickness)
+; 		Next
+; 		StopDrawing()
+; 		image2.i=spriteIndexAdd()
+; 		CopyImage(image,image2)
+; 		; Then we tartine
+; 		StartDrawing(ImageOutput(image))
+; 		For x=-thickness To thickness
+; 			For y=-thickness To thickness
+; 				DrawImage(ImageID(image2),x,y)
+; 			Next
+; 		Next
+; 		StopDrawing()
+; 		StartDrawing(SpriteOutput(textBorder))
+; 		DrawImage(ImageID(image),0,0)
+; 		StopDrawing()
+; 		SaveSprite(textBorder,"border.png")
+; 		End
+; 		FreeImage(image)
+; 		FreeImage(image2)
+; 	EndIf
+; EndProcedure
+	
+	
+; Procedure initBigText()
+; 	If Not textBig
+; 		textBig=spriteIndex
+; 		spriteIndex+1
+; 	EndIf
+; 	LoadSprite(textBig,"image/number.png",#PB_Sprite_AlphaBlending)
+; EndProcedure
+; Procedure displayBigCharAt(code.f,x.i,y.i,textColor.i=0,textColorIntensity.i=128,scale.f=1)
+; 	ZoomSprite(textWhite,#PB_Default,#PB_Default)
+; 	ClipSprite(textWhite,code*#CHAR_SIZE_X,0,#CHAR_SIZE_X,#CHAR_SIZE_Y)
+; 	ZoomSprite(textWhite,#CHAR_SIZE_X*scale,#CHAR_SIZE_Y*scale)
+; 	char$=Chr(Int(Round(code,#PB_Round_Nearest))+32)
+; 	If char$="," Or char$=";" 
+; 		DisplayTransparentSprite(textWhite,x,y+3*scale)
+; 		If textColor
+; 			DisplayTransparentSprite(textWhite,x,y+3*scale,textColorIntensity,textColor)
+; 		EndIf
+; 	Else
+; 		DisplayTransparentSprite(textWhite,x,y)
+; 		If textColor
+; 			DisplayTransparentSprite(textWhite,x,y,textColorIntensity,textColor)
+; 		EndIf
+; 	EndIf
+; EndProcedure
+; 
+; Procedure displayBigTextOLD(x.i,y.i,text$,color.i=0,scale.d=1)
+; 	originX=x
+; 	lg=Len(text$)
+; 	For i=1 To lg
+; 		found=#False
+; 		c$=Mid(text$,i,1)
+; 		If c$=":"
+; 			found=1
+; 			x-20*scale
+; 			ClipSprite(textBig,640,0,64,64)
+; 		Else
+; 			code=Asc(c$)-Asc("0")
+; 			If code>=0 And code <=9
+; 				found=2
+; 				ClipSprite(textBig,code*64,0,64,64)
+; 			EndIf
+; 		EndIf
+; 		ZoomSprite(textBig,64.0*scale,64.0*scale)
+; 		If found
+; 			If gamePaused
+; 				DisplayTransparentSprite(textBig,x,y,255)
+; 				If color
+; 					DisplayTransparentSprite(textBig,x,y,128,color)
+; 				EndIf
+; 			Else
+; 				tX=x+Random(*screenShakeDistance\x)-*screenShakeDistance\x/2
+; 				tY=y+Random(*screenShakeDistance\y)-*screenShakeDistance\y/2
+; 				DisplayTransparentSprite(textBig,tX,tY,255-(*screenShakeDistance\x+*screenShakeDistance\y)*2)
+; 				If color
+; 					DisplayTransparentSprite(textBig,tX,tY,128-(*screenShakeDistance\x+*screenShakeDistance\y),color)
+; 				EndIf
+; 			EndIf
+; 		EndIf
+; 		ZoomSprite(textBig,#PB_Default,#PB_Default)
+; 		If found=1
+; 			x+44*scale
+; 		Else
+; 			x+64*scale
+; 		EndIf
+; 	Next
+; 	ProcedureReturn x
+; EndProcedure
+	
+		; old
+		;{
+; 		If widthScale<chunkScale
+; 			ClipSprite(iconAtlas,Mod(selection,1000),selection/1000,size*widthScale*nbChunk,size)
+; 			ZoomSprite(iconAtlas,SpriteWidth(iconAtlas)*scale,size*scale)
+; 			DisplayTransparentSprite(iconAtlas,x+size*(nbChunk-1)*scale+size*scale-SpriteWidth(iconAtlas),y,255,fillColor)
+; 		Else
+; 			ZoomSprite(iconAtlas,SpriteWidth(iconAtlas)*scale,size*scale)
+; 			DisplayTransparentSprite(iconAtlas,x+size*(nbChunk-1)*scale,y,255,fillColor)
+; 		EndIf
+; 		
+; 		
+; 		If middleScale>0
+; 			SpriteQuality(#PB_Sprite_NoFiltering)
+; 			afftext(StrD(nbMiddle*size*middleScale*scale),x+200,y+200)
+; 			ZoomSprite(filler,nbChunk*size*middleScale*scale,size*scale)
+; 			DisplayTransparentSprite(filler,x+(nbChunk-1)*size*scale-SpriteWidth(filler),y,255,fillColor)
+; 		EndIf
+; 		selection=UISelect(fillEnder)
+; 		lostScale.d=1-widthScale
+; 		If lostScale<chunkScale
+; 			ClipSprite(iconAtlas,Mod(selection,1000)+size*lostScale*nbChunk,selection/1000,size-size*lostScale*nbChunk,size)
+; 			ZoomSprite(iconAtlas,SpriteWidth(iconAtlas)*scale,size*scale)
+; 			DisplayTransparentSprite(iconAtlas,x+size*lostScale*nbChunk*scale,y,255,fillColor)
+; 		EndIf
+;}
+	
+				; old
+	; 			UIDisplay(#H2H_ICON_BAR_CLIP,x-size*scale*0.95,y,baseColor,baseColorIntensity,255,#False,scale)
+	; 			If widthScale>1
+	; 				UIDisplay(#H2H_ICON_BAR_HAT,x-size*scale*0.55-(widthScale-1)*size*scale*(nbChunk-1),y,baseColor,baseColorIntensity,255,#False,scale)
+	; 			Else
+	; 				UIDisplay(#H2H_ICON_BAR_HAT,x-size*scale*1.25,y,baseColor,baseColorIntensity,255,#False,scale)
+	; 			EndIf
+	; new
+	
+; 	CompilerElse
+; ;--- dot & crescent
+; Global dot=spriteIndexAdd()
+; Global crescent=spriteIndexAdd()
+; #H2H_CRESCENT_SPACE=18
+; Global comboIconSmallNeutral=spriteIndexAdd()
+; Global comboIconSmallUp=spriteIndexAdd();spriteIndex:spriteIndex+2 ; Because we need a flip for this one
+; Global comboIconSmallHeavy=spriteIndexAdd()
+; CompilerEndIf
+	
+; 	CompilerElse
+; 	y+20
+; 	If level>=0
+; 		If trueLevel=-1
+; 			trueLevel=level
+; 		EndIf
+; 		c=crescentColor(10)
+; 		If trueLevel<=10
+; 			c=crescentColor(trueLevel)
+; 		EndIf
+; 		spriteFlip(crescent,fliped)
+; 		If fliped
+; 			fliped=-1
+; 		Else
+; 			fliped=1
+; 		EndIf
+; 		If trueLevel>=level
+; 			DisplayTransparentSprite(dot,x,y)
+; 			DisplayTransparentSprite(dot,x,y,192,c)
+; 			If fliped=1
+; 				x+5
+; 			EndIf
+; 			For i=1 To level
+; 				x+#H2H_CRESCENT_SPACE*fliped
+; 				DisplayTransparentSprite(crescent,x,y)
+; 				DisplayTransparentSprite(crescent,x,y,192,c)
+; 			Next
+; 			For i=level+1 To trueLevel
+; 				x+#H2H_CRESCENT_SPACE*fliped
+; 				DisplayTransparentSprite(crescent,x,y)
+; 				DisplayTransparentSprite(crescent,x,y,192,c)
+; 				If classLevelShine>0
+; 					DisplayTransparentSprite(crescent,x,y,classLevelShine,#White)
+; 				Else
+; 					DisplayTransparentSprite(crescent,x,y,-classLevelShine,#Black)
+; 				EndIf
+; 			Next
+; 		Else
+; 			DisplayTransparentSprite(dot,x,y)
+; 			DisplayTransparentSprite(dot,x,y,192,c)
+; 			If fliped=1
+; 				x+5
+; 			EndIf
+; 			For i=1 To trueLevel
+; 				x+#H2H_CRESCENT_SPACE*fliped
+; 				DisplayTransparentSprite(crescent,x,y)
+; 				DisplayTransparentSprite(crescent,x,y,192,c)
+; 			Next
+; 			For i=trueLevel+1 To level
+; 				x+#H2H_CRESCENT_SPACE*fliped
+; 				DisplayTransparentSprite(crescent,x,y,64)
+; 				DisplayTransparentSprite(crescent,x,y,32,c)
+; 			Next
+; 		EndIf
+; 	Else
+; 		AfftextColor("?",x,y,0,128,2)
+; 	EndIf
+; 	CompilerEndIf
+	
+; 	CompilerIf Not #H2H_ICON_ATLAS_ENABLED
+; 	If keyPushedPB(#PB_Key_LeftShift)
+; 		;{
+; 		classDisplayShiftY=0
+; 		Afftext("Strength",	x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\strength+*s\modificator\strength),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		Afftext("Agility",	x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\agility+*s\modificator\agility),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		Afftext("Speed",	x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\speed+*s\modificator\speed),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		Afftext("Weight",	x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\weight+*s\modificator\weight),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		Afftext("Endurence",x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\endurence+*s\modificator\endurence),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		Afftext("Life"		,x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\life+*s\modificator\life),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		If *stat\cut>=0
+; 			Afftext("Cut"	,x-150,y+classDisplayShiftY)
+; 			Afftext(Str(*stat\cut+*s\modificator\cut),x+60,y+classDisplayShiftY)
+; 			classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		EndIf
+; 		If *stat\pierce>=0
+; 			Afftext("Pierce",x-150,y+classDisplayShiftY)
+; 			Afftext(Str(*stat\pierce+*s\modificator\pierce),x+60,y+classDisplayShiftY)
+; 			classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		EndIf
+; 		If *stat\blunt>=0
+; 			Afftext("Blunt"	,x-150,y+classDisplayShiftY)
+; 			Afftext(Str(*stat\blunt+*s\modificator\blunt),x+60,y+classDisplayShiftY)
+; 			classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		EndIf
+; 		Afftext("Reach"		,x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\reach),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		Afftext("Difficulty",x-150,y+classDisplayShiftY)
+; 		Afftext(Str(*stat\difficulty),x+60,y+classDisplayShiftY)
+; 		classDisplayShiftY+#H2H_CLASS_GALLERY_SHIFT_Y
+; 		;}
+; 	EndIf
+; 	CompilerEndIf
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 1540
-; FirstLine = 1490
-; Folding = -----
+; CursorPosition = 1776
+; FirstLine = 1265
+; Folding = ---n-
 ; EnableXP
+; CPU = 4

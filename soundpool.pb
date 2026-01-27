@@ -1,56 +1,43 @@
 ﻿Global soundIndex=0
 Global soundPoolIndex=0
+
 #H2H_SOUND_DEFAULT_VOLUME=50
+Global soundlevel=#H2H_SOUND_DEFAULT_VOLUME
 #H2H_MUSIC_DEFAULT_VOLUME=20
 Global musicLevel=#H2H_MUSIC_DEFAULT_VOLUME
+
 #H2H_SOUND_STEREO_DEFAULT_WIDTH=60
+Global SOUND_STEREO_DEFAULT_WIDTH=#H2H_SOUND_STEREO_DEFAULT_WIDTH
 #H2H_SOUND_STEREO_SMALL_WIDTH=30
+Global SOUND_STEREO_SMALL_WIDTH=#H2H_SOUND_STEREO_SMALL_WIDTH
 #H2H_SOUND_STEREO_NONE_WIDTH=0
-#H2H_SOUND_VARIATION_DEFAULT=1
+Global SOUND_STEREO_NONE_WIDTH=#H2H_SOUND_STEREO_NONE_WIDTH
 Global stereoWidth=#H2H_SOUND_STEREO_DEFAULT_WIDTH
-Global soundlevel=#H2H_SOUND_DEFAULT_VOLUME
+
+; the variation is both up and down
+#H2H_SOUND_VARIATION_PERCENT=20
+Global SOUND_VARIATION_PERCENT=#H2H_SOUND_VARIATION_PERCENT
+#H2H_SOUND_VARIATION_DEFAULT=1
+#H2H_SOUND_VARIATION_ITERATION=3 ; must be >=1, too high may not sensibly variate the sound
+Global SOUND_VARIATION_ITERATION=#H2H_SOUND_VARIATION_ITERATION ; must be >=1, too high may not sensibly variate the sound
 Global soundVariationEnabled=#H2H_SOUND_VARIATION_DEFAULT
 
-; by nemerod
-Global *SND=AllocateMemory($10000)
+IncludeFile "dsp.pb"
+DSP_INIT()
+
 Global SETTING_EFFECT_SOUND=100
 #H2H_SOUND_FOLDER="sound"
 
 Structure soundPool
-	id.i ;sound id new system by nemerod
+	id.i ; static sound pool ID defined at loading (sound id new system by nemerod)
 	name$
 	*sameTimePlayed.soundPool ; the ID of the pool played at the same time
 	sameTimePlayedVolume.f
-	Array frequency.i(0)
+; 	Array frequency.i(0)
+	Array subSoundId.q(0) ; ID gaven by the DSP
 	volume.i
 EndStructure
-Global Dim *allSoundPool.soundPool(soundPoolIndex)
-
-#H2H_SOUND_SYSTEM_STOP=#False
-CompilerIf #H2H_SOUND_SYSTEM_STOP
-	; TODO
-Global NewList stoppedSounds.i()
-
-Procedure stoppedSoundsAdd(what.i)
-	AddElement(stoppedSounds)
-	stoppedSounds()=what
-EndProcedure
-
-Procedure StopSoundEx(what.i)
-	StopSound(what)
-	stoppedSoundsAdd(what)
-EndProcedure
-
-Procedure stopSoundAll()
-	For p=0 To 255
-		*where=*SND+p*$100
-		For s=0 To $100-1
-			If IsSound(*where+s)
-				stopSoundEx(*where+s)
-		Next
-	Next
-EndProcedure
-CompilerEndIf
+Global NewMap *allSoundPool.soundPool()
 
 Procedure poolCreate(*pool.soundPool=0,soundDataId=0,volume.i=100)
 	If Not *pool
@@ -59,135 +46,59 @@ Procedure poolCreate(*pool.soundPool=0,soundDataId=0,volume.i=100)
 	EndIf
 	*pool\name$="no name"
 	*pool\id=soundDataId
-	If soundDataId>ArraySize(*allSoundPool())
-		ReDim *allSoundPool(soundDataId)
-	EndIf
-	*allSoundPool(soundDataId)=*pool
+; 	Debug "created "+soundDataId
+	AddMapElement(*allSoundPool(),Str(soundDataId))
+	*allSoundPool()=*pool
 	*pool\sameTimePlayed=0
 	*pool\sameTimePlayedVolume=1
-	
-	origin=$100+(soundDataId<<8)
-	amount=PeekA(*SND+origin)
-	
-	ReDim *pool\frequency(amount)
-	For i=0 To amount
-		If IsSound(origin+i)
-			*pool\frequency(i)=GetSoundFrequency(origin+i)
-; 			Debug *pool\name$+" "+i+" Frequency "+*pool\frequency(i)
-		Else
-			Debug *pool\name$+Str(origin+i)+" is not sound"
-		EndIf
-	Next
 	*pool\volume=volume
 	ProcedureReturn *pool
-EndProcedure
-; the variation is both up and down
-#H2H_SOUND_VARIATION_PERCENT=20
-Procedure.s load_sound(t$,groupe.a)
-	temp=0
-	origin=$100+(groupe<<8)
-	type.s=".wav"
-	path$=#H2H_SOUND_FOLDER+"\"+t$+type
-	DisableDebugger
-	If FileSize(path$)>0
-		If LoadSound(origin,path$)
-			PlaySound(origin,0,0)
-			PokeA(*SND+$100,$00)
-			ProcedureReturn type
-		EndIf
-	EndIf
-	
-	path$=#H2H_SOUND_FOLDER+"\"+t$
-	For a = 1 To 254
-		
-		If FileSize(path$+Str(a)+type)>0 And LoadSound(origin+temp,path$+Str(a)+type)
-			Debug "found sound "+path$+Str(a)+type
-			PlaySound(origin+temp,0,0)
-			PokeA(*SND+origin,temp)
-			temp+1
-		Else
-			If temp>0
-				ProcedureReturn type
-			EndIf
-			Break
-		EndIf
-	Next
-	type=".ogg"
-	path$=#H2H_SOUND_FOLDER+"\"+t$+type
-	If FileSize(path$)>0
-		Debug "found"
-		If LoadSound(origin,path$)
-			PlaySound(origin,0,0)
-			PokeA(*SND+$100,$00)
-			ProcedureReturn type
-		EndIf
-	EndIf
-	path$=#H2H_SOUND_FOLDER+"\"+t$
-	For a = 1 To 254
-		If FileSize(path$+Str(a)+type)>0 And LoadSound(origin+temp,path$+Str(a)+type)
-			Debug "found sound "+path$+Str(a)+type
-			PlaySound(origin+temp,0,0)
-			PokeA(*SND+origin,temp)
-			temp+1
-		Else
-			If temp>0
-				ProcedureReturn type
-			EndIf
-			Break
-		EndIf
-	Next
-	CatchSound(origin,?NULL_SOUND)
-	PlaySound(origin,0,0)
-	PokeA(*SND+$100,$00)
-	EnableDebugger
-	Debug "sound "+t$+" is null !"
-	ProcedureReturn ""
 EndProcedure
 
 Procedure soundGetAmount(groupe.a)
 	ProcedureReturn PeekA(*SND+$100+(groupe<<8))
 EndProcedure
-
-Procedure psound(groupe.a,position=-9999,volume.i=100)
-	Protected threshold=0
-	If volume<=0
-		ProcedureReturn -1
-	EndIf
-	origin=$100+(groupe<<8)
-	amount=PeekA(*SND+origin)
-	selected=origin
-	r=Random(amount)
-	selected=origin+r
-	; if the sound is already playing, we will pick an other non played sound if possible
-	x=0
-	threshold=0
-	While x<amount And IsSound(selected) And (SoundStatus(selected)=#PB_Sound_Playing Or threshold>10)
-		If r>=amount
-			r=0
-		Else
-			r+1
-		EndIf
-		x+1
-		selected=origin+r
-		threshold+1
-	Wend
-	If IsSound(selected)
-		SoundVolume(     selected,min((soundlevel*volume)/100,100))
-		SetSoundPosition(selected,0,0) 
-		If position<>-9999
-			SoundPan(selected,(position*2*stereoWidth)/screenSizeX-stereoWidth,s)
-		EndIf
-		ResumeSound(    selected)
-	Else
-		Debug Str(selected)+" not sound"
-		psound(a,position,volume)
-	EndIf
-	ProcedureReturn selected
+Declare playPoolSound(*pool.soundPool,position.i=-9999,variated=1,pitchCoef.f=1,volume.f=1)
+Procedure psound(poolId.i,position=-9999,volume.f=100)
+	playPoolSound(*allSoundPool(Str(poolId)),position,1,1,volume/100.0)
+; 	ProcedureReturn
+; 	Protected threshold=0
+; 	If volume<=0
+; 		ProcedureReturn -1
+; 	EndIf
+; 	origin=$100+(groupe<<8)
+; 	amount=PeekA(*SND+origin)
+; 	selected=origin
+; 	r=Random(amount)
+; 	selected=origin+r
+; 	; if the sound is already playing, we will pick an other non played sound if possible
+; 	x=0
+; 	threshold=0
+; 	While x<amount And IsSound(selected) And (SoundStatus(selected)=#PB_Sound_Playing Or threshold>10)
+; 		If r>=amount
+; 			r=0
+; 		Else
+; 			r+1
+; 		EndIf
+; 		x+1
+; 		selected=origin+r
+; 		threshold+1
+; 	Wend
+; 	If IsSound(selected)
+; 		SoundVolume(     selected,min((soundlevel*volume)/100,100))
+; 		SetSoundPosition(selected,0,0) 
+; 		If position<>-9999
+; 			SoundPan(selected,(position*2*stereoWidth)/screenSizeX-stereoWidth,s)
+; 		Else
+; 			SoundPan(selected,0,s)
+; 		EndIf
+; 		ResumeSound(    selected)
+; 	Else
+; 		Debug Str(selected)+" not sound"
+; 		psound(a,position,volume)
+; 	EndIf
+; 	ProcedureReturn selected
 EndProcedure
-
-DataSection
-  NULL_SOUND: :Data.b $52,$49,$46,$46,$28,$00,$00,$00,$57,$41,$56,$45,$66,$6D,$74,$20,$10,$00,$00,$00,$01,$00,$01,$00,$44,$AC,$00,$00,$44,$AC,$00,$00,$01,$00,$08,$00,$64,$61,$74,$61,$04,$00,$00,$00,$80,$80,$80,$80
-EndDataSection
 
 ;--- sound enum
 Enumeration 1; liste des groupe via ID de 0 a 255 constant
@@ -195,6 +106,7 @@ Enumeration 1; liste des groupe via ID de 0 a 255 constant
 	#H2H_SOUND_ID_MENUCLIC
 	#H2H_SOUND_ID_MENUACCEPT
 	#H2H_SOUND_ID_MENUCANCEL
+	#H2H_SOUND_ID_MENUCHANGE
 	
 	#H2H_SOUND_ID_METALHEAVYWOOSH
 	
@@ -287,15 +199,76 @@ Enumeration 1; liste des groupe via ID de 0 a 255 constant
 	#H2H_SOUND_ID_KILL_BLUNT
 	#H2H_SOUND_ID_KILL_CUT
 	
-	#H2H_SOUND_COMBO_HIT
+	#H2H_SOUND_ID_COMBO_HIT
+	#H2H_SOUND_ID_BLOCK
+	
+	#H2H_SOUND_ID_METALIMPACTGROUNDMEDIUM
+	#H2H_SOUND_ID_METALIMPACTGROUNDHEAVY
+	
+	#H2H_SOUND_ID_CUTLIGHT
+	#H2H_SOUND_ID_CUTMEDIUM
+	
+	#H2H_SOUND_ID_GUARD_BREAK
+	
+	#H2H_SOUND_ID_BULLETLIGHT
+	#H2H_SOUND_ID_BULLETMEDIUM
 	;}
 EndEnumeration
 
+Enumeration
+	#H2H_SOUND_UI_MENU_CLICK
+	#H2H_SOUND_UI_MENU_ACCEPT
+	#H2H_SOUND_UI_MENU_CANCEL
+	#H2H_SOUND_UI_MENU_CHANGE ; clutch
+	
+	#H2H_SOUND_UI_BATTLE_KILL_CUT
+	#H2H_SOUND_UI_BATTLE_KILL_PIERCE
+	#H2H_SOUND_UI_BATTLE_KILL_BLUNT
+	#H2H_SOUND_UI_BATTLE_COMBO
+	#H2H_SOUND_UI_BATTLE_BLOCK
+	#H2H_SOUND_UI_BATTLE_JUMP_LIGHT
+	#H2H_SOUND_UI_BATTLE_JUMP_HEAVY
+	#H2H_SOUND_UI_BATTLE_LAND_LIGHT
+	#H2H_SOUND_UI_BATTLE_LAND_HEAVY
+	#H2H_SOUND_UI_BATTLE_GUARD_BREAK
+	
+	#H2H_SOUND_UI_BATTLE_LAST_PLUS
+EndEnumeration
+#H2H_SOUND_UI_BATTLE_LAST=#H2H_SOUND_UI_BATTLE_LAST_PLUS-1
+
+Global Dim *soundUI.soundPool(#H2H_SOUND_UI_BATTLE_LAST)
+
 ;--- sound enum end
+
+Global NewMap path2DSP.q()
 Procedure poolInit(name$,index.i,volume.i=100)
-	type.s=load_sound(name$,index)
+; 	type.s=load_sound(name$,index)
 	*p.soundPool=poolCreate(0,index,volume)
 	*p\name$=name$
+	root$="sound/"+name$
+	If fileExist(root$+".wav")
+		Dim *p\subSoundId(0)
+		If FindMapElement(path2DSP(),root$+".wav")
+			*p\subSoundId(0)=path2DSP()
+		Else
+			AddMapElement(path2DSP(),root$+".wav")
+			path2DSP()=DSP_loadWaveFile(root$+".wav")
+			*p\subSoundId(0)=path2DSP()
+		EndIf
+	Else
+		k=1
+		While fileExist(root$+Str(k)+".wav")
+			ReDim *p\subSoundId(k-1)
+			If FindMapElement(path2DSP(),root$+Str(k)+".wav")
+				*p\subSoundId(k-1)=path2DSP()
+			Else
+				AddMapElement(path2DSP(),root$+Str(k)+".wav")
+				path2DSP()=DSP_loadWaveFile(root$+Str(k)+".wav")
+				*p\subSoundId(k-1)=path2DSP()
+			EndIf
+			k+1
+		Wend
+	EndIf
 	ProcedureReturn *p
 EndProcedure
 
@@ -313,80 +286,59 @@ Procedure poolJSONExport(*p.soundpool,*parent)
 	EndIf
 	If *p\sameTimePlayed
 		addJSONInteger(*parent,#H2H_JSON_SOUND_NEXT,*p\sameTimePlayed\id)
-		addJSONFloat(*parent,#H2H_JSON_SOUND_NEXTVOLUME,*p\sameTimePlayedVolume)
+		addJSONDouble(*parent,#H2H_JSON_SOUND_NEXTVOLUME,*p\sameTimePlayedVolume)
 	EndIf
 	ProcedureReturn *parent
 EndProcedure
 
-Procedure.i poolJSONExportAll(*parent=0)
-	If Not *parent
-		*parent=CreateJSONArray()
-	EndIf
-	For s=0 To ArraySize(*allSoundPool())
-		If *allSoundPool(s)
-			*child=AddJSONElement(*parent,*allSoundPool(s)\id)
-			SetJSONObject(*child)
-			poolJSONExport(*allSoundPool(s),*child)
-		EndIf
+Procedure.i poolJSONExportAll(*parent)
+	ForEach *allSoundPool()
+		*child=AddJSONElement(*parent,*allSoundPool()\id)
+		SetJSONObject(*child)
+		poolJSONExport(*allSoundPool(),*child)
 	Next
 	ProcedureReturn *parent
 EndProcedure
 CompilerEndIf
-Procedure poolJSONImport(*parent,*p.soundPool=0)
-	If Not *p
-		*p=AllocateStructure(soundPool)
-		ResetStructure(*p,soundPool)
-	EndIf
-	Dim *p\frequency(0)
-	*p\id=loadJSONInteger(*parent,#H2H_JSON_SOUND_ID)
+CompilerIf #H2H_MODE=#H2H_MODE_LOAD
+Procedure poolJSONImport(*parent)
+	*p.soundPool=poolInit(loadJSONString(*parent,#H2H_JSON_SOUND_NAME),loadJSONInteger(*parent,#H2H_JSON_SOUND_ID))
 	*p\volume=loadJSONInteger(*parent,#H2H_JSON_SOUND_VOLUME)
 	If *p\volume=0
 		*p\volume=100
 	EndIf
 	*p\sameTimePlayed=loadJSONInteger(*parent,#H2H_JSON_SOUND_NEXT)
 	If *p\sameTimePlayed
-		*p\sameTimePlayed=*allSoundPool(*p\sameTimePlayed)
-		*p\sameTimePlayedVolume=loadJSONFloat(*parent,#H2H_JSON_SOUND_NEXTVOLUME)
+		*p\sameTimePlayed=*allSoundPool(Str(*p\sameTimePlayed))
+		*p\sameTimePlayedVolume=LoadJSONDouble(*parent,#H2H_JSON_SOUND_NEXTVOLUME)
 		If *p\sameTimePlayedVolume=0
 			*p\sameTimePlayedVolume=1
 		EndIf
 	EndIf
-	*p\name$=loadJSONString(*parent,#H2H_JSON_SOUND_NAME)
-	load_sound(*p\name$,*p\id)
-	
-	origin=$100+(*p\id<<8)
-	amount=PeekA(*SND+origin)
-	Dim *p\frequency(amount)
-	For i=0 To amount
-		If IsSound(origin+i)
-			*p\frequency(i)=GetSoundFrequency(origin+i)
-		EndIf
-	Next
 	ProcedureReturn *p
 EndProcedure
-Declare playPoolSoundNoRec(*pool.soundpool,position.i=-9999,variated=1,pitchCoef.f=1,volume.f=1)
 Procedure poolJSONImportAll(*parent)
-	FreeArray(*allSoundPool())
+	FreeMap(*allSoundPool())
+	NewMap *allSoundPool()
 	size=JSONArraySize(*parent)
-	Dim *allSoundPool(size-1)
 	For s=0 To size-1
 		*child=GetJSONElement(*parent,s)
 		If *child
-			*allSoundPool(s)=poolJSONImport(*child)
-		Else
-			*allSoundPool(s)=#Null
+			poolJSONImport(*child)
 		EndIf
 	Next
 	ProcedureReturn *parent
 EndProcedure
+CompilerEndIf
 ;---- all imports
 CompilerIf #H2H_MODE=#H2H_MODE_SAVE
 
 Global *menuClic.soundPool=poolInit("clic",#H2H_SOUND_ID_MENUCLIC)
 *menuAccept.soundPool=poolInit("menuaccept",#H2H_SOUND_ID_MENUACCEPT)
 *menuCancel.soundPool=poolInit("menucancel",#H2H_SOUND_ID_MENUCANCEL)
+*menuChange.soundPool=poolInit("clutch",#H2H_SOUND_ID_MENUCHANGE)
 
-*ballpen_HeavyS.soundPool=poolInit("metalheavywoosh",#H2H_SOUND_ID_METALHEAVYWOOSH)
+*ballpen_HeavyS.soundPool=poolInit("metalheavywoosh",#H2H_SOUND_ID_METALHEAVYWOOSH,75)
 
 *metal_hitCutBlocked.soundPool=poolInit("metalcutblock",#H2H_SOUND_ID_METALCUTBLOCK)
 *metal_hitCutLight.soundPool=poolInit("metalcutlight",#H2H_SOUND_ID_METALCUTLIGHT)
@@ -438,13 +390,13 @@ Global *menuClic.soundPool=poolInit("clic",#H2H_SOUND_ID_MENUCLIC)
 *finger_hitBluntMedium.soundPool=poolInit("fingermedium",#H2H_SOUND_ID_FINGERMEDIUM,150)
 *finger_hitBluntHeavy.soundPool=poolInit("fingerheavy",#H2H_SOUND_ID_FINGERHEAVY,150)
 
-*chineseStaff_AttackS.soundPool=poolInit("swishlight",#H2H_SOUND_ID_SWISHLIGHT)
-*chineseStaff_HeavyS.soundPool=poolInit("swishmedium",#H2H_SOUND_ID_SWISHMEDIUM)
-*plastic_swish.soundPool=poolInit("plasticswing",#H2H_SOUND_ID_PLASTICSWING,80)
+*chineseStaff_AttackS.soundPool=poolInit("swishlight",#H2H_SOUND_ID_SWISHLIGHT,75)
+*chineseStaff_HeavyS.soundPool=poolInit("swishmedium",#H2H_SOUND_ID_SWISHMEDIUM,75)
+*plastic_swish.soundPool=poolInit("plasticswing",#H2H_SOUND_ID_PLASTICSWING,60)
 
-*finger_swishlight.soundPool=poolInit("fingerswishlight",#H2H_SOUND_ID_FINGER_SWISHLIGHT)
-*finger_swishmedium.soundPool=poolInit("fingerswishmedium",#H2H_SOUND_ID_FINGER_SWISHMEDIUM)
-*finger_swishheavy.soundPool=poolInit("fingerswishheavy",#H2H_SOUND_ID_FINGER_SWISHHEAVY)
+*finger_swishlight.soundPool=poolInit("fingerswishlight",#H2H_SOUND_ID_FINGER_SWISHLIGHT,75)
+*finger_swishmedium.soundPool=poolInit("fingerswishmedium",#H2H_SOUND_ID_FINGER_SWISHMEDIUM,75)
+*finger_swishheavy.soundPool=poolInit("fingerswishheavy",#H2H_SOUND_ID_FINGER_SWISHHEAVY,75)
 
 *chineseStaff_nDownS.soundPool=poolInit("chopstickndown",#H2H_SOUND_ID_CHOPSTICK_NDOWN)
 
@@ -457,10 +409,10 @@ Global *menuClic.soundPool=poolInit("clic",#H2H_SOUND_ID_MENUCLIC)
 *landSound.soundPool=poolInit("land",#H2H_SOUND_ID_HAND_LAND)
 
 *jumpLightSound.soundPool=poolInit("jump_light",#H2H_SOUND_ID_HAND_JUMPLIGHT)
-*jumpLightSound.soundPool=poolInit("jump_heavy",#H2H_SOUND_ID_HAND_JUMPHEAVY)
+*jumpHeavySound.soundPool=poolInit("jump_heavy",#H2H_SOUND_ID_HAND_JUMPHEAVY)
 
-*gluestickSwingLight.soundPool=poolInit("gluestickswishlight",#H2H_SOUND_ID_GLUESTICK_SWINGLIGHT,50)
-*gluestickSwingMedium.soundPool=poolInit("gluestickswishheavy",#H2H_SOUND_ID_GLUESTICK_SWINGMEDIUM,50)
+*gluestickSwingLight.soundPool=poolInit("gluestickswishlight",#H2H_SOUND_ID_GLUESTICK_SWINGLIGHT,38)
+*gluestickSwingMedium.soundPool=poolInit("gluestickswishheavy",#H2H_SOUND_ID_GLUESTICK_SWINGMEDIUM,38)
 
 *gluestickBluntBlock.soundPool=poolInit("gluestickhitblock",#H2H_SOUND_ID_GLUESTICK_BLUNTBLOCK,100)
 *gluestickBluntBlock\sameTimePlayed=*wood_hitBluntBlocked
@@ -481,55 +433,193 @@ Global *menuClic.soundPool=poolInit("clic",#H2H_SOUND_ID_MENUCLIC)
 *gluestickGunMedium.soundPool=poolInit("gluestickgunmedium",#H2H_SOUND_ID_GLUESTICK_GUNMEDIUM)
 *gluestickGunHeavy.soundPool=poolInit("gluestickgunheavy",#H2H_SOUND_ID_GLUESTICK_GUNHEAVY)
 
+*cutLight.soundPool=poolInit("cutlight",#H2H_SOUND_ID_CUTLIGHT)
+*wood_hitCutLight\sameTimePlayed=*cutLight
+*plastic_hitCutLight\sameTimePlayed=*cutLight
+*cutMedium.soundPool=poolInit("cutlight",#H2H_SOUND_ID_CUTMEDIUM)
+*wood_hitCutMedium\sameTimePlayed=*cutMedium
+*plastic_hitCutMedium\sameTimePlayed=*cutMedium
+
+*guardBreak.soundPool=poolInit("guardbreak",#H2H_SOUND_ID_GUARD_BREAK,150)
+
+*bulletHitLight.soundpool=poolInit("bulletlight",#H2H_SOUND_ID_BULLETLIGHT)
+*bulletHitMedium.soundpool=poolInit("bulletmedium",#H2H_SOUND_ID_BULLETMEDIUM)
+
 Global *killBlunt.soundPool=poolInit("killblunt",#H2H_SOUND_ID_KILL_BLUNT)
 Global *killCut.soundPool=poolInit("killcut",#H2H_SOUND_ID_KILL_CUT)
+Global *blockSound.soundPool=poolInit("block",#H2H_SOUND_ID_BLOCK)
 
-Global *comboHitSound.soundPool=poolInit("combohit",#H2H_SOUND_COMBO_HIT)
+Global *comboHitSound.soundPool=poolInit("combohit",#H2H_SOUND_ID_COMBO_HIT)
+
+*metalImpactGroundHeavySound.soundpool=poolInit("metalimpactgroundheavy",#H2H_SOUND_ID_METALIMPACTGROUNDHEAVY,125)
+*metalImpactGroundHeavySound\sameTimePlayed=*landSound
+*metalImpactGroundHeavySound\sameTimePlayedVolume=1.5
+*metalImpactGroundMediumSound.soundpool=poolInit("metalimpactgroundmedium",#H2H_SOUND_ID_METALIMPACTGROUNDMEDIUM,125)
+*metalImpactGroundMediumSound\sameTimePlayed=*landSound
+*metalImpactGroundMediumSound\sameTimePlayedVolume=1.5
+
+*soundUI(#H2H_SOUND_UI_MENU_CLICK)=*menuClic
+*soundUI(#H2H_SOUND_UI_MENU_ACCEPT)=*menuAccept
+*soundUI(#H2H_SOUND_UI_MENU_CANCEL)=*menuCancel
+*soundUI(#H2H_SOUND_UI_MENU_CHANGE)=*menuChange
+
+*soundUI(#H2H_SOUND_UI_BATTLE_KILL_CUT)=*killCut
+*soundUI(#H2H_SOUND_UI_BATTLE_KILL_PIERCE)=*killCut
+*soundUI(#H2H_SOUND_UI_BATTLE_KILL_BLUNT)=*killBlunt
+*soundUI(#H2H_SOUND_UI_BATTLE_COMBO)=*comboHitSound
+*soundUI(#H2H_SOUND_UI_BATTLE_BLOCK)=*blockSound
+*soundUI(#H2H_SOUND_UI_BATTLE_JUMP_LIGHT)=*jumpLightSound
+*soundUI(#H2H_SOUND_UI_BATTLE_JUMP_HEAVY)=*jumpHeavySound
+*soundUI(#H2H_SOUND_UI_BATTLE_LAND_LIGHT)=*bodyFallSound
+*soundUI(#H2H_SOUND_UI_BATTLE_LAND_HEAVY)=*landSound
+*soundUI(#H2H_SOUND_UI_BATTLE_GUARD_BREAK)=*guardBreak
 CompilerEndIf
-Procedure.i importSound(path.s)
-	If Not LoadSound(soundIndex,path)
-		MessageRequester("Can't find the sound",path)
-	EndIf
-	SoundVolume(soundIndex,soundlevel)
-	before=soundIndex
-	soundIndex+1
-	ProcedureReturn before
+
+#H2H_SOUND_DYNAMIC_ENABLE=#False
+CompilerIf #H2H_SOUND_DYNAMIC_ENABLE
+Structure dynamicSound
+	*where.location ; game position
+	volume.q ; base volume value
+	id.q	 ; what channel
+EndStructure
+
+Global NewList *allDynamicSounds.dynamicSound()
+
+Procedure dynamicSoundAdd(what.q,x.i,y.i)
+	*ds.dynamicSound=AllocateStructure(dynamicSound)
+	*ds\id=what
+	*ds\where=locationCreate(x,y)
+	*ds\volume=DSP_GetPan(what,0)+DSP_GetPan(what,1)<<16
+	AddElement(*allDynamicSounds())
+	*allDynamicSounds()=*ds
+; 	Debug "added"
 EndProcedure
 
-#H2H_SOUND_VARIATION_ITERATION=3 ; must be >=1, too high may not sensibly variate the sound
-
-Procedure playPoolSoundNoRec(*pool.soundpool,position.i=-9999,variated=1,pitchCoef.f=1,volume.f=1)
-	If *pool And volume>0.05
-		selected=psound(*pool\id,position,*pool\volume*volume)
-		If selected>=0 And IsSound(selected)
-			If variated Or pitchCoef<>1
-				id=selected-($100+(*pool\id<<8))
-				amount=soundGetAmount(*pool\id)
-				If id>amount
-					id=amount
-				EndIf
-				If id>ArraySize(*pool\frequency())
-					id=ArraySize(*pool\frequency())
-				EndIf
-				; we take an average so we have high chances to have a not very altered sound
-				frequency.f=0
-				If variated
-					For i=1 To #H2H_SOUND_VARIATION_ITERATION
-						frequency+(100+Random(2*#H2H_SOUND_VARIATION_PERCENT)-#H2H_SOUND_VARIATION_PERCENT)
-					Next
-					frequency/#H2H_SOUND_VARIATION_ITERATION
-				Else
-					frequency=100
-				EndIf
-				frequency=(*pool\frequency(id)*frequency)/100
-				frequency*pitchCoef
-				CompilerIf #H2H_HALFMODE
-					frequency/2
-				CompilerEndIf
-				SetSoundFrequency(selected,frequency)
+; returns true if finished
+Procedure.i dynamicSoundLoop(*ds.dynamicSound,whereX.f,whereY.f)
+	If DSP_StateEx(*ds\id)<>#DSP_STATUT_PLAYING
+		ProcedureReturn #True
+	EndIf
+; 	Debug "where "+whereX+" "+whereY
+	sX.f=screenSizeX
+	sY.f=screenSizeY
+	lVolume=*ds\volume&$ffff
+	rVolume=*ds\volume>>16
+	If whereX<*ds\where\x
+; 		Debug "diff r "+Str(*ds\where\x-whereX)
+		; sound is right to position
+		lVolume*(1-((*ds\where\x-whereX)/sX))
+		If lVolume<0
+			rVolume+lVolume
+			If rVolume<0
+				rvolume=0
 			EndIf
+			lVolume=0
+		EndIf
+	Else
+; 		Debug "diff l "+Str(whereX-*ds\where\x)
+		; sound is left to position
+		rVolume*(1.0-((whereX-*ds\where\x)/sX))
+		If rVolume<0
+			lVolume+rVolume
+			If lVolume<0
+				lvolume=0
+			EndIf
+			rVolume=0
 		EndIf
 	EndIf
+	diff.f=(Abs(*ds\where\y-whereY)-sY)/sY
+	If diff>0
+		lVolume*(1-diff)
+		rVolume*(1-diff)
+	EndIf
+	DSP_SetPan(*ds\id,Int(lVolume),Int(rVolume))
+; 	Debug "Pan "+Hex(DSP_GetPan(*ds\id,0))+" "+Hex(DSP_GetPan(*ds\id,1))
+	ProcedureReturn #False
+EndProcedure
+
+Procedure dynamicSoundLoopAll(whereX,whereY)
+	ForEach *allDynamicSounds()
+		If dynamicSoundLoop(*allDynamicSounds(),whereX,whereY)
+; 			Debug "killed"
+			locationDestroy(*allDynamicSounds()\where)
+			FreeStructure(*allDynamicSounds())
+			DeleteElement(*allDynamicSounds())
+		EndIf
+	Next
+EndProcedure
+
+Procedure dynamicSoundStopAll()
+	ForEach *allDynamicSounds()
+		locationDestroy(*allDynamicSounds()\where)
+		FreeStructure(*allDynamicSounds())
+		DeleteElement(*allDynamicSounds())
+	Next
+EndProcedure
+CompilerEndIf
+                  
+; Returns the channel where it's played
+Procedure.q playPoolSoundNoRec(*pool.soundpool,position.i=-9999,variated=1,pitchCoef.f=1,volume.f=1)
+	If *pool And volume>0.05
+; 		Debug "played "+*pool\name$
+		leftRight.f=0.5
+		If stereoWidth>0
+			If position=-9999
+				position=0
+			Else
+				position=(position*2*stereoWidth)/screenSizeX-stereoWidth
+			EndIf
+			If position>stereoWidth
+				position=stereoWidth
+			EndIf
+			If position<-stereoWidth
+				position=-stereoWidth
+			EndIf
+			;leftRight.f=(position+stereoWidth)/(stereoWidth*2); from 0 to 1
+			leftRight=(position/stereoWidth)*(stereoWidth/100) ; from -0.6 to 0.6
+			leftRight=leftRight/2+0.5							 ; from 0.2 to 0.8
+		EndIf
+		p.f=100
+		If variated And SOUND_VARIATION_PERCENT>0 And SOUND_VARIATION_ITERATION>0
+			; we take an average so we have high chances to have a not very altered sound
+			p=0
+			For i=1 To SOUND_VARIATION_ITERATION
+				p+(100+Random(2*SOUND_VARIATION_PERCENT)-SOUND_VARIATION_PERCENT)
+			Next
+			p/SOUND_VARIATION_ITERATION
+		EndIf
+		If slomo
+			If TIME_SLOMO>=0.5
+				If TIME_SLOMO<=2.0
+					p*TIME_SLOMO
+				Else
+					p*2.0
+				EndIf
+			Else
+				p*0.5
+			EndIf
+		EndIf
+; 		Debug "pitch "+StrD(p)
+		p=DSP_PITCH_MAP_FtU((p*pitchCoef))
+		volume=volume*$ffff*(*pool\volume/100.0)
+		volume=(volume*soundlevel)/100; apply the global sound volume
+		If volume>0
+			If volume>$ffff
+				volume=$ffff
+			EndIf
+			CompilerIf #H2H_SOUND_DYNAMIC_ENABLE
+			id.q=DSP_PlaySoundEx(*pool\subSoundId(Random(ArraySize(*pool\subSoundId()))),0,volume*(1-leftRight),volume*leftRight,p)
+; 			Debug currentMenuIndex
+			If currentMenuIndex=#H2H_MENU_BATTLE And stereoWidth>0
+				dynamicSoundAdd(id,position,screenFocusHeight)
+			EndIf
+			ProcedureReturn id
+			CompilerElse
+			ProcedureReturn DSP_PlaySoundEx(*pool\subSoundId(Random(ArraySize(*pool\subSoundId()))),0,volume*(1-leftRight),volume*leftRight,p)
+			CompilerEndIf
+		EndIf
+	EndIf
+	ProcedureReturn 0
 EndProcedure
 
 Procedure playPoolSound(*pool.soundPool,position.i=-9999,variated=1,pitchCoef.f=1,volume.f=1)
@@ -540,6 +630,7 @@ Procedure playPoolSound(*pool.soundPool,position.i=-9999,variated=1,pitchCoef.f=
 		variated*soundVariationEnabled
 		playPoolSoundNoRec(*pool,position,variated,pitchCoef,volume)
 		If *pool\sameTimePlayed
+; 			Debug "recursive"
 			playPoolSound(*pool\sameTimePlayed,position,variated,pitchCoef,volume**pool\sameTimePlayedVolume)
 		EndIf
 	EndIf
@@ -550,6 +641,152 @@ Procedure poolCopy(*p1.soundPool,*p2.soundPool)
 		CopyStructure(*p2,*p1,soundPool)
 	EndIf
 EndProcedure
+
+Global currentMusicChannel.q=-1 ; from the DSP
+
+Macro musicLevelRefresh()
+	If currentMusicChannel>=0:DSP_SetPan(currentMusicChannel,$ffff*musicLevel/100,$ffff*musicLevel/100):EndIf
+EndMacro
+
+Macro musicStop()
+	If currentMusicChannel>=0:DSP_StopSoundEx(currentMusicChannel):EndIf
+EndMacro
+	
+Procedure musicPlay(what.q,looped.i=#True)
+	Debug "played "+Str(what)+" looped "+Str(looped)
+	If looped
+		If currentMusicChannel>=0
+			If DSP_GetSoundId(currentMusicChannel)=what And DSP_StateEx(currentMusicChannel)<>#DSP_STATUT_PAUSE
+				; Do not replay the same music id
+				Debug "already playing"
+				ProcedureReturn
+			EndIf
+			musicStop()
+		EndIf
+		currentMusicChannel=DSP_PlaySoundEx(what,0,0,0,0,$ff,0,looped)
+		musicLevelRefresh()
+	Else
+		DSP_SetPan(DSP_PlaySoundEx(what,0,0,0,0,$ff,0,looped),$ffff*musicLevel/100,$ffff*musicLevel/100)
+	EndIf
+EndProcedure
+
+Structure musicEx
+	id.i
+	path$
+	idDSP.q
+	volume.i ; in %, 100% is $8000 in DSP volume, capped at ~200% at $ffff
+	looped.b ; by default true
+EndStructure
+
+Global NewMap *allMusic.musicEx()
+
+Procedure.i musicExCreate(newId.i,newPath$,isLooped.b=#True)
+; 	Debug "created music "+Str(newId)+" from "+newPath$
+	*m.musicEx=AllocateStructure(musicEx)
+	*m\path$=newPath$
+	*m\id=newId
+	*allMusic(Str(newId))=*m
+	*m\volume=100
+	*m\looped=isLooped
+	ProcedureReturn *m
+EndProcedure
+
+Procedure musicExPlay(*m.musicEx)
+	If *m
+		Debug "playing "+*m\path$
+		If Not *m\idDSP
+			*m\idDSP=DSP_loadWaveFile("music\"+*m\path$+".wav")
+		EndIf
+		musicPlay(*m\idDSP,*m\looped)
+	Else
+		Debug "music structure null"
+	EndIf
+EndProcedure
+
+#H2H_MUSIC_MENU=1
+#H2H_MUSIC_MENU_PATH="Menu"
+; #H2H_MUSIC_MENU_PATH="music/Menu.ogg"
+
+#H2H_MUSIC_THEME01=2
+#H2H_MUSIC_THEME01_PATH="Main"
+; #H2H_MUSIC_THEME01_PATH="music/Main.ogg"
+
+#H2H_MUSIC_STARTUP=3
+#H2H_MUSIC_STARTUP_PATH="counter"
+; #H2H_MUSIC_STARTUP_PATH="music/counter.ogg"
+#H2H_MUSIC_VICTORY=4
+#H2H_MUSIC_VICTORY_PATH="victory"
+; #H2H_MUSIC_VICTORY_PATH="music/victory.ogg"
+#H2H_MUSIC_DEFEAT=5
+#H2H_MUSIC_DEFEAT_PATH="defeat"
+; #H2H_MUSIC_DEFEAT_PATH="music/defeat.ogg"
+
+#H2H_MUSIC_THEME02=6
+#H2H_MUSIC_THEME02_PATH="Stick_da_being"
+; #H2H_MUSIC_THEME02_PATH="music/Stick_da_being.ogg"
+
+#H2H_MUSIC_THEME03=7
+#H2H_MUSIC_THEME03_PATH="Pouwap"
+; #H2H_MUSIC_THEME03_PATH="music/Pouwap.ogg"
+
+#H2H_MUSIC_STARTUP03=8
+#H2H_MUSIC_STARTUP03_PATH="Pouwap_intro"
+; #H2H_MUSIC_STARTUP03_PATH="music/Pouwap_intro.ogg"
+
+CompilerIf #H2H_MODE=#H2H_MODE_SAVE
+musicExCreate(#H2H_MUSIC_MENU,#H2H_MUSIC_MENU_PATH)
+musicExCreate(#H2H_MUSIC_THEME01,#H2H_MUSIC_THEME01_PATH)
+musicExCreate(#H2H_MUSIC_STARTUP,#H2H_MUSIC_STARTUP_PATH,#False)
+musicExCreate(#H2H_MUSIC_VICTORY,#H2H_MUSIC_VICTORY_PATH,#False)
+musicExCreate(#H2H_MUSIC_DEFEAT,#H2H_MUSIC_DEFEAT_PATH,#False)
+musicExCreate(#H2H_MUSIC_THEME02,#H2H_MUSIC_THEME02_PATH)
+musicExCreate(#H2H_MUSIC_THEME03,#H2H_MUSIC_THEME03_PATH)
+musicExCreate(#H2H_MUSIC_STARTUP03,#H2H_MUSIC_STARTUP03_PATH,#False)
+	
+Procedure musicJSONExport(*parent,*m.musicEx)
+	addJSONInteger(*parent,"id",*m\id)
+	addJSONString(*parent,"path",*m\path$)
+	If *m\volume<100
+		addJSONInteger(*parent,"volume",*m\volume)
+	EndIf
+	addJSONInteger(*parent,"looped",*m\looped)
+EndProcedure
+
+Procedure.i musicJSONExportAll(*parent) ; parent must be a valid json array
+	ForEach *allMusic()
+		*e=AddJSONElement(*parent)
+		SetJSONObject(*e)
+		musicJSONExport(*e,*allMusic())
+	Next
+	ProcedureReturn *child
+EndProcedure
+	
+CompilerElse
+	
+Procedure.i musicJSONImport(*parent)
+	*m.musicEx=musicExCreate(loadJSONInteger(*parent,"id"),loadJSONString(*parent,"path"))
+; 	Debug "imported "+*m\path$
+	*child=GetJSONMember(*parent,"volume")
+	If *child
+		*m\volume=loadJSONInteger(*parent,"volume")
+	Else
+		*m\volume=100 ; TODO constant
+	EndIf
+	*m\looped=loadJSONInteger(*parent,"looped")
+; 	Debug "is looped "+*m\looped
+	If *m\volume<0
+		*m\volume=0 ; a 0 volume sound is a bit dumb but why not
+	EndIf
+	ProcedureReturn *m
+EndProcedure
+
+Procedure musicJSONImportAll(*parent)
+	size=JSONArraySize(*parent)-1
+	For i=0 To size
+		musicJSONImport(GetJSONElement(*parent,i))
+	Next
+EndProcedure
+CompilerEndIf
 
 Structure hitSoundClass
 	id.i
@@ -632,19 +869,19 @@ Procedure hitSoundJSONImport(*parent,*hS.hitSoundClass=0)
 	*hS\id=loadJSONInteger(*parent,#H2H_JSON_SOUND_CLASS_ID)
 	*hS\blocked=loadJSONInteger(*parent,#H2H_JSON_SOUND_CLASS_ID_BLOCKED)
 	If *hS\blocked
-		*hs\blocked=*allSoundPool(*hs\blocked)
+		*hs\blocked=*allSoundPool(Str(*hs\blocked))
 	EndIf
 	*hS\light=loadJSONInteger(*parent,#H2H_JSON_SOUND_CLASS_ID_LIGHT)
 	If *hS\light
-		*hs\light=*allSoundPool(*hs\light)
+		*hs\light=*allSoundPool(Str(*hs\light))
 	EndIf
 	*hS\medium=loadJSONInteger(*parent,#H2H_JSON_SOUND_CLASS_ID_MEDIUM)
 	If *hS\medium
-		*hs\medium=*allSoundPool(*hs\medium)
+		*hs\medium=*allSoundPool(Str(*hs\medium))
 	EndIf
 	*hS\heavy=loadJSONInteger(*parent,#H2H_JSON_SOUND_CLASS_ID_HEAVY)
 	If *hS\heavy
-		*hs\heavy=*allSoundPool(*hs\heavy)
+		*hs\heavy=*allSoundPool(Str(*hs\heavy))
 	EndIf
 	*hS\lightThreshold=loadJSONInteger(*parent,#H2H_JSON_SOUND_CLASS_THRESHOLD_LIGHT)
 	If *hS\lightThreshold=0
@@ -707,19 +944,24 @@ EndProcedure
 
 Procedure playHitSound(*hS.hitSoundClass,damage.i,position.i=-9999)
 	If *hS
+; 		Debug Str(damage)+" threshold "+*hS\lightThreshold+" "+*hS\mediumThreshold+" "+*hS\heavyThreshold
 		If damage<*hS\lightThreshold
 			playPoolSound(*hS\blocked,position)
+; 			Debug "played block"
 			ProcedureReturn
 		EndIf
 		If damage<*hS\mediumThreshold
 			playPoolSound(*hS\light,position)
+; 			Debug "played light"
 			ProcedureReturn
 		EndIf
 		If damage<*hS\heavyThreshold
 			playPoolSound(*hS\medium,position)
+; 			Debug "played medium"
 			ProcedureReturn
 		EndIf
 		playPoolSound(*hS\heavy,position)
+; 			Debug "played heavy"
 	EndIf
 EndProcedure
 
@@ -816,7 +1058,7 @@ Procedure hitSoundMaterialCopy(*hSM1.hitSoundMaterial,*hSM2.hitSoundMaterial)
 EndProcedure
 
 Procedure hitSoundMaterialPlay(*hSM.hitSoundMaterial,damage.i,damageType.i,position.i=-9999)
-	If *hSM
+	If *hSM And Not demoFight
 		If damageType=#H2H_DAMAGETYPE_CUT
 			playHitSound(*hSM\cut,damage,position)
 			ProcedureReturn
@@ -829,9 +1071,9 @@ Procedure hitSoundMaterialPlay(*hSM.hitSoundMaterial,damage.i,damageType.i,posit
 	EndIf
 EndProcedure
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 466
-; FirstLine = 321
-; Folding = -b+ftC+
-; Markers = 682
+; CursorPosition = 599
+; FirstLine = 573
+; Folding = -----X-0-
+; Markers = 919
 ; EnableXP
 ; CPU = 1

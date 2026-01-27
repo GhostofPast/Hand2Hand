@@ -23,6 +23,7 @@ Enumeration 1
 	#H2H_ANIMATIONTYPE_SELECTION
 	#H2H_ANIMATIONTYPE_SELECTED
 EndEnumeration
+
 #H2H_ANIMATION_DIGEST=0
 ;--- animation struct
 Structure animation
@@ -42,6 +43,8 @@ Structure animation
 	Array *frontWind.animation(1,1) ; array in case of multiple types of wind, or if we need to spawn some
 	Array *backWind.animation(1,1)	;
 	Array *projectiles.animation(1,1)
+	*wind
+	windMax.i ; max number of wind, by default 1
 	; miscalenous
 	name.s
 	animationType.b
@@ -53,11 +56,70 @@ Structure animation
 	
 	flag.b
 EndStructure
+
+Enumeration 1
+	#H2H_ANIMATION_WIND_FRONT
+	#H2H_ANIMATION_WIND_BACK
+	#H2H_ANIMATION_WIND_PROJECTILE
+EndEnumeration
+
+Procedure animationGetWind(*a.animation,what.b,index.i,subIndex=0)
+	CompilerIf #PB_Compiler_Debugger
+		If Not *a
+			Debug "TRIED TO ACCESS A NULL ANIMATION"
+			CallDebugger
+		EndIf
+	CompilerElse
+		If Not *a Or what>#H2H_ANIMATION_WIND_PROJECTILE Or what<#H2H_ANIMATION_WIND_FRONT
+			ProcedureReturn #Null
+		EndIf
+	CompilerEndIf
+	ProcedureReturn *a\wind+(*a\windMax*index+subIndex)*32
+EndProcedure
+
+Macro animationGetWindFront(a,index,subIndex=0)
+	animationGetWind(a,#H2H_ANIMATION_WIND_FRONT,index,subIndex)
+EndMacro
+Macro animationGetWindBack(a,index,subIndex=0)
+	animationGetWind(a,#H2H_ANIMATION_WIND_BACK,index,subIndex)
+EndMacro
+Macro animationGetProjectile(a,index,subIndex=0)
+	animationGetWind(a,#H2H_ANIMATION_WIND_PROJECTILE,index,subIndex)
+EndMacro
+
+Procedure animationSetWind(*a.animation,what.b,index.i,*withWhat.animation=0,subIndex=0)
+	CompilerIf #PB_Compiler_Debugger
+		If Not *a
+			Debug "TRIED TO WRITE A NULL ANIMATION"
+			CallDebugger
+		EndIf
+	CompilerElse
+		If Not *a Or what>#H2H_ANIMATION_WIND_PROJECTILE Or what<#H2H_ANIMATION_WIND_FRONT
+			ProcedureReturn
+		EndIf
+	CompilerEndIf
+	PokeI(*a\wind+(*a\windMax*index+subIndex)*32,*withWhat)
+EndProcedure
+
+Macro animationSetWindFront(a,index,withwhat,subIndex=0)
+	animationSetWind(a,#H2H_ANIMATION_WIND_FRONT,index,withwhat,subIndex)
+EndMacro
+Macro animationSetWindBack(a,index,withwhat,subIndex=0)
+	animationSetWind(a,#H2H_ANIMATION_WIND_BACK,index,withwhat,subIndex)
+EndMacro
+Macro animationSetProjectile(a,index,withwhat,subIndex=0)
+	animationSetWind(a,#H2H_ANIMATION_WIND_PROJECTILE,index,withwhat,subIndex)
+EndMacro
+
 EnumerationBinary
 	#H2H_ANIMATION_FLAG_LOOPED
 	#H2H_ANIMATION_FLAG_ATTACK
 	#H2H_ANIMATION_FLAG_COMBO_END
 	#H2H_ANIMATION_FLAG_UNGROUNDED
+	
+	#H2H_ANIMATION_FLAG_WIND_FRONT
+	#H2H_ANIMATION_FLAG_WIND_BACK
+	#H2H_ANIMATION_FLAG_PROJECTILE
 EndEnumeration
 
 Macro animationIsLooped(a)
@@ -72,6 +134,15 @@ EndMacro
 Macro animationIsUngrounded(a)
 	(a\flag&#H2H_ANIMATION_FLAG_UNGROUNDED)
 EndMacro
+Macro animationHasWindFront(a)
+	(a\flag&#H2H_ANIMATION_FLAG_WIND_FRONT)
+EndMacro
+Macro animationHasWindBack(a)
+	(a\flag&#H2H_ANIMATION_FLAG_WIND_BACK)
+EndMacro
+Macro animationHasProjectile(a)
+	(a\flag&#H2H_ANIMATION_FLAG_PROJECTILE)
+EndMacro
 
 Macro animationSetLooped(a,v)
 	If v:a\flag|#H2H_ANIMATION_FLAG_LOOPED:Else:a\flag&(~#H2H_ANIMATION_FLAG_LOOPED):EndIf
@@ -82,17 +153,47 @@ EndMacro
 Macro animationSetComboEnd(a,v)
 	If v:a\flag|#H2H_ANIMATION_FLAG_COMBO_END:Else:a\flag&(~#H2H_ANIMATION_FLAG_COMBO_END):EndIf
 EndMacro
-Macro animationSetUngrounded(a,v)
+Macro animationSetUngrounded(a,v=#True)
 	If v:a\flag|#H2H_ANIMATION_FLAG_UNGROUNDED:Else:a\flag&(~#H2H_ANIMATION_FLAG_UNGROUNDED):EndIf
 EndMacro
+Macro animationSetWindFrontPresence(a,v=#False)
+	If v:a\flag|#H2H_ANIMATION_FLAG_WIND_FRONT:Else:a\flag&(~#H2H_ANIMATION_FLAG_WIND_FRONT):EndIf
+EndMacro
+Macro animationSetWindBackPresence(a,v=#False)
+	If v:a\flag|#H2H_ANIMATION_FLAG_WIND_BACK:Else:a\flag&(~#H2H_ANIMATION_FLAG_WIND_BACK):EndIf
+EndMacro
+Macro animationSetProjectilePresence(a,v=#False)
+	If v:a\flag|#H2H_ANIMATION_FLAG_PROJECTILE:Else:a\flag&(~#H2H_ANIMATION_FLAG_PROJECTILE):EndIf
+EndMacro
+
+Procedure animationSetupWind(*a.animation,hasWindFront.i,hasWindBack.i,hasProjectile.i)
+	animationSetWindFrontPresence(*a,haveWindFront)
+	animationSetWindFrontPresence(*a,haveWindBack)
+	animationSetWindFrontPresence(*a,haveProjectile)
+	amount=Bool(hasWindFront)+Bool(hasWindBack)+Bool(hasProjectile)
+	If *a\wind
+		FreeMemory(*a\wind)
+	EndIf
+	If amount
+		*a\wind=AllocateMemory(amount*ArraySize(*a\frames())*4)
+	EndIf
+EndProcedure
 
 Global Dim *allAnimations.animation(animationId)
-#H2H_DATA_ANIMATION_BASE=$400
-Global *dataAnimation=AllocateMemory(SizeOf(animation)*#H2H_DATA_ANIMATION_BASE)
+#H2H_DATA_ANIMATION_BASE=$800
+Global DATA_ANIMATION_BASE=#H2H_DATA_ANIMATION_BASE
+CompilerIf #H2H_MODE=#H2H_MODE_LOAD
+	LoadJSON(0,"data.json")
+	*parent=GetJSONMember(JSONValue(0),#H2H_JSON_MEMORY_KEY)
+	If *parent
+		DATA_ANIMATION_BASE=loadJSONInteger(*parent,"animation")
+	EndIf
+	FreeJSON(0)
+CompilerEndIf
+Global *dataAnimation=AllocateMemory(SizeOf(animation)*DATA_ANIMATION_BASE)
 Global dataAnimationIndex=0
 Procedure animationDataGive()
-; 	Debug dataAnimationIndex
-	If dataAnimationIndex>=#H2H_DATA_ANIMATION_BASE
+	If dataAnimationIndex>=DATA_ANIMATION_BASE
 		Debug "Not enough animations !"
 		MessageRequester("H2H Error","Not enough animations !")
 		End
@@ -126,7 +227,7 @@ Declare animationCreate(*a.animation=0,isLooped=0,isattack=0,newRecovery=0,newNa
 Declare animationCopy(*a1.animation,*a2.animation)
 
 CompilerIf #H2H_MODE=#H2H_MODE_SAVE
-Procedure decodeAllShift(*a.animation,*item.rawdataArray)
+Procedure animationDecodeAllShift(*a.animation,*item.rawdataArray)
 	If *a And *item
 		For i=0 To min(ArraySize(*a\frames()),ArraySize(*item\rd()))
 			decodeShift(*a\frames(i),*item\rd(i))
@@ -141,7 +242,7 @@ Procedure decodeAllShift(*a.animation,*item.rawdataArray)
 	EndIf
 EndProcedure
 
-Procedure frameShiftShift(*a.animation,i.i,x.i,y.i=0)
+Procedure animationShiftShift(*a.animation,i.i,x.i,y.i=0)
 	If *a
 		shiftShift(*a\frames(i),x,y)
 	EndIf
@@ -212,6 +313,7 @@ EndProcedure
 
 Procedure animationLoad(*a.animation,rec.i=#False,half.i=#False,parallel.i=#False,winds.i=#True)
 	If Not *a
+		Debug "Attempted to load a null animation"
 		ProcedureReturn
 	EndIf
 	; 	Debug "loading animation "+*a\name
@@ -268,13 +370,8 @@ Procedure animationLoad(*a.animation,rec.i=#False,half.i=#False,parallel.i=#Fals
 			Next
 		Else
 			For i=0 To ArraySize(*a\frames())
-				CompilerIf #H2H_THREADED_LOAD ; doesn't work, freezes
-; 					Debug "thread loading "+*a\frames(i)\path$
-					CreateThread(@frameLoadSimple(),*a\frames(i))
-				CompilerElse
-					frameaddToLoad(*a\frames(i));,"",0,parallel)
-					frameSetBuffed(*a\frames(i),0)
-				CompilerEndIf
+				frameaddToLoad(*a\frames(i));,"",0,parallel)
+				frameSetBuffed(*a\frames(i),0)
 				If winds
 					animationLoadWind(*a)
 				EndIf
@@ -305,26 +402,26 @@ Procedure animationUnload(*a.animation,rec.i=#False)
 	EndIf
 EndProcedure
 
-Procedure animationCopy(*a1.animation,*a2.animation) ; sets a1 to the value of a2
-	If *a2 And *a1
-		CopyStructure(*a2,*a1,animation)
-		For f=0 To ArraySize(*a1\frontWind(),1)
-			For i=0 To ArraySize(*a1\frontWind(),2)
-				*a1\frontWind(f,i)=*a2\frontWind(f,i)
+Procedure animationCopy(*destination.animation,*source.animation) ; sets a1 to the value of a2
+	If *source And *destination
+		CopyStructure(*source,*destination,animation)
+		For f=0 To ArraySize(*destination\frontWind(),1)
+			For i=0 To ArraySize(*destination\frontWind(),2)
+				*destination\frontWind(f,i)=*source\frontWind(f,i)
 			Next
 		Next
-		For f=0 To ArraySize(*a1\backWind(),1)
-			For i=0 To ArraySize(*a1\backWind(),2)
-				*a1\backWind(f,i)=*a2\backWind(f,i)
+		For f=0 To ArraySize(*destination\backWind(),1)
+			For i=0 To ArraySize(*destination\backWind(),2)
+				*destination\backWind(f,i)=*source\backWind(f,i)
 			Next
 		Next
-		*a2\index=0
+		*source\index=0
 	EndIf
 EndProcedure
 
-Procedure.i animationIndex(*a.animation)
-	ProcedureReturn *a\index
-EndProcedure
+Macro animationIndex(a)
+	a\index
+EndMacro
 
 Procedure.i animationAddFrameCase(*a.animation)
 	If ArraySize(*a\frames())<>-1
@@ -352,21 +449,18 @@ Procedure animationAddAllFramesActions(*a.animation, amount.i, length.i, path.s,
 	Next
 EndProcedure
 
-Procedure animationAddAllFrames(*a.animation, amount.i, length.i, path.s, needflip.i, damage.i, damageType.i=0)
-	If #H2H_THREADED_LOAD
-		CreateThread(animationAddAllFramesActions(*a, amount, length, path, needflip, damage, damageType),0)
-	Else
-		animationAddAllFramesActions(*a, amount, length, path, needflip, damage, damageType)
-	EndIf
-EndProcedure
+Macro animationAddAllFrames(a,amount,length,path,needflip,damage,damageType)
+	animationAddAllFramesActions(a,amount,length,path,needflip,damage,damageType)
+EndMacro
 
-Procedure animationInit(*a.animation)
-	*a.animation\index=0
-EndProcedure
+Macro animationInit(a)
+	a\index=0
+EndMacro
 
-Procedure animation_isEmpty(*a.animation)
-	ProcedureReturn Bool(Not *a Or Not *a\frames() Or ArraySize(*a\frames())=0)
-EndProcedure
+; somewhat unused
+; Macro animationIsEmpty(a)
+; 	Bool(Not a Or Not a\frames() Or ArraySize(a\frames())=0)
+; EndMacro
 
 Procedure animationLength(*a.animation)
 	l=0
@@ -402,53 +496,80 @@ Procedure.i animationAt(*a.animation,where.i)
 	ProcedureReturn *a\frames(i)
 EndProcedure
 
-Macro setSomethingAnimation(a,what,index,value)
-	If a And a\frames() And a\frames(index)>0
+Macro animationSetSomething(a,what,index,value)
+	If a And a\frames() And index<=ArraySize(a\frames()) And a\frames(index)
 		a\frames(index)\what=value
+	CompilerIf #H2H_MODE=#H2H_MODE_SAVE
+	Else
+		If Not a
+			DebuggerError("Animation is null !")
+		Else
+			If Not a\frames()
+				DebuggerError("Frame array is null !")
+			Else
+				If index>ArraySize(a\frames())
+					DebuggerError ("Index out of bounds ! Max is "+Str(ArraySize(a\frames()))+", got "+Str(index))
+				Else
+					If Not a\frames(index)
+						DebuggerError("Frame is null !")
+					EndIf
+				EndIf
+			EndIf
+		EndIf
+	CompilerEndIf
 	EndIf
 EndMacro
 
-Procedure setFrameLength(*a.animation,index.i,value.i)
-	setSomethingAnimation(*a,length,index,value)
+Procedure animationSetFrameLength(*a.animation,index.i,value.i)
+	If Not *a
+		ProcedureReturn
+	EndIf
+	If value<=0
+		DebuggerError(*a\name+" frame "+Str(index)+" can't have value "+Str(value)+", must be greater than 1")
+	EndIf
+; 	If index>ArraySize(*a\frames())
+; 		DebuggerError(*a\name+" frame "+Str(index)+" out of bounds ("+Str(ArraySize(*a\frames()))+")")
+; 	EndIf
+	animationSetSomething(*a,length,index,value)
 EndProcedure
 
-Procedure setFrameDamage(*a.animation,index.i,value.i)
-	setSomethingAnimation(*a,damage,index,value)
-EndProcedure
+Macro animationSetFrameDamage(a,index,value)
+	animationSetSomething(a,damage,index,value)
+EndMacro
 
-Procedure setFrameDamageDuration(*a.animation,index.i,value.i)
-	setSomethingAnimation(*a,damageDuration,index,value)
-EndProcedure
+Macro animationSetFrameDamageDuration(a,index,value)
+	animationSetSomething(a,damageDuration,index,value)
+EndMacro
 
-Procedure setFrameDamageType(*a.animation,index.i,value.i)
-	setSomethingAnimation(*a,damageType,index,value)
-EndProcedure
+Macro animationSetFrameDamageType(a,index,value)
+	animationSetSomething(a,damageType,index,value)
+EndMacro
 
-Procedure setFrameSound(*a.animation,index.i,newSoundId.i)
-	setSomethingAnimation(*a,soundId,index,newSoundId)
-EndProcedure
+Macro animationSetFrameSound(a,index,newSoundId,stanceId=0)
+	frameSetSound(a\frames(index),newSoundId,stanceId)
+EndMacro
 
-Procedure enableFrameCatch(*a.animation,index.i)
-	frameSetNeedCatch(*a\frames(index),1)
-EndProcedure
+Macro animationSetFrameNeedCatch(a,index)
+	frameSetNeedCatch(a\frames(index),1)
+EndMacro
 
-Procedure enableFrameDamageCut(*a.animation,index.i)
-	frameSetDamageCut(*a\frames(index),1)
-EndProcedure
+Macro animationSetFrameDamageCut(a,index)
+	frameSetDamageCut(a\frames(index),1)
+EndMacro
 
-Procedure enableFrameWindNeedCatch(*a.animation,index.i)
-	frameSetWindNeedCatch(*a\frames(index),1)
-EndProcedure
+Macro animationSetFrameWindNeedCatch(a,index)
+	frameSetWindNeedCatch(a\frames(index),1)
+EndMacro
 
-Procedure enableFrameMovementDeltaNeedCatch(*a.animation,index.i)
-	frameSetMovementDeltaNeedCatch(*a\frames(index),1)
-EndProcedure
+Macro animationSetFrameMovementDeltaNeedCatch(a,index)
+	frameSetMovementDeltaNeedCatch(a\frames(index),1)
+EndMacro
 
-Procedure disableFrameSoundRec(*a.animation,index.i)
-	frameSetNoRecSound(*a\frames(index),1)
-EndProcedure
+Macro animationFrameDisableSoundRec(a,index)
+	frameSetNoRecSound(a\frames(index),1)
+EndMacro
 
-Macro setFrameLocation(a,what,i,x,y)
+Macro animationSetFrameLocation(a,what,i,x,y)
 	If x Or y
 		If Not a\frames(i)\what
 			a\frames(i)\what=locationCreate(x,y)
@@ -458,48 +579,76 @@ Macro setFrameLocation(a,what,i,x,y)
 	EndIf
 EndMacro
 
-Procedure setFrameMovement(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,movement,i,x,y)
-EndProcedure
+Macro animationSetFrameMovement(a,i,x=0,y=0)
+	animationSetFrameLocation(a,movement,i,x,y)
+EndMacro
 
-Procedure setFrameMovementDelta(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,movementD,i,x,y)
-EndProcedure
+Macro animationSetFrameMovementDelta(a,i,x=0,y=0)
+	animationSetFrameLocation(a,movementD,i,x,y)
+EndMacro
 
-Procedure setFrameShadow(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,shadowShift,i,x,y)
-EndProcedure
+Macro animationSetFrameShadow(a,i,x=0,y=0)
+	animationSetFrameLocation(a,shadowShift,i,x,y)
+EndMacro
 
-Procedure setFrameStun(*a.animation,i.i,value.i)
-	*a\frames(i)\stunDuration=value
-EndProcedure
+Macro animationSetFrameStun(a,i,value)
+	a\frames(i)\stunDuration=value
+EndMacro
 
-Procedure setFramePush(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,pushPower,i,x,y)
-EndProcedure
+Macro animationSetFramePush(a,i,x=0,y=0)
+	animationSetFrameLocation(a,pushPower,i,x,y)
+EndMacro
 
-Procedure setFramePushD(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,pushPowerD,i,x,y)
-EndProcedure
+Macro animationSetFramePushD(a,i,x=0,y=0) ; delta
+	animationSetFrameLocation(a,pushPowerD,i,x,y)
+EndMacro
 
-Procedure setFramePushI(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,instantPush,i,x,y)
-EndProcedure
+Macro animationSetFramePushI(a,i,x=0,y=0) ; instant
+	animationSetFrameLocation(a,instantPush,i,x,y)
+EndMacro
 
-Procedure setFramePushR(*a.animation,i.i,x.f=0,y.f=0)
-	setFrameLocation(*a,moveTargetTo,i,x,y)
-EndProcedure
+Macro animationSetFramePushR(a,i,x=0,y=0) ; relative
+	animationSetFrameLocation(a,moveTargetTo,i,x,y)
+EndMacro
 
-Procedure setFrameShake(*a.animation,i.i,intensity=0)
-	setSomethingAnimation(*a,shake,i,intensity)
-EndProcedure
+Macro animationSetFrameShake(a,i,intensity=0)
+	animationSetSomething(a,shake,i,intensity)
+EndMacro
 
-Procedure setFrameGrab(*a.animation,i.i)
-	frameSetCatch(*a\frames(i),#True)
-EndProcedure
+Macro animationSetFrameGrab(a,i)
+	frameSetCatch(a\frames(i),#True)
+EndMacro
 
-Procedure setFramePureProjectile(*a.animation,i.i)
-	frameSetPureProjectile(*a\frames(i),#True)
+Macro animationSetFramePureProjectile(a,i)
+	frameSetPureProjectile(a\frames(i),#True)
+EndMacro
+
+Macro animationSetFrameOpacity(a,i,op=0)
+	animationSetSomething(a,opacity,i,op)
+EndMacro
+
+Procedure animationSetExtended(*a.animation,includeWind.i=#True)
+	For f=0 To ArraySize(*a\frames())
+		frameSetExtended(*a\frames(f))
+	Next
+	If *a\frontWind()
+		For f=0 To ArraySize(*a\frontWind(),1)
+			For w=0 To ArraySize(*a\frontWind(),2)
+				If *a\frontWind(f,w)
+					animationSetExtended(*a\frontWind(f,w),includeWind)
+				EndIf
+			Next
+		Next
+	EndIf
+	If *a\backWind()
+		For f=0 To ArraySize(*a\backWind(),1)
+			For w=0 To ArraySize(*a\backWind(),2)
+				If *a\backWind(f,w)
+					animationSetExtended(*a\backWind(f,w),includeWind)
+				EndIf
+			Next
+		Next
+	EndIf
 EndProcedure
 
 ; return the total potential movement of this animation
@@ -545,60 +694,39 @@ Procedure.i animationPickStun(*a.animation)
 	Next
 	*p.animation=*picked(Random(ArraySize(*picked())))
 	FreeArray(*picked())
-	If *p
-		ProcedureReturn *p
-	EndIf
-	ProcedureReturn 0
-EndProcedure
-Procedure animationHas(*a.animation,animationType.i)
-	*a2.animation
-	Select animationType
-		Case #H2H_ANIMATIONTYPE_NEUTRAL
-			*a2=animationGetNeutral(*a)
-		Case #H2H_ANIMATIONTYPE_NSIDE
-			*a2=animationGetSide(*a)
-		Case #H2H_ANIMATIONTYPE_NBACK
-			*a2=animationGetBack(*a)
-		Case #H2H_ANIMATIONTYPE_NUP
-			*a2=animationGetUp(*a)
-		Case #H2H_ANIMATIONTYPE_NDOWN
-			*a2=animationGetDown(*a)
-		Case #H2H_ANIMATIONTYPE_HEAVY
-			*a2=animationGetHeavy(*a)
-	EndSelect
-	ProcedureReturn *a2
+	ProcedureReturn *p
 EndProcedure
 
 #H2H_COMBO_ENABLE_SHORTCUTS=1
 CompilerIf #H2H_COMBO_ENABLE_SHORTCUTS
-Procedure setFrameCanDoNext(*a.animation,i.i,when.i=-1)
-		If when<0
-			when=ArraySize(*a\frames())/2
-		EndIf
-		*a\frames(i)\canDoNext=when
-		For j=i+1 To ArraySize(*a\frames())
-			*a\frames(j)\canDoNext=1
-		Next
+Procedure animationSetFrameCDN(*a.animation,i.i,when.i=-1)
+	If when<0
+		when=ArraySize(*a\frames())/2
+	EndIf
+	*a\frames(i)\canDoNext=when
+	For j=i+1 To ArraySize(*a\frames())
+		*a\frames(j)\canDoNext=1
+	Next
 EndProcedure
-Procedure setFrameCanMove(*a.animation,i.i,when.i=-1)
-		If when<0
-			when=ArraySize(*a\frames())/2
-		EndIf
-		*a\frames(i)\canMove=when
-		For j=i+1 To ArraySize(*a\frames())
-			*a\frames(j)\canMove=1
-		Next
+Procedure animationSetFrameCanMove(*a.animation,i.i,when.i=-1)
+	If when<0
+		when=ArraySize(*a\frames())/2
+	EndIf
+	*a\frames(i)\canMove=when
+	For j=i+1 To ArraySize(*a\frames())
+		*a\frames(j)\canMove=1
+	Next
 EndProcedure
 CompilerEndIf
 
-Procedure setFrameFreeMovement(*f.frame)
-	frameSetFreeMovement(*f,#True)
-EndProcedure
+Macro animationSetFrameFreeMovement(f)
+	frameSetFreeMovement(f,#True)
+EndMacro
 
 Procedure animationFreeMovement(*a.animation)
 	If *a
 		For i=0 To ArraySize(*a\frames())
-			setFrameFreeMovement(*a\frames(i))
+			animationSetFrameFreeMovement(*a\frames(i))
 		Next
 	EndIf
 EndProcedure
@@ -620,10 +748,6 @@ Procedure animationFreeMovementWind(*a.animation)
 	EndIf
 EndProcedure
 
-Procedure animationUngrounded(*a.animation)
-	animationSetUngrounded(*a,#True)
-EndProcedure
-
 #H2H_JSON_ANIMATION_ID="id"
 #H2H_JSON_ANIMATION_FRAMES="frames"
 #H2H_JSON_ANIMATION_RECOVERY="recovery"
@@ -641,31 +765,31 @@ EndProcedure
 #H2H_JSON_ANIMATION_PROJECTILES="projectiles"
 #H2H_JSON_ANIMATION_FLAG="flag"
 CompilerIf #H2H_MODE=#H2H_MODE_SAVE
-Declare addJSONAnimation(*parent,key$,*a.animation,optional.i=0)
+Declare animationJSONAdd(*parent,key$,*a.animation,optional.i=0)
 
-Procedure.i animationExportJSON(*a.animation,*parent=0,export.i=#False)
+Procedure.i animationJSONExport(*a.animation,*parent=0,export.i=#False)
 	current=JSONindex
-	If Not *parent
-		*parent=CreateJSONObject(current)
-		JSONindex+1
-	EndIf
 	If Not *a
 		Debug "null animation !"
 		ProcedureReturn 
 	EndIf
-	addJSONString(*parent,#H2H_JSON_ANIMATION_NAME,*a\name)
+	If Not *parent
+		*parent=CreateJSONObject(current)
+		JSONindex+1
+	EndIf
+; 	addJSONString(*parent,#H2H_JSON_ANIMATION_NAME,*a\name)
 	addJSONInteger(*parent,#H2H_JSON_ANIMATION_ID,*a\id)
 	addJSONInteger(*parent,#H2H_JSON_ANIMATION_RECOVERY,*a\recovery		,#True)
 	addJSONInteger(*parent,#H2H_JSON_ANIMATION_LOOPSTART,*a\loopStart	,#True)
 	addJSONInteger(*parent,#H2H_JSON_ANIMATION_TYPE,*a\animationType	,#True)
 	addJSONInteger(*parent,#H2H_JSON_ANIMATION_FLAG,*a\flag,#True)
 	
-	addJSONAnimation(*parent,#H2H_JSON_ANIMATION_NEUTRAL,animationGetNeutral(*a),#True)
-	addJSONAnimation(*parent,#H2H_JSON_ANIMATION_SIDE,animationGetSide(*a),#True)
-	addJSONAnimation(*parent,#H2H_JSON_ANIMATION_BACK,animationGetBack(*a),#True)
-	addJSONAnimation(*parent,#H2H_JSON_ANIMATION_UP,animationGetUp(*a),#True)
-	addJSONAnimation(*parent,#H2H_JSON_ANIMATION_DOWN,animationGetDown(*a),#True)
-	addJSONAnimation(*parent,#H2H_JSON_ANIMATION_HEAVY,animationGetHeavy(*a),#True)
+	animationJSONAdd(*parent,#H2H_JSON_ANIMATION_NEUTRAL,animationGetNeutral(*a),#True)
+	animationJSONAdd(*parent,#H2H_JSON_ANIMATION_SIDE,animationGetSide(*a),#True)
+	animationJSONAdd(*parent,#H2H_JSON_ANIMATION_BACK,animationGetBack(*a),#True)
+	animationJSONAdd(*parent,#H2H_JSON_ANIMATION_UP,animationGetUp(*a),#True)
+	animationJSONAdd(*parent,#H2H_JSON_ANIMATION_DOWN,animationGetDown(*a),#True)
+	animationJSONAdd(*parent,#H2H_JSON_ANIMATION_HEAVY,animationGetHeavy(*a),#True)
 	
 	If *a\frontWind()
 		*array=SetJSONArray(AddJSONMember(*parent,#H2H_JSON_ANIMATION_WINDFRONT))
@@ -674,7 +798,7 @@ Procedure.i animationExportJSON(*a.animation,*parent=0,export.i=#False)
 				*child=AddJSONElement(*array)
 				If *a\frontWind(f,w)
 					SetJSONObject(*child)
-					animationExportJSON(*a\frontWind(f,w),*child)
+					animationJSONExport(*a\frontWind(f,w),*child)
 				Else
 					SetJSONInteger(*child,0)
 				EndIf
@@ -688,7 +812,7 @@ Procedure.i animationExportJSON(*a.animation,*parent=0,export.i=#False)
 				*child=AddJSONElement(*array)
 				If *a\backWind(f,w)
 					SetJSONObject(*child)
-					animationExportJSON(*a\backWind(f,w),*child)
+					animationJSONExport(*a\backWind(f,w),*child)
 				Else
 					SetJSONInteger(*child,0)
 				EndIf
@@ -702,7 +826,7 @@ Procedure.i animationExportJSON(*a.animation,*parent=0,export.i=#False)
 				*child=AddJSONElement(*array)
 				If *a\projectiles(f,p)
 					SetJSONObject(*child)
-					animationExportJSON(*a\projectiles(f,p),*child)
+					animationJSONExport(*a\projectiles(f,p),*child)
 				Else
 					SetJSONInteger(*child,0)
 				EndIf
@@ -719,11 +843,11 @@ Procedure.i animationExportJSON(*a.animation,*parent=0,export.i=#False)
 	EndIf
 	ProcedureReturn *parent
 EndProcedure
-Procedure addJSONAnimation(*parent,key$,*a.animation,optional.i=0)
+Procedure animationJSONAdd(*parent,key$,*a.animation,optional.i=0)
 	If Not optional Or *a
 		*child=AddJSONMember(*parent,key$)
 		SetJSONObject(*child)
-		animationExportJSON(*a,*child)
+		animationJSONExport(*a,*child)
 	EndIf
 EndProcedure
 CompilerEndIf
@@ -829,21 +953,21 @@ Procedure animationJSONImport(*parent,*a.animation=0)
 	ProcedureReturn *a
 EndProcedure
 CompilerEndIf
-Procedure animationClearFrames(*a.animation)
-	If Not *a
-		ProcedureReturn
-	EndIf
-	For i=0 To ArraySize(*a\frames())
-		frameUnload(*a\frames(i))
-	Next
-	For i=0 To 5
-		animationClearFrames(*a\animations[i])
-	Next
-EndProcedure
+; Procedure animationClearFrames(*a.animation)
+; 	If Not *a
+; 		ProcedureReturn
+; 	EndIf
+; 	For i=0 To ArraySize(*a\frames())
+; 		frameUnload(*a\frames(i))
+; 	Next
+; 	For i=0 To 5
+; 		animationClearFrames(*a\animations[i])
+; 	Next
+; EndProcedure
 
-Procedure animationEquals(*a1.animation,*a2.animation)
-	ProcedureReturn Bool(*a1=*a2 Or (*a1 And *a2 And *a1\id=*a2\id))
-EndProcedure
+Macro animationEquals(a1,a2)
+	Bool(a1=a2 Or (a1 And a2 And a1\id=a2\id))
+EndMacro
 
 Procedure animationSelectRandomCombo(*what.animation)
 	If Not *what
@@ -852,7 +976,7 @@ Procedure animationSelectRandomCombo(*what.animation)
 	Dim *tmpArray.animation(0)
 	For i=0 To 5
 		If *what\animations[i]
- 			Debug "found "+*what\animations[i]\name
+  			Debug "found "+*what\animations[i]\name
 			If *tmpArray(ArraySize(*tmpArray()))
 				ReDim *tmpArray(ArraySize(*tmpArray())+1)
 			EndIf
@@ -898,6 +1022,8 @@ Structure animationGadget
 	opacity.i ; whole gadget opacity
 	colorIntensity.i
 	indestructible.b
+	stanceId.i ; for sound related indexes
+	deltaFactor.d ; by default 1, the animation speed 
 	
 	hasFinished.b ; when looped
 EndStructure
@@ -911,7 +1037,16 @@ Enumeration
 EndEnumeration
 
 #H2H_DATA_ANIMATION_GADGET_BASE=$40 ; increase if needed
-Global dataAnimationGadgetSize.i=#H2H_DATA_ANIMATION_GADGET_BASE*SizeOf(animationGadget)
+Global DATA_ANIMATION_GADGET_BASE=#H2H_DATA_ANIMATION_GADGET_BASE
+CompilerIf #H2H_MODE=#H2H_MODE_LOAD
+	LoadJSON(0,"data.json")
+	*parent=GetJSONMember(JSONValue(0),#H2H_JSON_MEMORY_KEY)
+	If *parent
+		DATA_ANIMATION_GADGET_BASE=loadJSONInteger(*parent,"gadget")
+	EndIf
+	FreeJSON(0)
+CompilerEndIf
+Global dataAnimationGadgetSize.i=DATA_ANIMATION_GADGET_BASE*SizeOf(animationGadget)
 Global *dataAnimationGadget=AllocateMemory(dataAnimationGadgetSize)
 Global dataAnimationGadgetindex=-1
 Global Dim dataAnimationGadgetPile(7) ; byte indexes of available locations
@@ -920,39 +1055,64 @@ Global dataAnimationGadgetPileIndex=-1
 Procedure.i animationGadgetDataGive()
 	If dataAnimationGadgetPileIndex>=0
 		dataAnimationGadgetPileIndex-1
-; 		Debug "depiled to "+dataAnimationGadgetPileIndex
-		ProcedureReturn *dataAnimationGadget+dataAnimationGadgetPile(dataAnimationGadgetPileIndex+1)
+		If dataAnimationGadgetPile(dataAnimationGadgetPileIndex+1)<dataLocationSize
+			ProcedureReturn *dataAnimationGadget+dataAnimationGadgetPile(dataAnimationGadgetPileIndex+1)
+		EndIf
+		ProcedureReturn dataAnimationGadgetPile(dataAnimationGadgetPileIndex+1)
 	EndIf
-	If dataAnimationGadgetindex>=#H2H_DATA_ANIMATION_GADGET_BASE
-		Debug "TOO MANY GADGETS"
-		MessageRequester("H2H error","too many gadgets !")
-		End
+	If dataAnimationGadgetindex>=DATA_ANIMATION_GADGET_BASE
+		Debug "Created rogue gadget"
+; 		End
+		ProcedureReturn AllocateStructure(animationGadget)
 	EndIf
 	dataAnimationGadgetindex+1
-; 	Debug "gave "+dataAnimationGadgetindex
 	ProcedureReturn *dataAnimationGadget+dataAnimationGadgetindex*SizeOf(animationGadget)
 EndProcedure
 
 Procedure gadgetDestroyEx(*g.animationGadget)
-; 	Debug "destruction"
 	If dataAnimationGadgetPileIndex>=ArraySize(dataAnimationGadgetPile())
 		ReDim dataAnimationGadgetPile( (ArraySize(dataAnimationGadgetPile())+1)*2-1 )
 	EndIf
 	dataAnimationGadgetPileIndex+1
-; 	Debug "piled to "+dataAnimationGadgetPileIndex
-	dataAnimationGadgetPile(dataAnimationGadgetPileIndex)=*g-*dataAnimationGadget
+	If *g>=*dataAnimationGadget And *g<*dataAnimationGadget+dataAnimationGadgetSize
+		dataAnimationGadgetPile(dataAnimationGadgetPileIndex)=*g-*dataAnimationGadget
+	Else
+		dataAnimationGadgetPile(dataAnimationGadgetPileIndex)=*g
+	EndIf
 EndProcedure
 
+Procedure gadgetPlaySound(*what.animationGadget,where.i=-9999,stanceId.i=-1)
+	If *what And *what\what
+		If stanceId<0
+			stanceId=*what\stanceId
+		EndIf
+		If where=-9999
+			If *what\where
+				framePlaySound(*what\what\frames(*what\index),*what\where\x,stanceId)
+			Else
+				framePlaySound(*what\what\frames(*what\index),0,stanceId)
+			EndIf
+		Else
+			framePlaySound(*what\what\frames(*what\index),where,stanceId)
+		EndIf
+	EndIf
+EndProcedure
 Declare gadgetReset(*what.animationGadget)
-Procedure gadgetAnimationSet(*what.animationGadget,*withWhat.animation)
+Procedure gadgetAnimationSet(*what.animationGadget,*withWhat.animation,stanceId.i=-1)
 	If *what
 		If *withWhat
 			*what\what=*withWhat
+			*what\index=0
+			*what\frameIndicator=0
+			If stanceId<0
+				stanceId=*what\stanceId
+			EndIf
+			gadgetPlaySound(*what,-9999,stanceId)
 		EndIf
 	EndIf
 EndProcedure
 
-Procedure gadgetCreate(*what.animationGadget,*withWhat.animation,*where.location,howLong.i,isEnabled.i,isLooped.i,whatLayer.i=#H2H_GADGET_LAYER_FRONT)
+Procedure gadgetCreate(*what.animationGadget,*withWhat.animation,*where.location,howLong.i,isEnabled.i,isLooped.i,whatLayer.i=#H2H_GADGET_LAYER_FRONT,stanceId=0)
 	If Not *what
 		*what=animationGadgetDataGive()
 	EndIf
@@ -971,10 +1131,12 @@ Procedure gadgetCreate(*what.animationGadget,*withWhat.animation,*where.location
 	*what\frameIndicator=0
 	*what\opacity=255
 	*what\color=-1
-	*what\colorIntensity=128
-	*what\freed=0
+	*what\colorIntensity=255
+	*what\freed=#False
 	*what\sub=0
 	*what\fliped=0
+	*what\stanceId=stanceId
+	*what\deltaFactor=1
 	If *allAnimationGadget(0)
 		ReDim *allAnimationGadget(animationGindex+1)
 		animationGindex+1
@@ -992,6 +1154,7 @@ Procedure gadgetCreate(*what.animationGadget,*withWhat.animation,*where.location
 			EndIf
 			locationAddLoc(*what\where,*withWhat\frames(0)\movement)
 		EndIf
+		gadgetPlaySound(*what,-9999,*what\stanceId)
 	EndIf
 	ProcedureReturn *what
 EndProcedure
@@ -1005,42 +1168,135 @@ Procedure gadgetDisplay(*what.animationGadget,c.i=-1,opacity.i=-1)
 			If *what\index>ArraySize(*what\what\frames())
 				*what\index=ArraySize(*what\what\frames())
 			EndIf
-			*currentFrame.frame=*what\what\frames(*what\index)
-			x=*what\where\x
-			y=*what\where\y+*currentFrame\shift\y
+			Protected *currentFrame.frame=*what\what\frames(*what\index)
+			Protected x=*what\where\x+*screenShake\x
+			Protected y=*what\where\y+*screenShake\y
 			If Not *what\absolute
 				x-screenFocus
 				y-screenFocusHeight
 			EndIf
-			frameLoad(*currentFrame)
-			If *what\fliped
-				If frameShiftXFlipNegative(*currentFrame)
-					x-*currentFrame\shift\x/1000
-				Else
-					x+*currentFrame\shift\x/1000
-				EndIf
-			Else
-				If frameShiftXNegative(*currentFrame)
-					x-Mod(*currentFrame\shift\x,1000)
-				Else
-					x+Mod(*currentFrame\shift\x,1000)
-				EndIf
+			If *what\color>=0 And c<0
+				c=*what\color
 			EndIf
-			frameFlip(*currentFrame,*what\fliped)
-			DisplaySpriteOptional(*currentFrame\id,x,y,(*what\opacity*opacity)/255)
-			If c>=0
-				DisplaySpriteOptional(*currentFrame\id,x,y,(*what\colorIntensity*opacity)/255,c)
-			Else
-				If *what\color>=0
-					DisplaySpriteOptional(*currentFrame\id,x,y,(*what\colorIntensity**what\opacity)/opacity,*what\color)
-				EndIf
-			EndIf
+; 			Debug "Color "+Hex(c)
+			frameDisplay(*currentFrame,x,y,(opacity**what\opacity)/255,c,*what\fliped)
 		EndIf
 	EndIf
 EndProcedure
-Declare animationSpawnWind(*a.animation,*where.location,direction.i,color.i=-1,opacity.i=255,intensity.i=128,white.i=#False,absolute.i=#False)
-Declare gadgetSpawnWind(*gadget.animationGadget,white.i=#False)
+; Declare animationSpawnWind(*a.animation,*where.location,direction.i,color.i=-1,opacity.i=255,intensity.i=128,white.i=#False,absolute.i=#False)
+; Declare gadgetSpawnWind(*gadget.animationGadget,white.i=#False)
 #H2H_DEBUG_GADGET=0
+
+#H2H_FRAME_WIND_OPACITY_FACTOR=224
+Global FRAME_WIND_OPACITY_FACTOR=224
+
+Enumeration
+	#H2H_FRAME_WIND_MODE_DISABLED
+	#H2H_FRAME_WIND_MODE_HALVED
+	#H2H_FRAME_WIND_MODE_ONLY_ACTIVE
+	#H2H_FRAME_WIND_MODE_HALVED_NONACTIVE
+	#H2H_FRAME_WIND_MODE_ENABLED
+EndEnumeration
+
+#H2H_FRAME_WIND_ENABLED_DEFAULT=#H2H_FRAME_WIND_MODE_ENABLED
+
+Global windEnabled=#H2H_FRAME_WIND_ENABLED_DEFAULT
+
+Procedure animationSpawnWindIndex(*a.animation,index.i,*where.location,direction.i,color.i=-1,opacity.i=255,intensity.i=255,white.i=#False,absolute.i=#False)
+	If Not *a
+		Debug "attempted to spawn wind from null animation", 2
+		ProcedureReturn
+	EndIf
+	If windEnabled
+		opacity=(opacity*#H2H_FRAME_WIND_OPACITY_FACTOR)/255
+		Select windEnabled
+			Case #H2H_FRAME_WIND_MODE_HALVED
+				opacity/2
+			Case #H2H_FRAME_WIND_MODE_HALVED_NONACTIVE
+				If animationIsAttack(*a) And Not *a\frames(index)\hurtId
+					opacity/2
+				EndIf
+		EndSelect
+		If white
+			intensity*3
+		EndIf
+		Protected size=0
+		Protected t.i=(((((color>>24)*intensity)/255)*opacity)/255)
+		If t>$FF
+			t=$FF
+		EndIf
+		Protected t2.i=t/4
+		Protected c.i=(color&$FFFFFF)+(t2<<24)
+		If *a\frontWind()
+			size=ArraySize(*a\frontWind(),2)
+			For i=0 To size
+				If *a\frontWind(index,i)
+					*newGadget.animationGadget=gadgetCreate(0,*a\frontWind(index,i),*where,1,#True,0,#H2H_GADGET_LAYER_FRONT)
+					*newGadget\fliped=direction
+					*newGadget\absolute=absolute
+ 					If *newGadget\fliped
+ 						*newGadget\what\gadgetLoaded-1
+ 						*newGadget\what\gadgetLoadedMir+1
+ 					EndIf
+					*newGadget\color=c
+					;*newGadget\colorIntensity=((intensity/4)*opacity)/255
+					*newGadget\opacity=opacity
+					; Debug "spawned front wind "+i+" at "+toString(*where)
+					CompilerIf #PB_Compiler_Debugger
+						If *newGadget\layer<>#H2H_GADGET_LAYER_FRONT
+							MessageRequester("Wait","That's illegal !")
+						EndIf
+					CompilerEndIf
+					If frameIsFreeMovement(*newGadget\what\frames(0))
+						*newGadget\freed=#True
+						*newGadget\where=locationCreate(*newGadget\where\x,*newGadget\where\y)
+					EndIf
+				EndIf
+			Next
+		EndIf
+		If white
+			t2=t/3
+		Else
+			t2=t/2
+		EndIf
+		c=(color&$FFFFFF)+(t2<<24)
+		If *a\backWind()
+			size=ArraySize(*a\backWind(),2)
+			For i=0 To size
+				If *a\backWind(index,i)
+					*newGadget.animationGadget=gadgetCreate(0,*a\backWind(index,i),*where,1,#True,0,#H2H_GADGET_LAYER_BACK)
+					*newGadget\fliped=direction
+					*newGadget\absolute=absolute
+ 					If *newGadget\fliped
+ 						*newGadget\what\gadgetLoaded-1
+ 						*newGadget\what\gadgetLoadedMir+1
+					EndIf
+					; Debug "spawned back wind "+i+" at "+toString(*where)
+					*newGadget\color=c
+					*newGadget\opacity=opacity
+					CompilerIf #PB_Compiler_Debugger
+						If *newGadget\layer<>#H2H_GADGET_LAYER_BACK
+							MessageRequester("Wait","That's illegal !")
+						EndIf
+					CompilerEndIf
+					If frameIsFreeMovement(*newGadget\what\frames(0))
+						*newGadget\freed=#True
+						*newGadget\where=locationCreate(*newGadget\where\x,*newGadget\where\y)
+					EndIf
+				EndIf
+			Next
+		EndIf
+	EndIf
+EndProcedure
+
+Macro animationSpawnWind(a,where,direction,color=-1,opacity=255,intensity=255,white=#False,absolute=#False)
+	animationSpawnWindIndex(a,a\index,where,direction,color,opacity,intensity,white,absolute)
+EndMacro
+
+Macro gadgetSpawnWind(gadget,white=#False)
+	If gadget\display:animationSpawnWindIndex(gadget\what,gadget\index,gadget\where,gadget\fliped,gadget\color,gadget\opacity,gadget\colorIntensity,white,gadget\absolute):EndIf
+EndMacro
+
 Procedure gadgetRefresh(*what.animationGadget,delta.d=1.0)
 	If Not *what
 		CompilerIf #H2H_DEBUG_GADGET
@@ -1066,7 +1322,7 @@ Procedure gadgetRefresh(*what.animationGadget,delta.d=1.0)
 	EndIf
 	
 	finished=0
-	*what\sub+delta
+	*what\sub+delta**what\deltaFactor
 	iteration.i=Int(*what\sub)
 	*what\sub-iteration
 	If *what\index>ArraySize(*what\what\frames())
@@ -1080,26 +1336,28 @@ Procedure gadgetRefresh(*what.animationGadget,delta.d=1.0)
 			*what\index=frameAmount
 		EndIf
 		*currentFrame=*what\what\frames(*what\index)
-		If *currentFrame
+		If *currentFrame And Not finished
 			If *what\frameIndicator>*currentFrame\length
 				*what\frameIndicator-*currentFrame\length
 				*what\index+1
 				If *what\index>frameAmount
 					If *what\looped
 						finished=1
-						*what\index=0
+						*what\index=*what\what\loopStart ; by default 0
 						*what\duration-1
 						If *what\duration<=0
 							*what\enabled=0
 						Else
 							If *what\display
 								gadgetSpawnWind(*what)
+								gadgetPlaySound(*what)
 							EndIf
 						EndIf
 					Else
 						*what\enabled=0
 					EndIf
 				Else
+					*currentFrame=*what\what\frames(*what\index)
 					; manual movement
 					If frameIsFreeMovement(*currentFrame)
 						If Not *what\freed
@@ -1120,6 +1378,7 @@ Procedure gadgetRefresh(*what.animationGadget,delta.d=1.0)
 					EndIf
 					If *what\display
 						gadgetSpawnWind(*what)
+						gadgetPlaySound(*what)
 					EndIf
 				EndIf
 			EndIf
@@ -1146,27 +1405,24 @@ Procedure gadgetReset(*what.animationGadget)
 	If *what
 		*what\enabled=1
 		*what\index=0
-		*what\frameIndicator=0
+		*what\frameIndicator=1
+		gadgetPlaySound(*what)
+		gadgetSpawnWind(*what) ; TODO get whiteness
 	EndIf
 EndProcedure
 
-Procedure gadgetChangeAnimation(*what.animationGadget,*withWhat.animation)
-	*what\what=*withWhat
-	gadgetReset(*what)
-EndProcedure
+; Macro gadgetChangeAnimation(w,withWhat)
+; 	w\what=withWhat:gadgetReset(w)
+; EndMacro
 
-Procedure displayAllGadget(whatLayer.i=#H2H_GADGET_LAYER_FRONT)
-; 	Debug "Display all gadget "+ArraySize(*allAnimationGadget())
+Procedure gadgetDisplayAll(whatLayer.i=#H2H_GADGET_LAYER_FRONT)
 	For i=0 To ArraySize(*allAnimationGadget())
 		If *allAnimationGadget(i)=0
 			Continue
 		EndIf
 		If *allAnimationGadget(i)\layer=whatLayer
 			If *allAnimationGadget(i)\display
-; 				Debug "Displaying "+*allAnimationGadget(i)
 				gadgetDisplay(*allAnimationGadget(i))
-			Else
-; 				Debug "NOT displaying "+*allAnimationGadget(i)
 			EndIf
 		EndIf
 	Next
@@ -1179,10 +1435,6 @@ Procedure purgeAllGadget()
 	For i=0 To ArraySize(*allAnimationGadget())
 		If *allAnimationGadget(i)
 			If Not *allAnimationGadget(i)\enabled And Not *allAnimationGadget(i)\indestructible
-				If *allAnimationGadget(i)\freed
-					locationDestroy(*allAnimationGadget(i)\where)
-				EndIf
-; 				Debug "Purged "+*allAnimationGadget(i)\what\name
 				gadgetDestroy(*allAnimationGadget(i))
 			Else
 				*newArray(k)=*allAnimationGadget(i)
@@ -1227,6 +1479,9 @@ Procedure animationDestroy(*a.animation)
 		If *a\backWind()
 			FreeArray(*a\backWind())
 		EndIf
+		If *a\projectiles()
+			FreeArray(*a\projectiles())
+		EndIf
 		FreeStructure(*a)
 	EndIf
 EndProcedure
@@ -1238,6 +1493,7 @@ Procedure gadgetDestroy(*what.animationGadget,destroyLoc.i=#False)
 	If *what\freed
 		locationDestroy(*what\where)
 		*what\where=0
+		*what\freed=0
 	EndIf
 	gadgetDestroyEx(*what)
 EndProcedure
@@ -1265,80 +1521,6 @@ Procedure gadgetDestroyAll()
 	Next
 	FreeArray(*indestructible())
 	animationGindex=k
-EndProcedure
-
-#H2H_FRAME_WIND_ENABLED_DEFAULT=#True
-Global windEnabled=#H2H_FRAME_WIND_ENABLED_DEFAULT
-#H2H_FRAME_WIND_OPACITY_FACTOR=224
-Procedure animationSpawnWindIndex(*a.animation,index.i,*where.location,direction.i,color.i=-1,opacity.i=255,intensity.i=128,white.i=#False,absolute.i=#False)
-	If windEnabled
-		opacity=(opacity*#H2H_FRAME_WIND_OPACITY_FACTOR)/255
-		If white
-			intensity*3
-		EndIf
-		Protected size=0
-		If *a\frontWind()
-			size=ArraySize(*a\frontWind(),2)
-			For i=0 To size
-				If *a\frontWind(index,i)
-					*newGadget.animationGadget=gadgetCreate(0,*a\frontWind(index,i),*where,1,1,0,#H2H_GADGET_LAYER_FRONT)
-					*newGadget\fliped=direction
-					*newGadget\absolute=absolute
- 					If *newGadget\fliped
- 						*newGadget\what\gadgetLoaded-1
- 						*newGadget\what\gadgetLoadedMir+1
- 					EndIf
-					*newGadget\color=color
-					*newGadget\colorIntensity=((intensity/4)*opacity)/255
-					*newGadget\opacity=opacity
-					If *newGadget\layer<>#H2H_GADGET_LAYER_FRONT
-						MessageRequester("Wait","That's illegal !")
-					EndIf
-					If frameIsFreeMovement(*newGadget\what\frames(0))
-						*newGadget\freed=#True
-						*newGadget\where=locationCreate(*newGadget\where\x,*newGadget\where\y)
-					EndIf
-				EndIf
-			Next
-		EndIf
-		If *a\backWind()
-			size=ArraySize(*a\backWind(),2)
-			For i=0 To size
-				If *a\backWind(index,i)
-					*newGadget.animationGadget=gadgetCreate(0,*a\backWind(index,i),*where,1,1,0,#H2H_GADGET_LAYER_BACK)
-					*newGadget\fliped=direction
-					*newGadget\absolute=absolute
- 					If *newGadget\fliped
- 						*newGadget\what\gadgetLoaded-1
- 						*newGadget\what\gadgetLoadedMir+1
-					EndIf
-					*newGadget\color=color
-					If white
-						*newGadget\colorIntensity=((intensity/3)*opacity)/255
-					Else
-						*newGadget\colorIntensity=((intensity/2)*opacity)/255
-					EndIf
-					*newGadget\opacity=opacity
-					If *newGadget\layer<>#H2H_GADGET_LAYER_BACK
-						MessageRequester("Wait","That's illegal !")
-					EndIf
-					If frameIsFreeMovement(*newGadget\what\frames(0))
-						*newGadget\freed=#True
-						*newGadget\where=locationCreate(*newGadget\where\x,*newGadget\where\y)
-					EndIf
-				EndIf
-			Next
-		EndIf
-	EndIf
-EndProcedure
-Procedure animationSpawnWind(*a.animation,*where.location,direction.i,color.i=-1,opacity.i=255,intensity.i=128,white.i=#False,absolute.i=#False)
-	animationSpawnWindIndex(*a,*a\index,*where,direction,color,opacity,intensity,white,absolute)
-EndProcedure
-
-Procedure gadgetSpawnWind(*gadget.animationGadget,white.i=#False)
-	If *gadget\display
-		animationSpawnWindIndex(*gadget\what,*gadget\index,*gadget\where,*gadget\fliped,*gadget\color,*gadget\opacity,*gadget\colorIntensity,white,*gadget\absolute)
-	EndIf
 EndProcedure
 
 Procedure.i gadgetSpawnEffect(*a.animation,*where.location,layer.i,fliped.i)
@@ -1390,8 +1572,8 @@ CompilerIf #H2H_MODE=#H2H_MODE_SAVE
 	EndProcedure
 CompilerEndIf
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 1294
-; FirstLine = 1233
-; Folding = ------------+x+--8-
+; CursorPosition = 1180
+; FirstLine = 1056
+; Folding = ------xf3+------+-----
 ; EnableXP
 ; CPU = 1

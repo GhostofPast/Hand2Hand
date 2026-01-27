@@ -5,7 +5,7 @@ ReDim *tmpArray(2)
 *tmpArray(2)=*finger_hit
 
 *charger.class=classCreate(0,"Charger",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
-*charger\toBeAdded=1
+classSetToBeAdded(*charger,1)
 *charger\allStances(0)\name="(Default)"
 *charger\allStances(0)\specialcolor=#H2H_STANCE_COLOR_WHITE
 ReDim *charger\allStances(0)\materialClass(2)
@@ -17,13 +17,14 @@ Next
 *charger\iconPath$="image\Charger.png"
 spriteIndex+1
 *charger\stat=*charger_stat
-*charger\desc$="Thunderous warrior with multiple types of attacks. Can claw, blunt and zap simultanousely but\prefeer to stay at close range. It is a balanced caster with some area of effect abilities to catch passive opponents."
+; *charger\desc$="Thunderous warrior with multiple types of attacks. Can claw, blunt and zap simultanousely but\prefeer to stay at close range. It is a balanced caster with some area of effect abilities to catch passive opponents."
+*charger\desc$="Thunderous fighter with diverse types of attacks. Can claw, blunt and zap simultanousely at close range. May access to area of effect combos to catch passive opponents."
 
 ReDim *charger\allStances(0)\materialClass(ArraySize(*tmpArray()))
 For i=0 To ArraySize(*tmpArray())
 	*charger\allStances(0)\materialClass(i)=*tmpArray(i)
 Next
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 6
+; CursorPosition = 20
 ; EnableXP
 ; CPU = 1

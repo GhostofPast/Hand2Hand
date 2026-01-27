@@ -7,7 +7,7 @@ ReDim *tmpArray(1)
 statisticCreate(*criterium_stance_opaque\modificator,0,0,-1,0,1,0,0,0,0,0)
 
 *criterium.class=classCreate(0,"Clutch pen",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
-*criterium\toBeAdded=1
+classSetToBeAdded(*criterium,1)
 *criterium\allStances(0)\name="Transparent (default)"
 classAddStance(*criterium,*criterium_stance_opaque)
 
@@ -15,13 +15,14 @@ classAddStance(*criterium,*criterium_stance_opaque)
 *criterium\iconPath$="image\Criterium.png"
 spriteIndex+1
 *criterium\stat=*criterium_stat
-*criterium\desc$="Medium ranged Musketer with a very precise rifle, able to take down aerial ennemies.\Very balanced with good range, but precise aiming is slow.\His weapon have multiple purposes for many situations."
+; *criterium\desc$="Medium ranged Musketer with a very precise rifle, able to take down aerial ennemies.\Very balanced with good range, but precise aiming is slow.\His weapon have multiple purposes for many situations."
+*criterium\desc$="Savvy sharpshooter armed with a very precise rifle, effective at taking down aerial ennemies but is not disarmed in close combat."
 
 ReDim *criterium\allStances(0)\materialClass(ArraySize(*tmpArray()))
 For i=0 To ArraySize(*tmpArray())
 	*criterium\allStances(0)\materialClass(i)=*tmpArray(i)
 Next
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 1
+; CursorPosition = 19
 ; EnableXP
 ; CPU = 1

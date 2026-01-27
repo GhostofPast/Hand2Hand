@@ -1,101 +1,14 @@
-﻿Global nbJoystick=0
-Procedure detectJoystick()
-	nbJoystick=InitJoystick()
-	If InitJoystick()
-		For i=0 To nbJoystick-1
-			Debug "detected "+JoystickName(i)
-		Next
-	EndIf
-	ProcedureReturn nbJoystick
-EndProcedure
-detectJoystick()
-
-; I don't know why top and bottom are reversed
-#H2H_CONTROLLER_BUTTON_TOP=1				:#H2H_CONTROLLER_BUTTON_TOP_NAME="top button"
-#H2H_CONTROLLER_BUTTON_RIGHT=2				:#H2H_CONTROLLER_BUTTON_RIGHT_NAME="right button"
-#H2H_CONTROLLER_BUTTON_BOTTOM=3				:#H2H_CONTROLLER_BUTTON_BOTTOM_NAME="bottom button"
-#H2H_CONTROLLER_BUTTON_LEFT=4				:#H2H_CONTROLLER_BUTTON_LEFT_NAME="left button"
-#H2H_CONTROLLER_L1=5						:#H2H_CONTROLLER_L1_NAME="L1"
-#H2H_CONTROLLER_L2=6						:#H2H_CONTROLLER_L2_NAME="L2"
-#H2H_CONTROLLER_R1=7						:#H2H_CONTROLLER_R1_NAME="R1"
-#H2H_CONTROLLER_R2=8						:#H2H_CONTROLLER_R2_NAME="R2"
-#H2H_CONTROLLER_START=9						:#H2H_CONTROLLER_START_NAME="start"
-#H2H_CONTROLLER_SELECT=10					:#H2H_CONTROLLER_SELECT_NAME="select"
-#H2H_CONTROLLER_JOYSTICK_PRESS_LEFT=11		:#H2H_CONTROLLER_JOYSTICK_PRESS_LEFT_NAME="left joystick click"
-#H2H_CONTROLLER_JOYSTICK_PRESS_RIGHT=12		:#H2H_CONTROLLER_JOYSTICK_PRESS_RIGHT_NAME="right joystick click"
-
-; They are sorted by control priority
-; Higher the number, higher the priority
-#H2H_ACTION_NONE			=0	:#H2H_ACTION_NONE_NAME				="-none-"
-#H2H_ACTION_MOVEMENT		=1	:#H2H_ACTION_MOVEMENT_NAME			="movement"
-#H2H_ACTION_MOVEMENT_MENU	=2	:#H2H_ACTION_MOVEMENT_MENU_NAME		="movement (menu)"
-#H2H_ACTION_MOVEMENT_COMBAT	=3	:#H2H_ACTION_MOVEMENT_COMBAT_NAME	="movement (battle)"
-#H2H_ACTION_ATTACK			=4	:#H2H_ACTION_ATTACK_NAME			="attack"
-#H2H_ACTION_HEAVY			=5	:#H2H_ACTION_HEAVY_NAME				="heavy"
-#H2H_ACTION_SPECIAL			=6	:#H2H_ACTION_SPECIAL_NAME			="special"
-#H2H_ACTION_ATTACK_NEUTRAL	=7	:#H2H_ACTION_ATTACK_NEUTRAL_NAME	="neutral"
-#H2H_ACTION_ATTACK_SIDE		=8	:#H2H_ACTION_ATTACK_SIDE_NAME		="side"
-#H2H_ACTION_ATTACK_BACK		=9	:#H2H_ACTION_ATTACK_BACK_NAME		="back"
-#H2H_ACTION_ATTACK_UP		=10	:#H2H_ACTION_ATTACK_UP_NAME			="up"
-#H2H_ACTION_ATTACK_DOWN		=11	:#H2H_ACTION_ATTACK_DOWN_NAME		="down"
-#H2H_ACTION_JUMP			=12	:#H2H_ACTION_JUMP_NAME				="jump"
-#H2H_ACTION_BLOCK			=13	:#H2H_ACTION_BLOCK_NAME				="block"
-#H2H_ACTION_DASH_RIGHT		=14	:#H2H_ACTION_DASH_RIGHT_NAME		="dash right"
-#H2H_ACTION_DASH_LEFT		=15	:#H2H_ACTION_DASH_LEFT_NAME			="dash left"
-#H2H_ACTION_ACCCEPT			=16	:#H2H_ACTION_ACCCEPT_NAME			="accept"
-#H2H_ACTION_CANCEL			=17	:#H2H_ACTION_CANCEL_NAME			="cancel"
-#H2H_ACTION_EXIT			=18	:#H2H_ACTION_EXIT_NAME				="exit"
-
-#H2H_JOYSTICK_DEFAULT_ATTACK=#H2H_CONTROLLER_BUTTON_BOTTOM
-#H2H_JOYSTICK_DEFAULT_HEAVY=#H2H_CONTROLLER_BUTTON_RIGHT
-#H2H_JOYSTICK_DEFAULT_SPECIAL=#H2H_CONTROLLER_BUTTON_LEFT
-#H2H_JOYSTICK_DEFAULT_NEUTRAL=0
-#H2H_JOYSTICK_DEFAULT_ATTACK_SIDE=0
-#H2H_JOYSTICK_DEFAULT_ATTACK_BACK=0
-#H2H_JOYSTICK_DEFAULT_ATTACK_UP=0
-#H2H_JOYSTICK_DEFAULT_ATTACK_DOWN=0
-#H2H_JOYSTICK_DEFAULT_JUMP=0
-#H2H_JOYSTICK_DEFAULT_BLOCK=0
-#H2H_JOYSTICK_DEFAULT_DASH_RIGHT=0
-#H2H_JOYSTICK_DEFAULT_DASH_LEFT=0
-#H2H_JOYSTICK_DEFAULT_ACCEPT=#H2H_CONTROLLER_START
-#H2H_JOYSTICK_DEFAULT_CANCEL=0
-#H2H_JOYSTICK_DEFAULT_EXIT=#H2H_CONTROLLER_SELECT
-
-Global Dim joystickButtonName$(#H2H_CONTROLLER_JOYSTICK_PRESS_RIGHT)
-joystickButtonName$(#H2H_CONTROLLER_BUTTON_BOTTOM)=#H2H_CONTROLLER_BUTTON_BOTTOM_NAME
-joystickButtonName$(#H2H_CONTROLLER_BUTTON_LEFT)=#H2H_CONTROLLER_BUTTON_LEFT_NAME
-joystickButtonName$(#H2H_CONTROLLER_BUTTON_RIGHT)=#H2H_CONTROLLER_BUTTON_RIGHT_NAME
-joystickButtonName$(#H2H_CONTROLLER_BUTTON_TOP)=#H2H_CONTROLLER_BUTTON_TOP_NAME
-joystickButtonName$(#H2H_CONTROLLER_L1)=#H2H_CONTROLLER_L1_NAME
-joystickButtonName$(#H2H_CONTROLLER_L2)=#H2H_CONTROLLER_L2_NAME
-joystickButtonName$(#H2H_CONTROLLER_R1)=#H2H_CONTROLLER_R1_NAME
-joystickButtonName$(#H2H_CONTROLLER_R2)=#H2H_CONTROLLER_R2_NAME
-joystickButtonName$(#H2H_CONTROLLER_START)=#H2H_CONTROLLER_START_NAME
-joystickButtonName$(#H2H_CONTROLLER_SELECT)=#H2H_CONTROLLER_SELECT_NAME
-joystickButtonName$(#H2H_CONTROLLER_JOYSTICK_PRESS_LEFT)=#H2H_CONTROLLER_JOYSTICK_PRESS_LEFT_NAME
-joystickButtonName$(#H2H_CONTROLLER_JOYSTICK_PRESS_RIGHT)=#H2H_CONTROLLER_JOYSTICK_PRESS_RIGHT_NAME
-
-Global Dim joystickActionName$(#H2H_ACTION_EXIT)
-joystickActionName$(#H2H_ACTION_NONE)=#H2H_ACTION_NONE_NAME
-joystickActionName$(#H2H_ACTION_MOVEMENT)=#H2H_ACTION_MOVEMENT_NAME
-joystickActionName$(#H2H_ACTION_MOVEMENT_MENU)=#H2H_ACTION_MOVEMENT_MENU_NAME
-joystickActionName$(#H2H_ACTION_MOVEMENT_COMBAT)=#H2H_ACTION_MOVEMENT_COMBAT_NAME
-joystickActionName$(#H2H_ACTION_ATTACK)=#H2H_ACTION_ATTACK_NAME
-joystickActionName$(#H2H_ACTION_ATTACK_NEUTRAL)=#H2H_ACTION_ATTACK_NEUTRAL_NAME
-joystickActionName$(#H2H_ACTION_ATTACK_SIDE)=#H2H_ACTION_ATTACK_SIDE_NAME
-joystickActionName$(#H2H_ACTION_ATTACK_BACK)=#H2H_ACTION_ATTACK_BACK_NAME
-joystickActionName$(#H2H_ACTION_ATTACK_UP)=#H2H_ACTION_ATTACK_UP_NAME
-joystickActionName$(#H2H_ACTION_ATTACK_DOWN)=#H2H_ACTION_ATTACK_DOWN_NAME
-joystickActionName$(#H2H_ACTION_HEAVY)=#H2H_ACTION_HEAVY_NAME
-joystickActionName$(#H2H_ACTION_SPECIAL)=#H2H_ACTION_SPECIAL_NAME
-joystickActionName$(#H2H_ACTION_JUMP)=#H2H_ACTION_JUMP_NAME
-joystickActionName$(#H2H_ACTION_BLOCK)=#H2H_ACTION_BLOCK_NAME
-joystickActionName$(#H2H_ACTION_DASH_RIGHT)=#H2H_ACTION_DASH_RIGHT_NAME
-joystickActionName$(#H2H_ACTION_DASH_LEFT)=#H2H_ACTION_DASH_LEFT_NAME
-joystickActionName$(#H2H_ACTION_ACCCEPT)=#H2H_ACTION_ACCCEPT_NAME
-joystickActionName$(#H2H_ACTION_CANCEL)=#H2H_ACTION_CANCEL_NAME
-joystickActionName$(#H2H_ACTION_EXIT)=#H2H_ACTION_EXIT_NAME
+﻿Global nbJoystick=-1
+; Procedure detectJoystick()
+; 	nbJoystick=InitJoystick()
+; 	If InitJoystick()
+; 		For i=0 To nbJoystick-1
+; 			Debug "detected "+JoystickName(i)
+; 		Next
+; 	EndIf
+; 	ProcedureReturn nbJoystick
+; EndProcedure
+; detectJoystick()
 
 #H2H_CONTROLLER_DISPLAY_BUTTONS_X=250
 #H2H_CONTROLLER_DISPLAY_BUTTONS_Y=250
@@ -124,6 +37,7 @@ Procedure joystickDisplaySub(current.i,what.i,txt.s,x.i,y.i,scale.f,Array enable
 		AfftextColor(txt,x,y,RGB(1,1,1),128-Bool(enabled(what))*64,scale)
 	EndIf
 EndProcedure
+
 ; Display the controller of the player as an ascii art
 ; Highlights the current button and what it does
 Procedure joystickDisplay(joystickId.i,x.i,y.i,currentButton.i,Array enabled.b(1))
@@ -150,24 +64,24 @@ Procedure joystickDisplay(joystickId.i,x.i,y.i,currentButton.i,Array enabled.b(1
 EndProcedure
 
 Macro JoystickButtonEx(id,what)
-	Bool(what>0 And JoystickButton(id,what))
+	Bool(what>=0 And JoyPushed(id,what))
 EndMacro
 
 Procedure JoystickAxisXEx(id,what)
 	If id>=0
-		ProcedureReturn JoystickAxisX(id,what)
+		ProcedureReturn JoyX(id,what)*CONTROLLER_SENSITIVITY
 	EndIf
 	ProcedureReturn 0
 EndProcedure
 Procedure JoystickAxisYEx(id,what)
 	If id>=0
-		ProcedureReturn JoystickAxisY(id,what)
+		ProcedureReturn JoyY(id,what)*CONTROLLER_SENSITIVITY
 	EndIf
 	ProcedureReturn 0
 EndProcedure
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 60
-; FirstLine = 116
-; Folding = --
+; CursorPosition = 55
+; FirstLine = 29
+; Folding = -
 ; EnableXP
 ; CPU = 1

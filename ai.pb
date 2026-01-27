@@ -1,20 +1,14 @@
 ﻿;--- bot struct
-Enumeration 0
-	#H2H_ATTACK_TYPE_NOTHING
-	#H2H_ATTACK_TYPE_NEUTRAL
-	#H2H_ATTACK_TYPE_SIDE
-	#H2H_ATTACK_TYPE_BACK
-	#H2H_ATTACK_TYPE_UP
-	#H2H_ATTACK_TYPE_DOWN
-	#H2H_ATTACK_TYPE_HEAVY
-EndEnumeration
 ;-- AI constants
 #H2H_AI_DECISION_RANDOM=30
 
-#H2H_AI_MODE_DISABLED=0
-#H2H_AI_MODE_IDLE=1
-#H2H_AI_MODE_OFFENSE=2
-#H2H_AI_MODE_DODGE=3
+Enumeration 0
+	#H2H_AI_MODE_DISABLED
+	#H2H_AI_MODE_IDLE
+	#H2H_AI_MODE_OFFENSE
+	#H2H_AI_MODE_DODGE
+	#H2H_AI_MODE_PARRY
+EndEnumeration
 
 #H2H_AI_HEAVY_CHANCE=3
 #H2H_AI_DEFENSE_THRESHOLD=125
@@ -23,21 +17,16 @@ EndEnumeration
 Structure bot
 	*who.player
 	sub.f
-	attackBuffer.d
+	attackBuffer.d ; 
 	mode.i
-	;0 nothing
-	;1 neutral
-	;2 side
-	;3 back
-	;4 up
-	;5 down
-	;6 heavy
 	*attackTarget.animation ; if it is the same as the current animation, switch to next step !
-	comboNervousness.i
+	;comboNervousness.i
+	nervousness.d ; when an attack check fails, add delta ; else put it to 0
 	difficulty.i
+	parrying.d
 EndStructure
 
-Procedure.i createAI(*fromWho.player, newDifficulty.i=#H2H_AI_LEVEL_MEDIUM)
+Procedure.i AICreate(*fromWho.player, newDifficulty.i=#H2H_AI_LEVEL_MEDIUM)
 	*newBot.bot=AllocateStructure(bot)
 	*newBot\sub=0
 	ClearStructure(*newBot,bot)
@@ -45,265 +34,267 @@ Procedure.i createAI(*fromWho.player, newDifficulty.i=#H2H_AI_LEVEL_MEDIUM)
 	*newBot\difficulty=newDifficulty
 	*fromWho\isAI=newDifficulty
 	;*fromWho\maxLife=#H2H_PLAYER_HP_BASE+getLife(*fromWho)*10
-	resetLife(*fromWho)
+	playerResetLife(*fromWho)
 	ProcedureReturn *newBot
 EndProcedure
 
-Procedure AIrandomize(*ai.bot)
-	playerSetClassRandom(*ai\who)
-EndProcedure
+Macro AIRandomize(ai)
+	playerSetClassRandom(ai\who)
+EndMacro
 
-Procedure destroyAI(*what.bot)
-	*what\who\isAI=0
-	FreeStructure(*what)
-EndProcedure
+Macro AIDestroy(what)
+	what\who\isAI=0:FreeStructure(what)
+EndMacro
 
-Procedure enableAI(*what.bot)
+Procedure AIEnable(*what.bot)
 	*what\mode=#H2H_AI_MODE_IDLE
 	*what\who\isAI=*what\difficulty
-	resetLife(*what\who)
+	playerResetLife(*what\who)
+	playerClearKey(*what\who)
 EndProcedure
 
-Procedure disableAI(*what.bot)
+Procedure AIDisable(*what.bot)
 	*what\mode=#H2H_AI_MODE_DISABLED
 	*what\who\isAI=0
-	resetLife(*what\who)
+	playerResetLife(*what\who)
+	playerClearKey(*what\who)
 EndProcedure
 
-Procedure setAIDifficulty(*what.bot,newDifficulty.i)
-	*what\difficulty=newDifficulty
-	*what\who\isAI=newDifficulty
+Macro AISetDifficulty(what,newDifficulty)
+	what\difficulty=newDifficulty:what\who\isAI=newDifficulty
+EndMacro
+
+Procedure AISelectRandomCombo(*ai.bot)
+	*previous.animation=*ai\attackTarget
+; 	Debug "selecting random combo from "+*ai\who\currentAnimation\name
+	*ai\attackTarget=animationSelectRandomCombo(*ai\who\currentAnimation)
+	If *previous=*ai\attackTarget
+		*ai\attackTarget=0
+  		Debug "stayed the same"
+	EndIf
 EndProcedure
 
-Procedure animationToAttack(*a.animation)
-	If Not *a
+Procedure.i AIinflateRange(*ai.bot,range.i)
+	If Not *ai
 		ProcedureReturn 0
 	EndIf
-	Select *a\animationType
-		Case #H2H_ANIMATIONTYPE_NEUTRAL
-			ProcedureReturn #H2H_ATTACK_TYPE_NEUTRAL
-		Case #H2H_ANIMATIONTYPE_NSIDE
-			ProcedureReturn #H2H_ATTACK_TYPE_SIDE
-		Case #H2H_ANIMATIONTYPE_NBACK
-			ProcedureReturn #H2H_ATTACK_TYPE_BACK
-		Case #H2H_ANIMATIONTYPE_NUP
-			ProcedureReturn #H2H_ATTACK_TYPE_UP
-		Case #H2H_ANIMATIONTYPE_NDOWN
-			ProcedureReturn #H2H_ATTACK_TYPE_DOWN
-		Case #H2H_ANIMATIONTYPE_HEAVY
-			ProcedureReturn #H2H_ATTACK_TYPE_HEAVY
-	EndSelect
-	ProcedureReturn #H2H_ATTACK_TYPE_NEUTRAL
-EndProcedure
-
-Procedure AISelectRandomCombo(*ia.bot)
-	*previous.animation=*ia\attackTarget
-	Debug "selecting random combo from "+*ia\who\currentAnimation\name
-	*ia\attackTarget=animationSelectRandomCombo(*ia\who\currentAnimation)
-	If *previous=*ia\attackTarget
-		*ia\attackTarget=0
- 		Debug "stayed the same"
-	EndIf
-EndProcedure
-
-Procedure.i AI_inflateRange(*ia.bot,range.i)
-	If Not *ia
-		ProcedureReturn 0
-	EndIf
-	r.d=range*(1.0+(getReach(*ia\who)-2)/10)
+; 	r.d=range*(1.0+(playerGetReach(*ai\who)-2)/10.0)
+	r.d=range*(1.0+(playerGetReach(*ai\who)-2)*0.1)
 	ProcedureReturn Int(r)
-	ProcedureReturn range*100/(100-((getReach(*ia\who)-2)*10))
+; 	ProcedureReturn range*100/(100-((playerGetReach(*ai\who)-2)*10))
 EndProcedure
 
-Procedure AI_targetIsUp(*ia.bot,*target.player)
-	ProcedureReturn Bool(*target\position\y<(*ia\who\position\y-#H2H_AI_NUP_HEIGHT_THRESHOLD))
-EndProcedure
+Macro AITargetIsUp(ai,target)
+	Bool(target\position\y<(ai\who\position\y-#H2H_AI_NUP_HEIGHT_THRESHOLD))
+EndMacro
 
-Procedure AI_targetIsClose(*ia.bot,*target.player)
-	ProcedureReturn Bool(playerDistance(*ia\who,*target)<AI_inflateRange(*ia,#H2H_AI_DEFENSE_THRESHOLD))
-EndProcedure
-Declare AI_randomAttack(*ia.bot,*target.player)
+Macro AITargetIsClose(ai,target)
+	Bool(playerDistance(ai\who,target)<AIInflateRange(ai,#H2H_AI_DEFENSE_THRESHOLD))
+EndMacro
 
-Procedure attackToAnimation(*a.animation,attackType.i)
-	If attackType=0 Or Not *a
-		Debug "null attack type..."
-		ProcedureReturn 0
-	EndIf
-	ProcedureReturn *a\animations[attackType-1]
-EndProcedure
+Declare AIRandomAttack(*ai.bot,*target.player)
 
-Procedure AISelectAttackRandom(*ia.bot)
-	If Not *ia\attackTarget
-		*ia\attackTarget=classSelectRandomAttack(*ia\who\class)
+Procedure AISelectAttackRandom(*ai.bot)
+	If Not *ai\attackTarget
+		*ai\attackTarget=classSelectRandomAttack(*ai\who\class)
 	Else
-		*ia\attackTarget=animationSelectRandomCombo(*ia\attackTarget)
-	EndIf
-	If *ia\attackTarget
-		Debug "selected "+*ia\attackTarget\name
-	Else
-		Debug "not found selected"
+		*ai\attackTarget=animationSelectRandomCombo(*ai\attackTarget)
 	EndIf
 EndProcedure
 
-Procedure AISelectAttack(*ia.bot,attackType.i)
-	If attackType=0
-		*ia\attackTarget=0
-	EndIf
-	If Not *ia\attackTarget
-		*ia\attackTarget=*ia\who\class\animations[attackType+2]
-	Else
-		*ia\attackTarget=*ia\attackTarget\animations[attackType-1]
-	EndIf
-	If *ia\attackTarget
-		Debug "selected "+*ia\attackTarget\name
-	Else
-		Debug "not found selected"
-	EndIf
-EndProcedure
-
-Procedure AISelectCombo(*ia.bot,*target.player)
-	Debug "selecting combo from "+*ia\who\currentAnimation\name
-	*who.player=*ia\who
-	*previous.animation=*ia\attackTarget
-	If AI_targetIsUp(*ia,*target)
-		Debug "target is up"
-		If animationHas(*who\currentAnimation,#H2H_ANIMATIONTYPE_NUP)
-			AISelectAttack(*ia,#H2H_ATTACK_TYPE_UP)
+Procedure AISelectAttack(*ai.bot,attackType.i)
+	*p.player=*ai\who
+	If *p\currentAnimation\animationType=#H2H_ANIMATIONTYPE_IDLE Or (*p\class\animations[*p\currentAnimation\animationType] And *p\currentAnimation\animationType=*p\class\animations[*p\currentAnimation\animationType]\animationType And Not animationIsAttack(*p\currentAnimation))
+		*ai\attackTarget=classGetSomething(*p\class,attackType)
+		CompilerIf #H2H_MODE=#H2H_MODE_SAVE
+		If *ai\attackTarget
+			Debug "selected base "+*ai\attackTarget\name
 		Else
-			If animationHas(*who\currentAnimation,#H2H_ANIMATIONTYPE_NSIDE) And Random(1)
-				AISelectAttack(*ia,#H2H_ATTACK_TYPE_SIDE)
-			EndIf
+			Debug "not selected !"
 		EndIf
+		CompilerEndIf
 	Else
-		Debug "target is at level"
-		If AI_targetIsClose(*ia,*target)
-			Debug "target is close"
-			If animationHas(*who\currentAnimation,#H2H_ANIMATIONTYPE_NBACK)
-				AISelectAttack(*ia,#H2H_ATTACK_TYPE_BACK)
+		*ai\attackTarget=*p\currentAnimation\animations[attackType-#H2H_ANIMATIONTYPE_NEUTRAL]
+		CompilerIf #H2H_MODE=#H2H_MODE_SAVE
+		If *ai\attackTarget
+			Debug "selected next "+*ai\attackTarget\name
+		Else
+			Debug "not selected !"
+		EndIf
+		CompilerEndIf
+	EndIf
+EndProcedure
+
+Procedure AISelectCombo(*ai.bot,*target.player)
+	; 	Debug "selecting combo from "+*ia\who\currentAnimation\name
+; 	If Not *ai\attackTarget Or *ai\attackTarget=*ai\who\currentAnimation
+		*who.player=*ai\who
+		*previous.animation=*ai\attackTarget
+; 		*ai\attackTarget=0
+		If AITargetIsUp(*ai,*target)
+	 		Debug "target is up"
+			If animationGetUp(*who\currentAnimation)
+				AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NUP)
 			Else
-				If animationHas(*who\currentAnimation,#H2H_ANIMATIONTYPE_NDOWN) And Random(1)
-					AISelectAttack(*ia,#H2H_ATTACK_TYPE_SIDE)
-				Else
-					If animationHas(*who\currentAnimation,#H2H_ANIMATIONTYPE_NEUTRAL) And Random(1)
-						AISelectAttack(*ia,#H2H_ATTACK_TYPE_NEUTRAL)
-					Else
-						Debug "found nothing eheh"
-					EndIf
+				If animationGetSide(*who\currentAnimation) And Random(1)
+					AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NSIDE)
 				EndIf
 			EndIf
 		Else
-			Debug "target is good"
+	 		Debug "target is at level"
+			If AITargetIsClose(*ai,*target)
+	 			Debug "target is close"
+				If animationGetBack(*who\currentAnimation)
+					AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NBACK)
+				Else
+					If animationGetDown(*who\currentAnimation) And Random(1)
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NDOWN)
+					Else
+						If animationGetNeutral(*who\currentAnimation) And Random(1)
+							AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NEUTRAL)
+	 					Else
+							Debug "found nothing eheh"
+						EndIf
+					EndIf
+				EndIf
+	 		Else
+	 			Debug "target is good"
+			EndIf
 		EndIf
-	EndIf
-	If *ia\attackTarget=0 Or *previous=*ia\attackTarget
-		Debug "no combo found"
-		AISelectRandomCombo(*ia)
-	EndIf
+		If Not *ai\attackTarget Or *previous=*ai\attackTarget
+	 		Debug "no combo found"
+			AISelectRandomCombo(*ai)
+		EndIf
+; 	Else
+; 		Debug "already picked !====="
+; 	EndIf
 EndProcedure
 
-Procedure AI_attackOrder(*ia.bot)
-	*c.control=*ia\who\pushed
-	If *ia\attackTarget
-		controlClear(*ia\who\pushed)
-		Select animationToAttack(*ia\attackTarget)
-			Case #H2H_ATTACK_TYPE_NEUTRAL
-				*c\neutral=1
-			Case #H2H_ATTACK_TYPE_SIDE
-				*c\attackSide=1
-			Case #H2H_ATTACK_TYPE_BACK
-				*c\attackBack=1
-			Case #H2H_ATTACK_TYPE_UP
-				*c\attackUp=1
-			Case #H2H_ATTACK_TYPE_DOWN
-				*c\attackUp=1
-			Case #H2H_ATTACK_TYPE_HEAVY
-				*c\heavy=1
+Procedure AIAttackOrder(*ai.bot)
+	If *ai\attackTarget
+		*c.control=*ai\who\pushed
+		playerClearKey(*ai\who)
+		Select *ai\attackTarget\animationType
+			Case #H2H_ANIMATIONTYPE_NEUTRAL
+				controlGet(*c,#H2H_CONTROL_NEUTRAL)=1
+			Case #H2H_ANIMATIONTYPE_NSIDE
+				controlGet(*c,#H2H_CONTROL_ATTACK_SIDE)=1
+			Case #H2H_ANIMATIONTYPE_NBACK
+				controlGet(*c,#H2H_CONTROL_ATTACK_BACK)=1
+			Case #H2H_ANIMATIONTYPE_NUP
+				controlGet(*c,#H2H_CONTROL_ATTACK_UP)=1
+			Case #H2H_ANIMATIONTYPE_NDOWN
+				controlGet(*c,#H2H_CONTROL_ATTACK_DOWN)=1
+			Case #H2H_ANIMATIONTYPE_HEAVY
+				controlGet(*c,#H2H_CONTROL_HEAVY)=1
 		EndSelect
 	EndIf
 EndProcedure
 
-Procedure AIReachedTarget(*ia.bot)
-	ProcedureReturn Bool(*ia\attackTarget And animationEquals(*ia\who\currentAnimation,*ia\attackTarget))
-EndProcedure
+Macro AIReachedTarget(ai)
+	Bool(ai\attackTarget And animationEquals(ai\who\currentAnimation,ai\attackTarget))
+EndMacro
 
-Procedure AICanReach(*ia.bot)
-	For i=0 To 5
-		If animationEquals(*ia\who\currentAnimation\animations[i],*ia\attackTarget)
-			ProcedureReturn 1
-		EndIf
-	Next
-	ProcedureReturn animationEquals(*ia\who\currentAnimation,*ia\attackTarget)
-EndProcedure
+Macro AICanReach(ai)
+; 	For i=0 To 5
+; 		If animationEquals(*ai\who\currentAnimation\animations[i],*ai\attackTarget)
+; 			ProcedureReturn 1
+; 		EndIf
+; 	Next
+	Bool(animationEquals(ai\who\currentAnimation,ai\attackTarget) Or animationEquals(animationGetNeutral(ai\who\currentAnimation),ai\attackTarget) Or animationEquals(animationGetSide(ai\who\currentAnimation),ai\attackTarget) Or animationEquals(animationGetBack(ai\who\currentAnimation),ai\attackTarget) Or animationEquals(animationGetUp(ai\who\currentAnimation),ai\attackTarget) Or animationEquals(animationGetDown(ai\who\currentAnimation),ai\attackTarget) Or animationEquals(animationGetHeavy(ai\who\currentAnimation),ai\attackTarget))
+EndMacro
 
-Procedure AI_comboFollow(*ia.bot,*target.player)
-	*previous.animation=*ia\attackTarget
-	If *ia\difficulty=#H2H_AI_LEVEL_MEDIUM And Random(1)
-		AISelectRandomCombo(*ia)
+Procedure AIComboFollow(*ai.bot,*target.player)
+; 	*previous.animation=*ai\attackTarget
+	If *ai\difficulty=#H2H_AI_LEVEL_MEDIUM And Random(1)
+		AISelectRandomCombo(*ai)
 	EndIf
-	If *ia\difficulty=#H2H_AI_LEVEL_HARD
-		AISelectCombo(*ia,*target)
+	If *ai\difficulty>=#H2H_AI_LEVEL_HARD
+		AISelectCombo(*ai,*target)
 	EndIf
 EndProcedure
 
-Procedure AI_randomAttack(*ia.bot,*target.player)
-	If Not *ia Or Not *target
+Procedure AIRandomAttack(*ai.bot,*target.player)
+	If Not *ai Or Not *target
+		Debug "no ai or no target"
 		ProcedureReturn
 	EndIf
-	If *ia\mode<>#H2H_AI_MODE_OFFENSE
+	If *ai\mode<>#H2H_AI_MODE_OFFENSE
+		Debug "not offense"
 		ProcedureReturn
 	EndIf
-	*who.player=*ia\who
+	*who.player=*ai\who
 	If Not *who\attacking
-		*ia\attackTarget=0
+		*ai\attackTarget=0
 	EndIf
-	If *ia\attackTarget And Not AICanReach(*ia)
-		*ia\attackTarget=0
-	EndIf
-	If Not *ia\attackTarget
-		If Random(#H2H_AI_DECISION_RANDOM)/*ia\difficulty=0
-			If *ia\difficulty=#H2H_AI_LEVEL_HARD
-				If isPlayerAnimationType(*target,#H2H_ANIMATIONTYPE_IDLE)
+; 	If *ai\attackTarget And Not AICanReach(*ai)
+; 		Debug "can't reach"
+; 		*ai\attackTarget=0
+; 	EndIf
+	If Not *ai\attackTarget
+		r=#H2H_AI_DECISION_RANDOM-*ai\nervousness
+		If r<0
+			r=0
+		EndIf
+		If Not r Or Random(r)/*ai\difficulty=0
+			*ai\nervousness=0
+			If *ai\difficulty>=#H2H_AI_LEVEL_HARD
+				If isPlayerAnimationType(*target,#H2H_ANIMATIONTYPE_IDLE) Or *target\parry>0
 					If Not Random(#H2H_AI_HEAVY_CHANCE)
-						AISelectAttack(*ia,#H2H_ATTACK_TYPE_HEAVY)
-						Debug "hard selected heavy"
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_HEAVY)
+; 						Debug "hard selected heavy"
 					EndIf
 				EndIf
 			EndIf
-			If *ia\difficulty>=#H2H_AI_LEVEL_MEDIUM
+			If *ai\difficulty>=#H2H_AI_LEVEL_MEDIUM
 				; if the foe is higher, will spam up attack
-				If AI_targetIsUp(*ia,*target)
-					AISelectAttack(*ia,#H2H_ATTACK_TYPE_UP)
-					Debug "medium selected air"
+				If AITargetIsUp(*ai,*target)
+					AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NUP)
+; 					Debug "medium selected air"
 				EndIf
 				; here the players is around the same ground level
 				; if the foe is too close, will spam down and back
-				If Abs(*target\position\x-*who\position\x)<AI_inflateRange(*ia,#H2H_AI_DEFENSE_THRESHOLD)
-					If Random(1)
-						AISelectAttack(*ia,#H2H_ATTACK_TYPE_DOWN)
-						Debug "medium selected down"
+				If Abs(*target\position\x-*who\position\x)<AIInflateRange(*ai,#H2H_AI_DEFENSE_THRESHOLD)
+					r=Random(4)
+					If r<=1
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NDOWN)
+; 						Debug "medium selected down"
+					ElseIf r<=3
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NBACK)
+						; 						Debug "medium selected back"
 					Else
-						AISelectAttack(*ia,#H2H_ATTACK_TYPE_BACK)
-						Debug "medium selected back"
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_HEAVY)
+					EndIf
+				Else
+					r=Random(4)
+					If r<=1
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NEUTRAL)
+					ElseIf r<=3
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NSIDE)
+					Else
+						AISelectAttack(*ai,#H2H_ANIMATIONTYPE_HEAVY)
 					EndIf
 				EndIf
 			EndIf
 			; Else, will spam a random attack
-			If Not *ia\attackTarget
-				*a.animation=playerSelectRandomAttack(*ia\who)
+			If Not *ai\attackTarget
+				*a.animation=playerSelectRandomAttack(*ai\who)
 				If *a
-					AISelectAttack(*ia,animationToAttack(*a))
+					AISelectAttack(*ai,*a\animationType)
 				EndIf
 			EndIf
 		Else
 			; Check failed, stays idle
-			*ia\attackTarget=0
+			*ai\attackTarget=0
+			*ai\nervousness+deltaGlobal/2
+; 			Debug *ia\who\name+" "+*ia\nervousness
 		EndIf
 	Else
-		If AIReachedTarget(*ia)
-			Debug "reached "+*ia\attackTarget\name
-			AI_comboFollow(*ia,*target)
-			If *ia\attackTarget
-				Debug "changed to "+*ia\attackTarget\name
+		If AIReachedTarget(*ai)
+ 			Debug "reached "+*ai\attackTarget\name
+			AIComboFollow(*ai,*target)
+			If *ai\attackTarget
+				Debug "changed to "+*ai\attackTarget\name
 			Else
 				Debug "reinit"
 			EndIf
@@ -311,55 +302,47 @@ Procedure AI_randomAttack(*ia.bot,*target.player)
 	EndIf
 EndProcedure
 
-Procedure AI_move(*ia.bot,x.i)
-	*who.player=*ia\who
+Procedure AIMove(*ai.bot,x.i)
+	*who.player=*ai\who
 	If *who\recovery
 		ProcedureReturn
 	EndIf
-	If *who\position\x<x
-		*who\pushed\right=1
-	Else
-		*who\pushed\right=0
-	EndIf
-	If *who\position\x>x
-		*who\pushed\left=1
-	Else
-		*who\pushed\left=0
-	EndIf
-	If Abs(*who\position\x-x)<AI_inflateRange(*ia,100)
-		*who\pushed\right=0
-		*who\pushed\left=0
+	controlGet(*who\pushed,#H2H_CONTROL_RIGHT)=Bool(*who\position\x<x)
+	controlGet(*who\pushed,#H2H_CONTROL_LEFT)=Bool(*who\position\x>x)
+	If Abs(*who\position\x-x)<AIInflateRange(*ai,100)
+		controlGet(*who\pushed,#H2H_CONTROL_RIGHT)=0
+		controlGet(*who\pushed,#H2H_CONTROL_LEFT)=0
 	EndIf
 EndProcedure
 
-Procedure AI_movePrecise(*ia.bot,x.i)
-	*who.player=*ia\who
-	If *who\recovery
-		ProcedureReturn
-	EndIf
-	If *who\position\x<x
-		*who\pushed\right=1
-	Else
-		*who\pushed\right=0
-	EndIf
-	If *who\position\x>x
-		*who\pushed\left=1
-	Else
-		*who\pushed\left=0
-	EndIf
-	If Abs(*who\position\x-x)<5
-		*who\pushed\right=0
-		*who\pushed\left=0
-		*who\isAI=-1
-	EndIf
-EndProcedure
+; Procedure AI_movePrecise(*ai.bot,x.i)
+; 	*who.player=*ai\who
+; 	If *who\recovery
+; 		ProcedureReturn
+; 	EndIf
+; 	If *who\position\x<x
+; 		*who\pushed\right=1
+; 	Else
+; 		*who\pushed\right=0
+; 	EndIf
+; 	If *who\position\x>x
+; 		*who\pushed\left=1
+; 	Else
+; 		*who\pushed\left=0
+; 	EndIf
+; 	If Abs(*who\position\x-x)<5
+; 		*who\pushed\right=0
+; 		*who\pushed\left=0
+; 		*who\isAI=-1
+; 	EndIf
+; EndProcedure
 
-Procedure AI_pickStun(*ia.bot)
-	If *ia\who\attacking
-		ProcedureReturn animationPickStun(*ia\who\currentAnimation)
+Procedure AIPickStun(*ai.bot)
+	If *ai\who\attacking
+		ProcedureReturn animationPickStun(*ai\who\currentAnimation)
 	Else
 		Protected Dim *picked.animation(0)
-		Protected *c.class=*ia\who\class
+		Protected *c.class=*ai\who\class
 		For i=0 To 5 ; 6 types of attacks
 			If animationStun(*c\animations[i])
 				If Not *picked(0)
@@ -376,27 +359,30 @@ Procedure AI_pickStun(*ia.bot)
 	EndIf
 EndProcedure
 
-Procedure AI_pickMovement(*ia.bot,*target.player,away.i)
+Procedure AIPickMovement(*ai.bot,*target.player,away.i)
 	Protected distance=200 ; TODO const
-	Protected *picked.animation=0
+	Protected *picked.animation=#Null
 	If away
 		distance=-distance
 	EndIf
 	For i=0 To 5 ; 6 types of attacks
-		If *ia\who\direction
+		If *ai\who\direction
 			away=Bool(Not away)
 			distance=-distance
 		EndIf
-		Protected range=animationRange(*ia\who\class\animations[i])
-		If away
-			If range<distance
-				distance=range
-				*picked=*ia\who\class\animations[i]
-			EndIf
-		Else
-			If range>distance
-				distance=range
-				*picked=*ia\who\class\animations[i]
+		Protected *a.animation=*ai\who\class\animations[i]
+		If *a
+			Protected range=animationRange(*a)
+			If away
+				If range<distance
+					distance=range
+					*picked=*a
+				EndIf
+			Else
+				If range>distance
+					distance=range
+					*picked=*a
+				EndIf
 			EndIf
 		EndIf
 	Next
@@ -404,28 +390,36 @@ Procedure AI_pickMovement(*ia.bot,*target.player,away.i)
 EndProcedure
 
 ; Smarter decisions
-Procedure AI_decisionHard(*ia.bot,*target.player)
-	If *target\attacking And Not *ia\attackTarget
-		; punish an attacking player
-		Protected *p.animation=animationPickStun(*ia\who\currentAnimation)
-		If *p
-			Debug "IA punishes with stun"
-			AISelectAttack(*ia,animationToAttack(*p))
+Procedure AIDecisionHard(*ai.bot,*target.player)
+	If *target\attacking
+		If *target\attacking And *ai\mode<>#H2H_AI_MODE_PARRY And *ai\who\guard>PLAYER_GUARD_BASE/2 And *target\currentAnimation\animationType<>#H2H_ANIMATIONTYPE_HEAVY And Not animationStun(*target\currentAnimation) And *ai\parrying<=0 And Not Random(2)
+			*ai\parrying=20
+			Debug "parrying"
 		Else
-			; flee an attack
-			If getPlayerAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY
-				*a.animation=AI_pickMovement(*ia,*target,away)
-				If *a
-					Debug "IA flies away"
-					AISelectAttack(*ia,animationToAttack(*a))
+			If Not *ai\attackTarget
+				; punish an attacking player
+				Protected *p.animation=animationPickStun(*ai\who\currentAnimation)
+				If *p
+		; 			Debug "IA punishes with stun"
+					AISelectAttack(*ai,*p\animationType)
 				Else
-					; jump if agile enough
-					If getSpeed(*ia\who)>2 And getStrength(*ia\who)-GetWeight(*ia\who)>1
-						Debug "IA jumps"
-						*ia\attackTarget=0
-						*ia\who\pushed\jump=1
-					Else
-						; do nothing ?
+					; flee an attack
+					If playerGetAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY
+						*a.animation=AIPickMovement(*ai,*target,#True)
+						If *a
+		; 					Debug "IA flies away"
+							AISelectAttack(*ai,*a\animationType)
+						Else
+							; evade
+		; 					If getSpeed(*ia\who)>2 And getStrength(*ia\who)-GetWeight(*ia\who)>1
+		; 						Debug "IA evades"
+								controlClear(*ai\who\pushed,#False,0)
+								*ai\attackTarget=0
+								controlGet(*ai\who\pushed,#H2H_CONTROL_DODGE)=1
+		; 					Else
+								; do nothing ?
+		; 					EndIf
+						EndIf
 					EndIf
 				EndIf
 			EndIf
@@ -435,133 +429,23 @@ Procedure AI_decisionHard(*ia.bot,*target.player)
 	EndIf
 EndProcedure
 
-Procedure AI_decisionChopstick(*ia.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
-	; anti down spam
-	If animationEquals(*ia\attackTarget,playerGetDown(*ia\who))
-		Debug "chopstick stop down"
-		*ia\attackTarget=0
-	EndIf
-	; down attack dodge trick
-	If *target\attacking
-		If *target\currentAnimation\animationType<>#H2H_ANIMATIONTYPE_NUP
-			If Not Random(3) And Not *ia\attackTarget
-				Debug "Chopstick ndown"
-				AISelectAttack(*ia,#H2H_ATTACK_TYPE_DOWN)
-			EndIf
-		EndIf
-	EndIf
-	If Not *ia\attackTarget And getPlayerAnimationType(*target)<>#H2H_ANIMATIONTYPE_NEUTRAL And playerDistance(*ia\who,*target)<100
-		; neutral barrage
-		; not effective against gluestick heavy attacks
-		If Not (*target\class=*allClasses(4) And getPlayerAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY)
-			If Random(2)
-				Debug "Chopstick neutral"
-				AISelectAttack(*ia,#H2H_ATTACK_TYPE_NEUTRAL)
-			EndIf
-		EndIf
-	EndIf
-	If Not *ia\attackTarget And	getPlayerAnimationType(*target)<>#H2H_ANIMATIONTYPE_NBACK And playerDistance(*ia\who,*target)<200
-		If (*ia\who\direction And *ia\who\position\x>gameBorderLeft+200) Or (Not *ia\who\direction And *ia\who\position\x<gameBorderRight-200)
-			; back flee
-			If animationHas(*ia\who\currentAnimation,#H2H_ATTACK_TYPE_BACK) And Random(1)
-				Debug "Chopstick back"
-				AISelectAttack(*ia,#H2H_ATTACK_TYPE_BACK)
-			EndIf
-		EndIf
-	EndIf
-EndProcedure
-
-Procedure AI_decisionBallpen(*ia.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
-	If Not animationEquals(*ia\attackTarget,*ia\who\currentAnimation) And Not Random(5)
-		If AI_targetIsClose(*ia,*target)
-			If Random(1)
-				If animationHas(*ia\who\currentAnimation,#H2H_ANIMATIONTYPE_NBACK)
-					*ia\attackTarget=animationGetBack(*ia\who\currentAnimation)
-				Else
-					If animationHas(*ia\who\currentAnimation,#H2H_ANIMATIONTYPE_NDOWN)
-						*ia\attackTarget=animationGetDown(*ia\who\currentAnimation)
-					EndIf
-				EndIf
-			Else
-				If animationHas(*ia\who\currentAnimation,#H2H_ANIMATIONTYPE_NDOWN)
-					*ia\attackTarget=animationGetDown(*ia\who\currentAnimation)
-				Else
-					If animationHas(*ia\who\currentAnimation,#H2H_ANIMATIONTYPE_NBACK)
-						*ia\attackTarget=animationGetBack(*ia\who\currentAnimation)
-					EndIf
-				EndIf
-			EndIf
-		Else
-			If Random(2)
-				If animationHas(*ia\who\currentAnimation,#H2H_ANIMATIONTYPE_NSIDE)
-					*ia\attackTarget=animationGetSide(*ia\who\currentAnimation)
-				Else
-					*ia\attackTarget=animationGetNeutral(*ia\who\currentAnimation)
-				EndIf
-			Else
-				If animationHas(*ia\who\currentAnimation,#H2H_ANIMATIONTYPE_NEUTRAL)
-					*ia\attackTarget=animationGetNeutral(*ia\who\currentAnimation)
-				Else
-					*ia\attackTarget=animationGetSide(*ia\who\currentAnimation)
-				EndIf
-			EndIf
-		EndIf
-	EndIf
-	If Not *ia\attackTarget
-		If *ia\who\currentStance=*ia\who\class\allStances(1)
-			Debug "blue"
-			If AI_targetIsClose(*ia,*target) And Random(1) And getPlayerAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY
-				; the blue will dodge
-				If *target\lockedDirection
-					If *ia\who\position\x>gameBorderLeft+400
-						AI_move(*ia,*target\position\x-400)
-					Else ; jumps over it
-						AI_move(*ia,*target\position\x+400)
-						*ia\who\pushed\jump=1
-					EndIf
-				Else
-					If *ia\who\position\x<gameBorderRight-400
-						AI_move(*ia,*target\position\x+400)
-					Else ; jumps over it
-						AI_move(*ia,*target\position\x-400)
-						*ia\who\pushed\jump=1
-					EndIf
-				EndIf
-			EndIf
-		EndIf
-		If *ia\who\currentStance=*ia\who\class\allStances(2)
-			If Not AI_targetIsClose(*ia,*target) And Random(1) And getPlayerAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY
-			; the red will punish a heavy attack with a heavy attack
-				AISelectAttack(*ia,#H2H_ATTACK_TYPE_HEAVY)
-			EndIf
-		EndIf
-	EndIf
-EndProcedure
-
-Procedure AI_decisionUnarmed(*ia.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
-	; nothing special
-EndProcedure
-
-Procedure AI_decisionGluestick(*ia.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
-	; nothing special
-EndProcedure
 
 #H2H_AI_BORDER_THRESHOLD=100
-Procedure.i AI_isCloseToBorder(*ia.bot,*target.player,gameBorderLeft.i=0,gameBorderRight.i=2000)
-	If *ia\who\direction<>*target\direction
-		If *ia\who\lockedDirection
-			If *ia\who\position\x<-#HITBOX_BACKSHIFT_X+gameBorderLeft+#H2H_AI_BORDER_THRESHOLD
+Procedure.i AIIsCloseToBorder(*ai.bot,*target.player,gameBorderLeft.i=0,gameBorderRight.i=2000)
+	If *ai\who\direction<>*target\direction
+		If *ai\who\lockedDirection
+			If *ai\who\position\x<-#HITBOX_BACKSHIFT_X+gameBorderLeft+#H2H_AI_BORDER_THRESHOLD
 				ProcedureReturn 1
 			Else
-				If *ia\who\position\x>gameBorderRight-(#HITBOX_BACKSHIFT_X+#HITBOX_SIZE)-#H2H_AI_BORDER_THRESHOLD
+				If *ai\who\position\x>gameBorderRight-(#HITBOX_BACKSHIFT_X+#HITBOX_SIZE)-#H2H_AI_BORDER_THRESHOLD
 					ProcedureReturn 2
 				EndIf
 			EndIf
 		Else
-			If *ia\who\position\x<-#HITBOX_SHIFT_X+gameBorderLeft+#H2H_AI_BORDER_THRESHOLD
+			If *ai\who\position\x<-#HITBOX_SHIFT_X+gameBorderLeft+#H2H_AI_BORDER_THRESHOLD
 				ProcedureReturn 1
 			Else
-				If *ia\who\position\x>gameBorderRight-(#HITBOX_SHIFT_X+#HITBOX_SIZE)-#H2H_AI_BORDER_THRESHOLD
+				If *ai\who\position\x>gameBorderRight-(#HITBOX_SHIFT_X+#HITBOX_SIZE)-#H2H_AI_BORDER_THRESHOLD
 					ProcedureReturn 2
 				EndIf
 			EndIf
@@ -570,90 +454,293 @@ Procedure.i AI_isCloseToBorder(*ia.bot,*target.player,gameBorderLeft.i=0,gameBor
 	ProcedureReturn 0
 EndProcedure
 
-Procedure AI_decision(*ia.bot, *target.player,delta.d=1,gameBorderLeft.i=0,gameBorderRight.i=2000)
-	If Not *ia Or gamePaused
-		ProcedureReturn
+Procedure AIDecisionChopstick(*ai.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
+	; anti down spam
+	If animationEquals(*ai\attackTarget,playerGetDown(*ai\who)) And Not (*target\position\y<groundLevel-400 Or *target\deltaMovement\y<-30)
+		Debug "chopstick stop down"
+		*ai\attackTarget=0
 	EndIf
-	If Not *target Or *target\life<=0
-		*ia\mode=#H2H_AI_MODE_DISABLED
-	EndIf
-	If *ia\mode=#H2H_AI_MODE_DISABLED
-		ProcedureReturn
-	EndIf
-	If *ia\mode=#H2H_AI_MODE_IDLE
-		*ia\mode=#H2H_AI_MODE_OFFENSE
-	EndIf
-	*who.player=*ia\who
-	If *ia\mode=#H2H_AI_MODE_OFFENSE
-		If Not isPlayerAnimationType(*who,#H2H_ANIMATIONTYPE_SPAWN)
-			breakRange=0
-			If *ia\attackTarget
-				; if the ennemy is really too far, will break attack
-				; So combos aren't quite broken
-  				breakRange=200
+	; down attack dodge trick
+	If *target\attacking
+		If *target\currentAnimation\animationType<>#H2H_ANIMATIONTYPE_NUP Or *target\position\y<groundLevel-400 Or *target\deltaMovement\y<-30
+			If Not Random(3) And Not *ai\attackTarget
+				Debug "Chopstick ndown"
+				AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NDOWN)
 			EndIf
-			Protected distance=playerDistance(*who,*target)
-			If distance<AI_inflateRange(*ia,300+breakRange)
-				continueTheAttack.i=#True
-				If AI_isCloseToBorder(*ia,*target,gameBorderLeft,gameBorderRight)
-					Debug "close to border"
-				EndIf
-				If distance<AI_inflateRange(*ia,100) And Not *ia\attackTarget And Not AI_isCloseToBorder(*ia,*target,gameBorderLeft,gameBorderRight)
-					If getReach(*who)>1
-						If *who\direction
-							AI_move(*ia,*target\position\x-AI_inflateRange(*ia,200+breakRange))
-						Else
-							AI_move(*ia,*target\position\x+AI_inflateRange(*ia,200+breakRange))
-						EndIf
-						continueTheAttack=#False
-					EndIf
-				EndIf
-				If continueTheAttack
-					*ia\attackBuffer+delta
-					If ListSize(*who\hit())
-						*ia\attackBuffer+delta*2
-					EndIf
-					If *ia\attackBuffer>1
-						AI_randomAttack(*ia,*target)
-						If *ia\difficulty=#H2H_AI_LEVEL_HARD
-							If Not Random(10)
-								AI_decisionHard(*ia,*target)
-								Select *ia\who\class
-									Case *allClasses(0)
-										AI_decisionChopstick(*ia,*target,gameBorderLeft,gameBorderRight)
-									Case *allClasses(1)
-										AI_decisionUnarmed(*ia,*target,gameBorderLeft,gameBorderRight)
-									Case *allClasses(2)
-										AI_decisionBallpen(*ia,*target,gameBorderLeft,gameBorderRight)
-									Case *allClasses(4)
-										AI_decisionGluestick(*ia,*target,gameBorderLeft,gameBorderRight)
-								EndSelect
-							EndIf
-						EndIf
-						*ia\attackBuffer-1
-					EndIf
-					AI_attackOrder(*ia)
-				EndIf
-			Else
-				; if the ennemy is too far, will break attack
-				AI_move(*ia,*target\position\x)
-				If *ia\attackTarget
-				EndIf
-				*ia\attackTarget=0
-				If *ia\difficulty=#H2H_AI_LEVEL_HARD
-					*ia\attackBuffer+delta*2
-				EndIf
+		EndIf
+	EndIf
+	If Not *ai\attackTarget And playerGetAnimationType(*target)<>#H2H_ANIMATIONTYPE_NEUTRAL And playerDistance(*ai\who,*target)<100
+		; neutral barrage
+		; not effective against gluestick heavy attacks
+		If Not (*target\class=*allClasses(4) And playerGetAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY)
+			If Random(2)
+				Debug "Chopstick neutral"
+				AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NEUTRAL)
+			EndIf
+		EndIf
+	EndIf
+	If Not *ai\attackTarget And	playerGetAnimationType(*target)<>#H2H_ANIMATIONTYPE_NBACK And playerDistance(*ai\who,*target)<200 And *target\position\y>=groundLevel-50 And *target\deltaMovement\y>=0
+		If (*ai\who\direction And *ai\who\position\x>gameBorderLeft+200) Or (Not *ai\who\direction And *ai\who\position\x<gameBorderRight-200)
+			; back flee
+			If Random(1)
+; 			If *ai\who\currentAnimation\animationType=#H2H_ANIMATIONTYPE_NBACK And Random(1)
+				Debug "Chopstick back"
+				AISelectAttack(*ai,#H2H_ANIMATIONTYPE_NBACK)
 			EndIf
 		EndIf
 	EndIf
 EndProcedure
 
-Macro isBot(who)
-	(who\isAI)
+Procedure AIDecisionBallpen(*ai.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
+	If Not animationEquals(*ai\attackTarget,*ai\who\currentAnimation) And Not Random(5)
+		If AITargetIsClose(*ai,*target)
+			If Random(1)
+				If animationGetBack(*ai\who\currentAnimation)
+					*ai\attackTarget=animationGetBack(*ai\who\currentAnimation)
+				Else
+					If animationGetDown(*ai\who\currentAnimation)
+						*ai\attackTarget=animationGetDown(*ai\who\currentAnimation)
+					EndIf
+				EndIf
+			Else
+				If animationGetDown(*ai\who\currentAnimation)
+					*ai\attackTarget=animationGetDown(*ai\who\currentAnimation)
+				Else
+					If animationGetBack(*ai\who\currentAnimation)
+						*ai\attackTarget=animationGetBack(*ai\who\currentAnimation)
+					EndIf
+				EndIf
+			EndIf
+		Else
+			If Random(2)
+				If animationGetSide(*ai\who\currentAnimation)
+					*ai\attackTarget=animationGetSide(*ai\who\currentAnimation)
+				Else
+					*ai\attackTarget=animationGetNeutral(*ai\who\currentAnimation)
+				EndIf
+			Else
+				If animationGetNeutral(*ai\who\currentAnimation)
+					*ai\attackTarget=animationGetNeutral(*ai\who\currentAnimation)
+				Else
+					*ai\attackTarget=animationGetSide(*ai\who\currentAnimation)
+				EndIf
+			EndIf
+		EndIf
+	EndIf
+	If Not *ai\attackTarget
+		If *ai\who\currentStance=*ai\who\class\allStances(1)
+;  			Debug "blue"
+			If AITargetIsClose(*ai,*target) And Random(1) And playerGetAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY
+				; the blue will dodge
+; 				Debug "dodge"
+				If *target\lockedDirection
+					If *ai\who\position\x>gameBorderLeft+400
+						AIMove(*ai,*target\position\x-400)
+					Else ; jumps over it
+						AIMove(*ai,*target\position\x+400)
+						controlGet(*ai\who\pushed,#H2H_CONTROL_JUMP)=1
+					EndIf
+				Else
+					If *ai\who\position\x<gameBorderRight-400
+						AIMove(*ai,*target\position\x+400)
+					Else ; jumps over it
+						AIMove(*ai,*target\position\x-400)
+						controlGet(*ai\who\pushed,#H2H_CONTROL_JUMP)=1
+					EndIf
+				EndIf
+			EndIf
+		EndIf
+		If *ai\who\currentStance=*ai\who\class\allStances(3)
+			If Not AITargetIsClose(*ai,*target) And Random(1) And playerGetAnimationType(*target)=#H2H_ANIMATIONTYPE_HEAVY
+				; the red will punish a heavy attack with a heavy attack
+				AISelectAttack(*ai,#H2H_ANIMATIONTYPE_HEAVY)
+			EndIf
+		EndIf
+	EndIf
+EndProcedure
+
+Procedure AIDecisionUnarmed(*ai.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
+	If Random(10)
+		Select *ai\attackTarget
+			Case #Null
+				If playerGetWeight(*target)>2
+					Debug "COUP DE BOULE !"
+					chance=10
+					If playerDistance(*ai\who,*target)<400
+						chance=8
+					EndIf
+					If playerDistance(*ai\who,*target)<300
+						chance=6
+					EndIf
+					If playerDistance(*ai\who,*target)<200
+						chance=4
+					EndIf
+					If playerDistance(*ai\who,*target)<100
+						chance=2
+					EndIf
+					If *target\position\y<groundLevel-200
+						chance*2
+					EndIf
+					If playerGetWeight(*target)>=4
+						chance/2
+					EndIf
+					If Random(chance)=chance
+						*ai\attackTarget=playerGetBack(*ai\who)
+					EndIf
+				EndIf
+			Case playerGetBack(*ai\who)
+				Debug "COUP DE BOULE CLUTCH"
+				If *ai\who\direction
+					If AIIsCloseToBorder(*ai,*target,gameBorderLeft,gameBorderRight)
+						*ai\attackTarget=animationGetDown(*ai\who\currentAnimation)
+					Else
+						*ai\attackTarget=animationGetSide(*ai\who\currentAnimation)
+					EndIf
+				Else
+					If AIIsCloseToBorder(*ai,*target,gameBorderLeft,gameBorderRight)
+						*ai\attackTarget=animationGetSide(*ai\who\currentAnimation)
+					Else
+						*ai\attackTarget=animationGetBack(*ai\who\currentAnimation)
+					EndIf
+				EndIf
+		EndSelect
+	EndIf
+EndProcedure
+
+Procedure AIDecisionGluestick(*ai.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
+	; nothing special
+	; TODO
+EndProcedure
+
+Procedure AIDecisionHexKey(*ai.bot,*target.player,gameBorderLeft.i,gameBorderRight.i)
+	; attack air if really up there
+	If animationEquals(*ai\attackTarget,playerGetUp(*ai\who))
+		If (AITargetIsUp(*ai,*target) Or *ai\who\deltaMovement\y<0)
+			*ai\attackTarget=0
+		EndIf
+	EndIf
+EndProcedure
+
+Procedure AIDecision(*ai.bot,*target.player,delta.d=1,gameBorderLeft.i=0,gameBorderRight.i=2000)
+	If Not *ai Or gamePaused
+		Debug "no AI or paused"
+		ProcedureReturn
+	EndIf
+	If Not *target Or *target\life<=0
+		*ai\mode=#H2H_AI_MODE_DISABLED
+	EndIf
+	If *ai\mode=#H2H_AI_MODE_DISABLED
+		Debug "disabled"
+		ProcedureReturn
+	EndIf
+	If *ai\mode=#H2H_AI_MODE_IDLE
+		*ai\mode=#H2H_AI_MODE_OFFENSE
+	EndIf
+	If *ai\parrying>0
+		*ai\mode=#H2H_AI_MODE_PARRY
+		*ai\parrying-delta
+; 		Debug "parry decay "+*ai\parrying
+		If *ai\parrying<=0
+			*ai\parrying=0
+			*ai\mode=#H2H_AI_MODE_IDLE
+; 			Debug "parry stop "+*ai\parrying
+		EndIf
+	EndIf
+	*who.player=*ai\who
+	Select *ai\mode
+		Case #H2H_AI_MODE_OFFENSE
+			If Not isPlayerAnimationType(*who,#H2H_ANIMATIONTYPE_SPAWN)
+				breakRange=0
+				If *ai\attackTarget
+					; if the ennemy is really too far, will break attack
+					; So combos aren't quite broken
+					breakRange=200
+				EndIf
+				Protected distance=playerDistance(*who,*target)
+				If distance<AIInflateRange(*ai,300+breakRange)
+					continueTheAttack.i=#True
+					; If AI_isCloseToBorder(*ia,*target,gameBorderLeft,gameBorderRight)
+					; 	Debug "close to border"
+					; EndIf
+					If distance<AIInflateRange(*ai,100) And Not *ai\attackTarget And Not AIIsCloseToBorder(*ai,*target,gameBorderLeft,gameBorderRight)
+						If playerGetReach(*who)>1
+							If *who\direction
+								AIMove(*ai,*target\position\x-AIInflateRange(*ai,200+breakRange))
+							Else
+								AIMove(*ai,*target\position\x+AIInflateRange(*ai,200+breakRange))
+							EndIf
+							continueTheAttack=#False
+						EndIf
+					EndIf
+					If continueTheAttack
+						*ai\attackBuffer+delta
+						If ListSize(*who\hit())
+							*ai\attackBuffer+delta*2
+						EndIf
+						If *ai\attackBuffer>1
+							AIRandomAttack(*ai,*target)
+							If *ai\difficulty>=#H2H_AI_LEVEL_HARD
+								If Not *ai\attackTarget And Not Random(1)
+									AIDecisionHard(*ai,*target)
+									Select *ai\who\class
+										Case *allClasses(0)
+											AIDecisionChopstick(*ai,*target,gameBorderLeft,gameBorderRight)
+										Case *allClasses(1)
+											AIDecisionUnarmed(*ai,*target,gameBorderLeft,gameBorderRight)
+										Case *allClasses(2)
+											AIDecisionBallpen(*ai,*target,gameBorderLeft,gameBorderRight)
+										Case *allClasses(4)
+											AIDecisionGluestick(*ai,*target,gameBorderLeft,gameBorderRight)
+										Case *allClasses(12)
+											AIDecisionHexKey(*ai,*target,gameBorderLeft,gameBorderRight)
+									EndSelect
+								EndIf
+							EndIf
+							*ai\attackBuffer-1
+						EndIf
+						AIAttackOrder(*ai)
+					EndIf
+				Else
+					; if the ennemy is too far, will break attack
+					AIMove(*ai,*target\position\x)
+					*ai\attackTarget=0
+					If *ai\difficulty>=#H2H_AI_LEVEL_HARD
+						*ai\attackBuffer+delta*2
+					EndIf
+				EndIf
+				If *ai\attackTarget And animationIsAttack(*ai\who\currentAnimation) And Not AICanReach(*ai)
+; 					Debug "cannot reach ! "+Str(Bool(AICanReach(*ai)))
+; 					Debug "Expected "+*ai\attackTarget\name+" "+*ai\attackTarget\id
+; 					Debug "Current "+*ai\who\currentAnimation\name
+; 					Debug "Is attack "+Str(animationIsAttack(*ai\who\currentAnimation))
+; 					
+; 					For i=0 To 5
+; 						If Not animationEquals(*ai\who\currentAnimation\animations[i],*ai\attackTarget)
+; 							If *ai\who\currentAnimation\animations[i]
+; 								Debug *ai\who\currentAnimation\animations[i]\name+" "+Str(*ai\who\currentAnimation\animations[i])
+; 							Else
+; 								Debug Str(i)+" empty"
+; 							EndIf
+; 						Else
+; 							Debug "Found ! "+*ai\who\currentAnimation\animations[i]\name+" "+Str(*ai\who\currentAnimation\animations[i])
+; 						EndIf
+; 					Next
+					*ai\attackTarget=0
+				EndIf
+			EndIf
+		Case #H2H_AI_MODE_PARRY
+			controlClear(*ai\who\pushed,#False,0)
+			controlGet(*ai\who\pushed,#H2H_CONTROL_PARRY)=1
+	EndSelect
+EndProcedure
+
+Macro playerIsBot(who)
+	Bool(who\isAI)
 EndMacro
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 234
-; FirstLine = 199
-; Folding = ---z--
+; CursorPosition = 641
+; FirstLine = 253
+; Folding = -fzjg-
 ; EnableXP
 ; DPIAware
+; CPU = 4

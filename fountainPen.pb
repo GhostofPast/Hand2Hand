@@ -3,8 +3,8 @@
 #H2H_BIGBALLPEN_SIDE_UNHARMED=2
 *bigballpen_stat.statistic=statisticCreate(*bigballpen_stat,3,1,2,3,3,1,4,-1,4,1,2)
 
-*bigballpen.class=classCreate(0,"Big ballpen",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
-*bigballpen\toBeAdded=1
+*bigballpen.class=classCreate(0,"Fountain Pen",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
+classSetToBeAdded(*bigballpen,1)
 ; exact same stances than the ballpen.
 *bigballpen\allStances(0)\name="Black (default)"
 *bigballpen\allStances(0)\specialcolor=#H2H_STANCE_COLOR_BLACK
@@ -35,11 +35,12 @@ classAddStance(*bigballpen,*bigballpen_stance_green)
 classAddStance(*bigballpen,*bigballpen_stance_red)
 
 *bigballpen\iconSprite=spriteIndex
-*bigballpen\iconPath$="image\Bigballpen.png"
+*bigballpen\iconPath$="image\FountainPen.png"
 spriteIndex+1
 *bigballpen\stat=*bigballpen_stat
-*bigballpen\desc$="Offensive damage dealer with good passive defense. This bulky warrior seeks\close combat and doesn't fear taking damage. Can somewhat do strong pary\but can't deal with too many incoming attacks. Works like a balanced axeman."
+; *bigballpen\desc$="Offensive damage dealer with good passive defense. This bulky warrior seeks\close combat and doesn't fear taking damage. Can somewhat do strong pary\but can't deal with too many incoming attacks. Works like a balanced axeman."
+*bigballpen\desc$="The bulkier ballpen variant with an axe, trading range & agility for better staying power. Increased strength also means better parry and punch."
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 15
+; CursorPosition = 19
 ; EnableXP
 ; CPU = 1

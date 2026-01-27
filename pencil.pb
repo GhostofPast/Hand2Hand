@@ -58,9 +58,7 @@ Dim *pencilColor.stance(2)
 *pencilColor(2)=*pencil_stance_white
 
 *pencil.class=classCreate(0,"Pencil",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
-*pencil\toBeAdded=1
-; *pencil\allStances(0)\name="Wood - HB - Gray (default)"
-; *pencil\allStances(0)\specialcolor=#H2H_STANCE_COLOR_GRAY
+classSetToBeAdded(*pencil,1)
 Dim *pencil\allStances(0)
 *pencil\allStances(0)=0
 i=0
@@ -69,15 +67,15 @@ For m=0 To 2
 		For c=0 To 2
 			classAddStance(*pencil,stanceCreate(*pencilMaterial(m)\materialClass(),0,*pencilMaterial(m)\name+" - "+*pencilHardness(h)\name+" - "+*pencilColor(c)\name,*pencilMaterial(m)\modificator))
 			*pencil\allStances(i)\specialcolor=*pencilColor(c)\specialcolor
-			*pencil\allStances(i)\modificator\strength	+*pencilHardness(h)\modificator\strength	+*pencilColor(c)\modificator\strength
-			*pencil\allStances(i)\modificator\agility	+*pencilHardness(h)\modificator\agility		+*pencilColor(c)\modificator\agility
-			*pencil\allStances(i)\modificator\speed		+*pencilHardness(h)\modificator\speed		+*pencilColor(c)\modificator\speed
-			*pencil\allStances(i)\modificator\endurence	+*pencilHardness(h)\modificator\endurence	+*pencilColor(c)\modificator\endurence
-			*pencil\allStances(i)\modificator\weight	+*pencilHardness(h)\modificator\weight		+*pencilColor(c)\modificator\weight
-			*pencil\allStances(i)\modificator\life		+*pencilHardness(h)\modificator\life		+*pencilColor(c)\modificator\life
-			*pencil\allStances(i)\modificator\cut		+*pencilHardness(h)\modificator\cut			+*pencilColor(c)\modificator\cut
-			*pencil\allStances(i)\modificator\pierce	+*pencilHardness(h)\modificator\pierce		+*pencilColor(c)\modificator\pierce
-			*pencil\allStances(i)\modificator\blunt		+*pencilHardness(h)\modificator\blunt		+*pencilColor(c)\modificator\blunt
+			statGetStrength(*pencil\allStances(i)\modificator)+statGetStrength(*pencilHardness(h)\modificator)+statGetStrength(*pencilColor(c)\modificator)
+			statGetAgility(*pencil\allStances(i)\modificator)	+statGetAgility(*pencilHardness(h)\modificator)	+statGetAgility(*pencilColor(c)\modificator)
+			statGetSpeed(*pencil\allStances(i)\modificator)		+statGetSpeed(*pencilHardness(h)\modificator)	+statGetSpeed(*pencilColor(c)\modificator)
+			statGetEndurance(*pencil\allStances(i)\modificator)	+statGetEndurance(*pencilHardness(h)\modificator)	+statGetEndurance(*pencilColor(c)\modificator)
+			statGetWeight(*pencil\allStances(i)\modificator)	+statGetWeight(*pencilHardness(h)\modificator)	+statGetWeight(*pencilColor(c)\modificator)
+			statGetLife(*pencil\allStances(i)\modificator)		+statGetLife(*pencilHardness(h)\modificator)	+statGetLife(*pencilColor(c)\modificator)
+			statGetCut(*pencil\allStances(i)\modificator)		+statGetCut(*pencilHardness(h)\modificator)	+statGetCut(*pencilColor(c)\modificator)
+			statGetPierce(*pencil\allStances(i)\modificator)	+statGetPierce(*pencilHardness(h)\modificator)	+statGetPierce(*pencilColor(c)\modificator)
+			statGetBlunt(*pencil\allStances(i)\modificator)		+statGetBlunt(*pencilHardness(h)\modificator)	+statGetBlunt(*pencilColor(c)\modificator)
 			i+1
 		Next
 	Next
@@ -91,10 +89,11 @@ FreeArray(*pencilColor())
 *pencil\iconPath$="image\Pencil.png"
 spriteIndex+1
 *pencil\stat=*pencil_stat
-*pencil\desc$="Basic spearman with a lot of options. Good range and pierce attacks, perfect for beginners.\Easy to learn but hard to master. Can outreach heavy fighters to keep the distance, as well as punishing fast opponents."
+; *pencil\desc$="Basic spearman with a lot of options. Good range and pierce attacks, perfect for beginners.\Easy to learn but hard to master. Can outreach heavy fighters to keep the distance, as well as punishing fast opponents."
+*pencil\desc$="Basic spear fighter with good range and piercing attacks, suitable for beginners. Can outreach heavy fighters to keep the distance, as well as punishing fast opponents.\Posesses a lot of variants."
 
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 67
-; FirstLine = 46
+; CursorPosition = 81
+; FirstLine = 42
 ; EnableXP
 ; CPU = 1

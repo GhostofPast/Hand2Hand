@@ -7,7 +7,7 @@ ReDim *tmpArray(1)
 statisticCreate(*graphicpen_stance_battery\modificator,0,0,-3,2,1,0,0,0,0,0)
 
 *graphicpen.class=classCreate(0,"Stylus",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
-*graphicpen\toBeAdded=1
+classSetToBeAdded(*graphicpen,1)
 *graphicpen\allStances(0)\name="No battery (default)"
 *graphicpen\allStances(0)\specialcolor=#H2H_STANCE_COLOR_BLACK
 classAddStance(*graphicpen,*graphicpen_stance_battery)
@@ -16,13 +16,14 @@ classAddStance(*graphicpen,*graphicpen_stance_battery)
 *graphicpen\iconPath$="image\Graphicpen.png"
 spriteIndex+1
 *graphicpen\stat=*graphicpen_stat
-*graphicpen\desc$="Balanced blunt brawler with a bit of piercing.\Hits heavily and stays fast, although doesn't have a good range nor coverage.\Can fend off light or heavy foes but isn't specialized enough to pursue or block efficiently."
+; *graphicpen\desc$="Balanced blunt brawler with a bit of piercing.\Hits heavily and stays fast, although doesn't have a good range nor coverage.\Can fend off light or heavy foes but isn't specialized enough to pursue or block efficiently."
+*graphicpen\desc$="Balanced blunt brawler with a spiked mace. Hits fast and hard at medium range but cannot rivalize with raw strength nor fast opponents."
 
 ReDim *graphicpen\allStances(0)\materialClass(ArraySize(*tmpArray()))
 For i=0 To ArraySize(*tmpArray())
 	*graphicpen\allStances(0)\materialClass(i)=*tmpArray(i)
 Next
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 1
+; CursorPosition = 23
 ; EnableXP
 ; CPU = 1

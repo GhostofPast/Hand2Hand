@@ -174,7 +174,7 @@ Procedure groupFFA(*what.group)
 	Next
 	FreeList(*defender())
 EndProcedure
-Declare createPlayer(*p.player,name.s,color.i,*control.control,*newClass.class,mirror=0)
+Declare playerCreate(*p.player,name.s,color.i,*control.control,*newClass.class,mirror=0)
 Declare playerSetClass(*p.player,*newClass.class,stanceId.i)
 Procedure groupSpawn(*whatClass.class,*whatStance.stance,number.i=1,*what.group=0)
 	If Not *what
@@ -182,7 +182,7 @@ Procedure groupSpawn(*whatClass.class,*whatStance.stance,number.i=1,*what.group=
 	EndIf
 	For i=1 To number
 		AddElement(*what\players())
-		*what\players()=createPlayer(0,"unnamed",0,0,*whatClass)
+		*what\players()=playerCreate(0,"unnamed",0,0,*whatClass)
 		playerSetClass(*what\players(),*whatClass,*whatStance\id)
 	Next
 	ProcedureReturn *what
@@ -237,10 +237,10 @@ Procedure.i groupIsDead(*what.group)
 	ProcedureReturn 1
 EndProcedure
 
-Declare refreshPlayer(*p.player,*b.background,delta.d=1,previousDelta.d=1)
+Declare playerRefresh(*p.player,*b.background,delta.d=1)
 Procedure groupRefresh(*what.group,*b.background)
 	ForEach *what\players()
-		refreshPlayer(*what\players(),*b.background)
+		playerRefresh(*what\players(),*b.background)
 	Next
 EndProcedure
 
@@ -272,9 +272,9 @@ Procedure.f playerDistanceLoc(*p.player,*l.location)
 	ProcedureReturn locationDistance(*p\position,*l)
 EndProcedure
 
-Procedure.f playerDistance(*p1.player,*p2.player)
-	ProcedureReturn playerDistanceLoc(*p1,*p2\position)
-EndProcedure
+Macro playerDistance(p1,p2)
+	playerDistanceLoc(p1,p2\position)
+EndMacro
 
 #H2H_DISTANCE_MODE_ALL=0
 #H2H_DISTANCE_MODE_X=1
@@ -332,8 +332,9 @@ Procedure groupGetClosestPlayer(*p.player,*where.group,mode.i=#H2H_DISTANCE_MODE
 	ProcedureReturn *closest
 EndProcedure
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 117
-; FirstLine = 97
+; CursorPosition = 274
+; FirstLine = 261
 ; Folding = ----
 ; EnableXP
 ; DPIAware
+; CPU = 4

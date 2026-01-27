@@ -69,7 +69,7 @@ Procedure gameUnload(*what.game)
 		ForEach *what\allGroups()\players()
 			Debug "UNLOADING "+*what\allGroups()\players()
 			classUnload(*what\allGroups()\players()\class,#True)
-			clearPlayerFrames(*what\allGroups()\players())
+; 			clearPlayerFrames(*what\allGroups()\players())
 		Next
 	Next
 EndProcedure
@@ -86,8 +86,9 @@ Procedure gameDestroy(*what.game)
 EndProcedure
 
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 17
-; FirstLine = 15
+; CursorPosition = 72
+; FirstLine = 35
 ; Folding = --
 ; EnableXP
 ; DPIAware
+; CPU = 4

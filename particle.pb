@@ -41,8 +41,38 @@ Structure particle
 	layer.i ; in font or behind players, by default in front
 EndStructure
 
+#H2H_DATA_PARTICLE_BASE=$80
+Global DATA_PARTICLE_BASE=#H2H_DATA_PARTICLE_BASE
+CompilerIf #H2H_MODE=#H2H_MODE_LOAD
+	LoadJSON(0,"data.json")
+	*parent=GetJSONMember(JSONValue(0),#H2H_JSON_MEMORY_KEY)
+	If *parent
+		DATA_PARTICLE_BASE=loadJSONInteger(*parent,"particle")
+	EndIf
+	FreeJSON(0)
+CompilerEndIf
+Global dataParticleSize.i=DATA_PARTICLE_BASE*SizeOf(particle)
+Global *dataParticle=AllocateMemory(dataParticleSize,#PB_Memory_NoClear)
+Global dataParticleIndex=0
+Global Dim dataParticlePile(7) ; byte indexes of available locations
+Global dataParticlePileIndex=-1
+
 Procedure.i particleCreate(x.i,y.i,dX.i,dY.i)
-	*newParticle.particle=AllocateStructure(particle)
+	*newParticle.particle
+	If dataParticlePileIndex>-1
+		*newParticle=*dataParticle+dataParticlePile(dataParticlePileIndex)
+		dataParticlePileIndex-1
+	Else
+		*newParticle=*dataParticle+dataParticleIndex
+		dataParticleIndex+SizeOf(particle)
+		If dataParticleIndex>=dataParticleSize
+			Debug "reallocate particle"
+			MessageRequester("warning","reallocate particle")
+			End
+			dataParticleSize*2
+			*dataParticle=ReAllocateMemory(*dataParticle,dataParticleSize,#PB_Memory_NoClear)
+		EndIf
+	EndIf
 	*newParticle\position=locationCreate(x,y)
 	*newParticle\delta=locationCreate(dX,dY)
 	*newParticle\color=-1
@@ -53,10 +83,15 @@ Procedure.i particleCreate(x.i,y.i,dX.i,dY.i)
 EndProcedure
 
 Procedure particleDestroy(*what.particle)
-	;Debug "particle destroyed"
+	If *what
+		dataParticlePileIndex+1
+		If dataParticlePileIndex>=ArraySize(dataParticlePile())
+			ReDim dataParticlePile( (ArraySize(dataParticlePile())+1)*2 -1)
+		EndIf
+		dataParticlePile(dataParticlePileIndex)=*what-*dataParticle
+	EndIf
 	locationDestroy(*what\position)
 	locationDestroy(*what\delta)
-	FreeStructure(*what)
 EndProcedure
 
 Procedure particleDisplay(*what.particle)
@@ -88,13 +123,13 @@ Procedure.i particleOpacityMult(*what.particle, amount.f)
 	ProcedureReturn *what\opacity
 EndProcedure
 
-Procedure particleSetColor(*what.particle, color.i=-1)
-	*what\color=color
-EndProcedure
+Macro particleSetColor(what,color=-1)
+	what\color=color
+EndMacro
 
-Procedure particleSetLifeSpan(*what.particle, lifeSpan.i=50)
-	*what\lifespan=lifeSpan
-EndProcedure
+Macro particleSetLifeSpan(what,lifeSpan=50)
+	what\lifespan=lifeSpan
+EndMacro
 
 Global NewList *allParticles.particle()
 
@@ -109,19 +144,19 @@ Procedure.i particleRefresh(*what.particle,delta.f=1)
 	If *what\lifespan<=0
 		*what\spriteId-difference
 		If *what\spriteId<0
-			ProcedureReturn 1
+			ProcedureReturn #True
 		EndIf
 		*what\lifespan=*model\lifeSpan
 	EndIf
 	For i=1 To difference
 		If *model\type&#H2H_PARTICLE_TYPE_FADING_LINEAR
 			If particleOpacityReduce(*what,*model\opacityDelta)=0
-				ProcedureReturn 1 ; no need to keep the particle if it's invisible
+				ProcedureReturn #True ; no need to keep the particle if it's invisible
 			EndIf
 		EndIf
 		If *model\type&#H2H_PARTICLE_TYPE_FADING_FACTOR
 			If particleOpacityMult(*what,*model\opacityDelta)=0
-				ProcedureReturn 1 ; no need to keep the particle if it's invisible
+				ProcedureReturn #True ; no need to keep the particle if it's invisible
 			EndIf
 		EndIf
 		If i=1
@@ -148,7 +183,7 @@ Procedure.i particleRefresh(*what.particle,delta.f=1)
 		EndIf
 	Next
 	locationAdd(*what\position,*what\delta\x*delta,*what\delta\y*delta)
-	ProcedureReturn 0
+	ProcedureReturn #False
 EndProcedure
 
 Procedure refreshAllParticles(delta.f=1)
@@ -164,20 +199,20 @@ Procedure refreshAllParticles(delta.f=1)
 	EndIf
 EndProcedure
 
-Procedure displayAllParticles(whatLayer.i=#H2H_PARTICLE_LAYER_FRONT)
+Macro displayAllParticles(whatLayer=#H2H_PARTICLE_LAYER_FRONT)
 	ForEach *allParticles()
 		If *allParticles()\layer=whatLayer
 			particleDisplay(*allParticles())
 		EndIf
 	Next
-EndProcedure
+EndMacro
 
-Procedure destroyAllParticles()
+Macro destroyAllParticles()
 	ForEach *allParticles()
 		particleDestroy(*allParticles())
 		DeleteElement(*allParticles())
 	Next
-EndProcedure
+EndMacro
 
 Procedure.i particleModelCreate(path$,name$,sprites.i,lifeSpan.i,speed.i=5)
 	*newModel.particleModel=AllocateStructure(particleModel)
@@ -248,15 +283,16 @@ CompilerIf #H2H_MODE=#H2H_MODE_SAVE
 	EndProcedure
 CompilerEndIf
 Global *hitParticle.particleModel;=particleModelCreate("image\hurt","hurt",6,5,2)
-Procedure initParticles()
+
+Macro initParticles()
 	*hitParticle=particleModelCreate("image\hurt","hurt",6,5,2)
 	particleModelAddType(*hitParticle,#H2H_PARTICLE_TYPE_ACCELERATION_FACTOR,0.95,0.95)
 	particleModelAddType(*hitParticle,#H2H_PARTICLE_TYPE_FEEDBACK,RGB(255,0,0))
 	particleModelAddType(*hitParticle,#H2H_PARTICLE_TYPE_FADING_LINEAR,2)
-EndProcedure
+EndMacro
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 38
-; FirstLine = 18
+; CursorPosition = 111
+; FirstLine = 98
 ; Folding = ----
 ; EnableXP
 ; CPU = 1

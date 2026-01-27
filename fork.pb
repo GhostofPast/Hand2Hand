@@ -22,7 +22,7 @@ statisticCreate(*Fork_stance_silver\modificator,1,-1,-1,1,1,-1,0,0,0,0)
 *fork.class=classCreate(0,"Fork",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
 *fork\allStances(0)\specialcolor=#H2H_STANCE_COLOR_METAL
 *fork\allStances(0)\specialcolor=#H2H_STANCE_COLOR_DARKMETAL
-*fork\toBeAdded=1
+classSetToBeAdded(*fork,1)
 *fork\allStances(0)\name="Stainless (Default)"
 
 Dim *fork\allStances(0)\materialClass(ArraySize(*tmpArray()))
@@ -38,6 +38,6 @@ spriteIndex+1
 *fork\stat=*Fork_stat
 *fork\desc$="Short ranged polearm with broad attacks and balanced stats, good for thrusts.\Can easily catch ennemies and manipulate them."
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 26
+; CursorPosition = 38
 ; EnableXP
 ; CPU = 1

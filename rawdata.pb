@@ -34,12 +34,12 @@ EndProcedure
 
 Procedure setRawData(*rd.rawdata,x.i=0,y.i=0,fx.i=0,hx.i=0,hy.i=0,hfx.i=0)
 	If *rd
-		*rd\item[0]=x.i
-		*rd\item[1]=y.i
-		*rd\item[2]=fx.i
-		*rd\item[3]=hx.i
-		*rd\item[4]=hy.i
-		*rd\item[5]=hfx.i
+		*rd\item[0]=x
+		*rd\item[1]=y
+		*rd\item[2]=fx
+		*rd\item[3]=hx
+		*rd\item[4]=hy
+		*rd\item[5]=hfx
 	EndIf
 EndProcedure
 
@@ -73,116 +73,116 @@ Procedure destroyRawDataArray(*rd.rawdataArray)
 	FreeStructure(*rd)
 EndProcedure
 
-;----CSidle1 new
-*CSidle1NewRaw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*CSidle1NewRaw,0,246,425,323)
-createRawDataForArray(*CSidle1NewRaw,1,260,427,293)
-createRawDataForArray(*CSidle1NewRaw,2,248,426,321)
-createRawDataForArray(*CSidle1NewRaw,3,243,424,353)
-createRawDataForArray(*CSidle1NewRaw,4,242,429,348)
-createRawDataForArray(*CSidle1NewRaw,5,254,419,324)
-createRawDataForArray(*CSidle1NewRaw,6,294,427,329)
-createRawDataForArray(*CSidle1NewRaw,7,274,422,336)
+;----CSIdle1
+*CSIdle1Raw.rawdataArray=createRawDataArray(7)
+createRawDataForArray(*CSIdle1Raw,0,246,425,323)
+createRawDataForArray(*CSIdle1Raw,1,260,427,293)
+createRawDataForArray(*CSIdle1Raw,2,248,426,321)
+createRawDataForArray(*CSIdle1Raw,3,243,424,353)
+createRawDataForArray(*CSIdle1Raw,4,242,429,348)
+createRawDataForArray(*CSIdle1Raw,5,254,419,324)
+createRawDataForArray(*CSIdle1Raw,6,294,427,329)
+createRawDataForArray(*CSIdle1Raw,7,274,422,336)
 
-*CSidle1_2WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle1_2WindBackRaw,0,239,442,300)
-createRawDataForArray(*CSidle1_2WindBackRaw,1,262,541,298)
+*CSIdle1_2WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle1_2WindBackRaw,0,239,442,300)
+createRawDataForArray(*CSIdle1_2WindBackRaw,1,262,541,298)
 
-*CSidle1_3WindBackRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle1_3WindBackRaw,0,238,432,307)
+*CSIdle1_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle1_3WindBackRaw,0,238,432,307)
 
-*CSidle1_4WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle1_4WindBackRaw,0,232,477,308)
-createRawDataForArray(*CSidle1_4WindBackRaw,1,221,449,328)
+*CSIdle1_4WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle1_4WindBackRaw,0,232,477,308)
+createRawDataForArray(*CSIdle1_4WindBackRaw,1,221,449,328)
 
-*CSidle1_7WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle1_7WindBackRaw,0,255,474,318)
-createRawDataForArray(*CSidle1_7WindBackRaw,1,281,455,311)
+*CSIdle1_7WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle1_7WindBackRaw,0,255,474,318)
+createRawDataForArray(*CSIdle1_7WindBackRaw,1,281,455,311)
 
-*CSidle1_8WindFrontRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle1_8WindFrontRaw,0,402,478,543)
-createRawDataForArray(*CSidle1_8WindFrontRaw,1,397,469,555)
+*CSIdle1_8WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle1_8WindFrontRaw,0,402,478,543)
+createRawDataForArray(*CSIdle1_8WindFrontRaw,1,397,469,555)
 
-;----CSidle2 new
-*CSidle2NewRaw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*CSidle2NewRaw,0,226,422,321)
-createRawDataForArray(*CSidle2NewRaw,1,245,422,341)
-createRawDataForArray(*CSidle2NewRaw,2,274,420,337)
-createRawDataForArray(*CSidle2NewRaw,3,299,423,339)
-createRawDataForArray(*CSidle2NewRaw,4,261,423,332)
-createRawDataForArray(*CSidle2NewRaw,5,240,422,338)
+;----CSIdle2
+*CSIdle2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*CSIdle2Raw,0,226,422,321)
+createRawDataForArray(*CSIdle2Raw,1,245,422,341)
+createRawDataForArray(*CSIdle2Raw,2,274,420,337)
+createRawDataForArray(*CSIdle2Raw,3,299,423,339)
+createRawDataForArray(*CSIdle2Raw,4,261,423,332)
+createRawDataForArray(*CSIdle2Raw,5,240,422,338)
 
-*CSidle2_1WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle2_1WindBackRaw,0,613,499,316)
-createRawDataForArray(*CSidle2_1WindBackRaw,1,635,536,308)
+*CSIdle2_1WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle2_1WindBackRaw,0,613,499,316)
+createRawDataForArray(*CSIdle2_1WindBackRaw,1,635,536,308)
 
-*CSidle2_2WindBackRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle2_2WindBackRaw,0,577,495,321)
+*CSIdle2_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle2_2WindBackRaw,0,577,495,321)
 
-*CSidle2_3WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle2_3WindBackRaw,0,586,488,320)
-createRawDataForArray(*CSidle2_3WindBackRaw,1,599,488,318)
+*CSIdle2_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle2_3WindBackRaw,0,586,488,320)
+createRawDataForArray(*CSIdle2_3WindBackRaw,1,599,488,318)
 
-*CSidle2_6WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle2_6WindBackRaw,0,629,500,331)
-createRawDataForArray(*CSidle2_6WindBackRaw,1,656,495,325)
+*CSIdle2_6WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle2_6WindBackRaw,0,629,500,331)
+createRawDataForArray(*CSIdle2_6WindBackRaw,1,656,495,325)
 
-*CSidle2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle2_2WindFrontRaw,0,219,569,632)
+*CSIdle2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle2_2WindFrontRaw,0,219,569,632)
 
-*CSidle2_3WindFrontRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle2_3WindFrontRaw,0,218,572,637)
-createRawDataForArray(*CSidle2_3WindFrontRaw,1,235,606,652)
+*CSIdle2_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle2_3WindFrontRaw,0,218,572,637)
+createRawDataForArray(*CSIdle2_3WindFrontRaw,1,235,606,652)
 
-*CSidle2_5WindFrontRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle2_5WindFrontRaw,0,253,589,690)
-createRawDataForArray(*CSidle2_5WindFrontRaw,1,249,581,688)
+*CSIdle2_5WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle2_5WindFrontRaw,0,253,589,690)
+createRawDataForArray(*CSIdle2_5WindFrontRaw,1,249,581,688)
 
-;----CSidle3
-*CSidle3Raw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*CSidle3Raw,0,198,430,347)
-createRawDataForArray(*CSidle3Raw,1,196,436,345)
-createRawDataForArray(*CSidle3Raw,2,212,438,318)
-createRawDataForArray(*CSidle3Raw,3,153,417,343)
-createRawDataForArray(*CSidle3Raw,4,207,415,350)
+;----CSIdle3
+*CSIdle3Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*CSIdle3Raw,0,198,430,347)
+createRawDataForArray(*CSIdle3Raw,1,196,436,345)
+createRawDataForArray(*CSIdle3Raw,2,212,438,318)
+createRawDataForArray(*CSIdle3Raw,3,153,417,343)
+createRawDataForArray(*CSIdle3Raw,4,207,415,350)
 
-*CSidle3_1WindBackRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle3_1WindBackRaw,0,253,490,333)
+*CSIdle3_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle3_1WindBackRaw,0,253,490,333)
 
-*CSidle3_2WindBackRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle3_2WindBackRaw,0,203,491,348)
+*CSIdle3_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle3_2WindBackRaw,0,203,491,348)
 
-*CSidle3_3WindBackRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle3_3WindBackRaw,0,395,553,392)
-createRawDataForArray(*CSidle3_3WindBackRaw,1,390,571,419)
+*CSIdle3_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle3_3WindBackRaw,0,395,553,392)
+createRawDataForArray(*CSIdle3_3WindBackRaw,1,390,571,419)
 
-*CSidle3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle3_1WindFrontRaw,0,189,433,380)
+*CSIdle3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle3_1WindFrontRaw,0,189,433,380)
 
-*CSidle3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle3_2WindFrontRaw,0,180,443,719)
+*CSIdle3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle3_2WindFrontRaw,0,180,443,719)
 
-*CSidle3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle3_3WindFrontRaw,0,181,419,719)
+*CSIdle3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle3_3WindFrontRaw,0,181,419,719)
 
-*CSidle3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*CSidle3_4WindFrontRaw,0,149,436,773)
+*CSIdle3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSIdle3_4WindFrontRaw,0,149,436,773)
 
-*CSidle3_5WindFrontRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*CSidle3_5WindFrontRaw,0,147,453,628)
-createRawDataForArray(*CSidle3_5WindFrontRaw,1,141,451,713)
+*CSIdle3_5WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSIdle3_5WindFrontRaw,0,147,453,628)
+createRawDataForArray(*CSIdle3_5WindFrontRaw,1,141,451,713)
 
-;----CSFrontNew
-*CSFrontNewRaw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*CSFrontNewRaw,0,180,426,339)
-createRawDataForArray(*CSFrontNewRaw,1,218,425,318)
-createRawDataForArray(*CSFrontNewRaw,2,218,420,325)
-createRawDataForArray(*CSFrontNewRaw,3,229,422,333)
-createRawDataForArray(*CSFrontNewRaw,4,217,397,339)
-createRawDataForArray(*CSFrontNewRaw,5,232,425,333)
-createRawDataForArray(*CSFrontNewRaw,6,240,424,340)
-createRawDataForArray(*CSFrontNewRaw,7,252,429,336)
-createRawDataForArray(*CSFrontNewRaw,8,219,423,342)
+;----CSMoveFront
+*CSMoveFrontRaw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*CSMoveFrontRaw,0,180,426,339)
+createRawDataForArray(*CSMoveFrontRaw,1,218,425,318)
+createRawDataForArray(*CSMoveFrontRaw,2,218,420,325)
+createRawDataForArray(*CSMoveFrontRaw,3,229,422,333)
+createRawDataForArray(*CSMoveFrontRaw,4,217,397,339)
+createRawDataForArray(*CSMoveFrontRaw,5,232,425,333)
+createRawDataForArray(*CSMoveFrontRaw,6,240,424,340)
+createRawDataForArray(*CSMoveFrontRaw,7,252,429,336)
+createRawDataForArray(*CSMoveFrontRaw,8,219,423,342)
 
 ;----CSMoveBack
 *CSMoveBackRaw.rawdataArray=createRawDataArray(6)
@@ -860,18 +860,6 @@ createRawDataForArray(*CSBack2_1WindBackRaw,2,338,403,422)
 *CSBack2_2WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*CSBack2_2WindBackRaw,0,261,443,540)
 
-;----CSnback3
-; *CSnBack3Raw.rawdataArray=createRawDataArray(8)
-; createRawDataForArray(*CSnBack3Raw,0,334,415,221)
-; createRawDataForArray(*CSnBack3Raw,1,344,421,217,338,454,619)
-; createRawDataForArray(*CSnBack3Raw,2,335,421,235,332,449,645)
-; createRawDataForArray(*CSnBack3Raw,3,315,421,235,322,443,652)
-; createRawDataForArray(*CSnBack3Raw,4,285,421,235)
-; createRawDataForArray(*CSnBack3Raw,5,308,409,287)
-; createRawDataForArray(*CSnBack3Raw,6,308,409,287)
-; createRawDataForArray(*CSnBack3Raw,7,316,412,261)
-; createRawDataForArray(*CSnBack3Raw,8,351,412,261)
-
 ;----CSBack3
 *CSBack3Raw.rawdataArray=createRawDataArray(4)
 createRawDataForArray(*CSBack3Raw,0,343,397,145)
@@ -895,18 +883,6 @@ createRawDataForArray(*CSBack3_2WindBackRaw,1,286,374,72)
 *CSBack3_3WindBackRaw.rawdataArray=createRawDataArray(1)
 createRawDataForArray(*CSBack3_3WindBackRaw,0,644,444,77)
 createRawDataForArray(*CSBack3_3WindBackRaw,1,645,424,114)
-
-;----CSBack4
-; *CSBack4Raw.rawdataArray=createRawDataArray(8)
-; createRawDataForArray(*CSBack4Raw,0,210,423,337)
-; createRawDataForArray(*CSBack4Raw,1,282,428,294)
-; createRawDataForArray(*CSBack4Raw,2,346,430,285,344,472,570)
-; createRawDataForArray(*CSBack4Raw,3,328,431,297)
-; createRawDataForArray(*CSBack4Raw,4,349,422,322,349,496,390)
-; createRawDataForArray(*CSBack4Raw,5,233,416,348,232,452,626)
-; createRawDataForArray(*CSBack4Raw,6,233,416,348)
-; createRawDataForArray(*CSBack4Raw,7,233,416,348)
-; createRawDataForArray(*CSBack4Raw,8,233,416,348)
 
 ;----CSBack4
 *CSBack4Raw.rawdataArray=createRawDataArray(5)
@@ -966,20 +942,7 @@ createRawDataForArray(*CSBack5_1WindBackRaw,1,147,467,559)
 createRawDataForArray(*CSBack5_2WindBackRaw,0,472,375,268)
 createRawDataForArray(*CSBack5_2WindBackRaw,1,588,382,277)
 
-;----CSnDown
-*CSnDownRaw.rawdataArray=createRawDataArray(9)
-createRawDataForArray(*CSnDownRaw,0 ,318,371,173)
-createRawDataForArray(*CSnDownRaw,1 ,403,339,258)
-createRawDataForArray(*CSnDownRaw,2 ,436,354,301)
-createRawDataForArray(*CSnDownRaw,3 ,413,394,322)
-createRawDataForArray(*CSnDownRaw,4 ,420,392,304)
-createRawDataForArray(*CSnDownRaw,5 ,430,422,326)
-createRawDataForArray(*CSnDownRaw,6 ,154,402,341,152,662,487)
-createRawDataForArray(*CSnDownRaw,7 ,147,419,339,149,582,726)
-createRawDataForArray(*CSnDownRaw,8 ,145,429,313)
-createRawDataForArray(*CSnDownRaw,9 ,251,428,307)
-
-;----CSDown1 new
+;----CSDown1
 *CSDown1Raw.rawdataArray=createRawDataArray(6)
 createRawDataForArray(*CSDown1Raw,0,205,397,337)
 createRawDataForArray(*CSDown1Raw,1,199,411,354,198,676,548)
@@ -1059,7 +1022,7 @@ createRawDataForArray(*CSDown2_1WindBackRaw,0,165,359,338)
 createRawDataForArray(*CSDown2_1WindBackRaw,1,194,397,352)
 createRawDataForArray(*CSDown2_1WindBackRaw,2,178,413,315)
 
-;----CSHeavyNew
+;----CSHeavy
 *CSHeavy1Raw.rawdataArray=createRawDataArray(5)
 createRawDataForArray(*CSHeavy1Raw,0,277,426,292)
 createRawDataForArray(*CSHeavy1Raw,1,314,432,266)
@@ -1149,69 +1112,6 @@ createRawDataForArray(*CSHeavy3_5WindFrontRaw,0,228,369,282)
 createRawDataForArray(*CSHeavy3_5WindFrontRaw,1,215,387,262)
 
 ;----CSHeavy4
-; *CSHeavy4Raw.rawdataArray=createRawDataArray(10)
-; createRawDataForArray(*CSHeavy4Raw,0 ,241,350,318,187,409,716)
-; createRawDataForArray(*CSHeavy4Raw,1 ,393,411,361,261,562,585)
-; createRawDataForArray(*CSHeavy4Raw,2 ,413,418,353,415,473,355)
-; createRawDataForArray(*CSHeavy4Raw,3 ,418,319,182,637,316,178)
-; createRawDataForArray(*CSHeavy4Raw,4 ,378,362,224)
-; createRawDataForArray(*CSHeavy4Raw,5 ,401,302,358)
-; createRawDataForArray(*CSHeavy4Raw,6 ,236,363,363)
-; createRawDataForArray(*CSHeavy4Raw,7 ,268,304,345)
-; createRawDataForArray(*CSHeavy4Raw,8 ,372,320,207,372,502,484)
-; createRawDataForArray(*CSHeavy4Raw,9 ,410,343,169,395,342,549)
-; createRawDataForArray(*CSHeavy4Raw,10,407,382,128)
-; 
-; *CSHeavy4_2BackWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_2BackWindRaw,0,167,413,544)
-; 
-; *CSHeavy4_3BackWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_3BackWindRaw,0,167,421,349)
-; 
-; *CSHeavy4_4BackWindRaw.rawdataArray=createRawDataArray(1)
-; createRawDataForArray(*CSHeavy4_4BackWindRaw,0,457,314,170)
-; createRawDataForArray(*CSHeavy4_4BackWindRaw,1,702,293,154)
-; 
-; *CSHeavy4_5BackWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_5BackWindRaw,0,371,323,175)
-; 
-; *CSHeavy4_6BackWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_6BackWindRaw,0,358,297,189)
-; 
-; *CSHeavy4_7BackWindRaw.rawdataArray=createRawDataArray(1)
-; createRawDataForArray(*CSHeavy4_7BackWindRaw,0,230,299,194)
-; createRawDataForArray(*CSHeavy4_7BackWindRaw,1,306,273,393)
-; 
-; *CSHeavy4_9BackWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_9BackWindRaw,0,364,302,365)
-; 
-; *CSHeavy4_10BackWindRaw.rawdataArray=createRawDataArray(1)
-; createRawDataForArray(*CSHeavy4_10BackWindRaw,0,393,343,180)
-; createRawDataForArray(*CSHeavy4_10BackWindRaw,1,380,314,405)
-; 
-; *CSHeavy4_1FrontWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_1FrontWindRaw,0,189,338,375)
-; 
-; *CSHeavy4_2FrontWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_2FrontWindRaw,0,449,338,373)
-; 
-; *CSHeavy4_3FrontWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_3FrontWindRaw,0,394,333,399)
-; 
-; *CSHeavy4_4FrontWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_4FrontWindRaw,0,370,391,589)
-; 
-; *CSHeavy4_8FrontWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_8FrontWindRaw,0,193,299,529)
-; 
-; *CSHeavy4_9FrontWindRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*CSHeavy4_9FrontWindRaw,0,271,261,199)
-; 
-; *CSHeavy4_10FrontWindRaw.rawdataArray=createRawDataArray(1)
-; createRawDataForArray(*CSHeavy4_10FrontWindRaw,0,354,265,48)
-; createRawDataForArray(*CSHeavy4_10FrontWindRaw,1,340,204,17)
-
-;----CSHeavy4
 *CSHeavy4Raw.rawdataArray=createRawDataArray(10)
 createRawDataForArray(*CSHeavy4Raw, 0,241,352,321,187,409,716)
 createRawDataForArray(*CSHeavy4Raw, 1,393,410,368,261,562,585)
@@ -1276,15 +1176,15 @@ createRawDataForArray(*CSHeavy4_10WindBackRaw,0,354,309,142)
 createRawDataForArray(*CSHeavy4_10WindBackRaw,1,345,278,458)
 createRawDataForArray(*CSHeavy4_10WindBackRaw,2,314,277,522)
 
-;----CSDeathNew
-*CSDeathNewRaw.rawdataArray=createRawDataArray(6)
-createRawDataForArray(*CSDeathNewRaw,0,207,425,306)
-createRawDataForArray(*CSDeathNewRaw,1,264,406,340)
-createRawDataForArray(*CSDeathNewRaw,2,279,321,345)
-createRawDataForArray(*CSDeathNewRaw,3,265,308,277)
-createRawDataForArray(*CSDeathNewRaw,4,220,355,355)
-createRawDataForArray(*CSDeathNewRaw,5,214,487,429)
-createRawDataForArray(*CSDeathNewRaw,6,212,466,447)
+;----CSDeath
+*CSDeathRaw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*CSDeathRaw,0,207,425,306)
+createRawDataForArray(*CSDeathRaw,1,264,406,340)
+createRawDataForArray(*CSDeathRaw,2,279,321,345)
+createRawDataForArray(*CSDeathRaw,3,265,308,277)
+createRawDataForArray(*CSDeathRaw,4,220,355,355)
+createRawDataForArray(*CSDeathRaw,5,214,487,429)
+createRawDataForArray(*CSDeathRaw,6,212,466,447)
 
 *CSDeath2WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*CSDeath2WindFrontRaw,0,208,436,468)
@@ -1306,21 +1206,21 @@ createRawDataForArray(*CSDeath6WindFrontRaw,2,185,528,352)
 *CSDeath5WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*CSDeath5WindBackRaw,0,214,283,318)
 
-;----CSSpawnNew
-*CSSpawnNewRaw.rawdataArray=createRawDataArray(12)
-createRawDataForArray(*CSSpawnNewRaw,0 ,370,196,334)
-createRawDataForArray(*CSSpawnNewRaw,1 ,378,207,363)
-createRawDataForArray(*CSSpawnNewRaw,2 ,393,203,347)
-createRawDataForArray(*CSSpawnNewRaw,3 ,360,199,363)
-createRawDataForArray(*CSSpawnNewRaw,4 ,404,204,347)
-createRawDataForArray(*CSSpawnNewRaw,5 ,429,220,354)
-createRawDataForArray(*CSSpawnNewRaw,6 ,439,242,367)
-createRawDataForArray(*CSSpawnNewRaw,7 ,428,238,334)
-createRawDataForArray(*CSSpawnNewRaw,8 ,473,337,268)
-createRawDataForArray(*CSSpawnNewRaw,9 ,442,231,293)
-createRawDataForArray(*CSSpawnNewRaw,10,255,426,304)
-createRawDataForArray(*CSSpawnNewRaw,11,264,372,336)
-createRawDataForArray(*CSSpawnNewRaw,12,257,430,337)
+;----CSSpawn
+*CSSpawnRaw.rawdataArray=createRawDataArray(12)
+createRawDataForArray(*CSSpawnRaw,0 ,370,196,334)
+createRawDataForArray(*CSSpawnRaw,1 ,378,207,363)
+createRawDataForArray(*CSSpawnRaw,2 ,393,203,347)
+createRawDataForArray(*CSSpawnRaw,3 ,360,199,363)
+createRawDataForArray(*CSSpawnRaw,4 ,404,204,347)
+createRawDataForArray(*CSSpawnRaw,5 ,429,220,354)
+createRawDataForArray(*CSSpawnRaw,6 ,439,242,367)
+createRawDataForArray(*CSSpawnRaw,7 ,428,238,334)
+createRawDataForArray(*CSSpawnRaw,8 ,473,337,268)
+createRawDataForArray(*CSSpawnRaw,9 ,442,231,293)
+createRawDataForArray(*CSSpawnRaw,10,255,426,304)
+createRawDataForArray(*CSSpawnRaw,11,264,372,336)
+createRawDataForArray(*CSSpawnRaw,12,257,430,337)
 
 *CSSpawn4WindFrontRaw.rawdataArray=createRawDataArray(1)
 createRawDataForArray(*CSSpawn4WindFrontRaw,0,351,212,515)
@@ -1363,26 +1263,26 @@ createRawDataForArray(*CSSpawn11WindBackRaw,1,409,377,438)
 createRawDataForArray(*CSSpawn12WindBackRaw,0,250,445,336)
 createRawDataForArray(*CSSpawn12WindBackRaw,1,272,438,344)
 
-;----CSJumpNew
-*CSJumpNewRaw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*CSJumpNewRaw,0,267,430,306)
-createRawDataForArray(*CSJumpNewRaw,1,333,428,334)
-createRawDataForArray(*CSJumpNewRaw,2,375,390,330)
-createRawDataForArray(*CSJumpNewRaw,3,242,368,334)
-createRawDataForArray(*CSJumpNewRaw,4,272,348,348)
-createRawDataForArray(*CSJumpNewRaw,5,292,328,346)
+;----CSJump
+*CSJumpRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*CSJumpRaw,0,267,430,306)
+createRawDataForArray(*CSJumpRaw,1,333,428,334)
+createRawDataForArray(*CSJumpRaw,2,375,390,330)
+createRawDataForArray(*CSJumpRaw,3,242,368,334)
+createRawDataForArray(*CSJumpRaw,4,272,348,348)
+createRawDataForArray(*CSJumpRaw,5,292,328,346)
 
-;----CSLandNew
-*CSLandNewRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*CSLandNewRaw,0,256,469,327)
-createRawDataForArray(*CSLandNewRaw,1,251,445,330)
-createRawDataForArray(*CSLandNewRaw,2,242,437,332)
+;----CSLand
+*CSLandRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*CSLandRaw,0,256,469,327)
+createRawDataForArray(*CSLandRaw,1,251,445,330)
+createRawDataForArray(*CSLandRaw,2,242,437,332)
 
-;----CSHitNew
-*CSHitNewRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*CSHitNewRaw,0,307,314,328)
-createRawDataForArray(*CSHitNewRaw,1,432,323,293)
-createRawDataForArray(*CSHitNewRaw,2,454,339,225)
+;----CSHit
+*CSHitRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*CSHitRaw,0,307,314,328)
+createRawDataForArray(*CSHitRaw,1,432,323,293)
+createRawDataForArray(*CSHitRaw,2,454,339,225)
 
 ;----CSDodge
 *CSDodgeRaw.rawdataArray=createRawDataArray(3)
@@ -1391,6 +1291,166 @@ createRawDataForArray(*CSDodgeRaw,1,98,442,345)
 createRawDataForArray(*CSDodgeRaw,2,168,462,339)
 createRawDataForArray(*CSDodgeRaw,3,228,494,354)
 
+;----CSParry
+*CSParryRaw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*CSParryRaw,0,230,359,341)
+createRawDataForArray(*CSParryRaw,1,283,274,344)
+createRawDataForArray(*CSParryRaw,2,216,359,387)
+createRawDataForArray(*CSParryRaw,3,426,350,377)
+createRawDataForArray(*CSParryRaw,4,446,393,334)
+createRawDataForArray(*CSParryRaw,5,291,343,256)
+createRawDataForArray(*CSParryRaw,6,305,368,237)
+
+;----CSSelection
+*CSSelectionRaw.rawdataArray=createRawDataArray(10)
+createRawDataForArray(*CSSelectionRaw,0,466,131,356)
+createRawDataForArray(*CSSelectionRaw,1,443,121,359)
+createRawDataForArray(*CSSelectionRaw,2,389,100,360)
+createRawDataForArray(*CSSelectionRaw,3,380,104,355)
+createRawDataForArray(*CSSelectionRaw,4,355,134,356)
+createRawDataForArray(*CSSelectionRaw,5,332,160,336)
+createRawDataForArray(*CSSelectionRaw,6,335,174,338)
+createRawDataForArray(*CSSelectionRaw,7,339,179,336)
+createRawDataForArray(*CSSelectionRaw,8,338,173,334)
+createRawDataForArray(*CSSelectionRaw,9,347,170,332)
+createRawDataForArray(*CSSelectionRaw,10,338,166,338)
+
+*CSSelection_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelection_2WindFrontRaw,0,427,111,442)
+
+*CSSelection_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelection_3WindFrontRaw,0,380,94,429)
+
+*CSSelection_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelection_4WindFrontRaw,0,359,93,466)
+
+*CSSelection_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*CSSelection_5WindFrontRaw,0,334,111,538)
+createRawDataForArray(*CSSelection_5WindFrontRaw,1,317,117,450)
+createRawDataForArray(*CSSelection_5WindFrontRaw,2,308,140,591)
+
+*CSSelection_10WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelection_10WindFrontRaw,0,342,166,575)
+
+*CSSelection_11WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*CSSelection_11WindFrontRaw,0,362,154,589)
+createRawDataForArray(*CSSelection_11WindFrontRaw,1,346,149,560)
+createRawDataForArray(*CSSelection_11WindFrontRaw,2,338,148,553)
+
+;----CSSelected
+*CSSelectedRaw.rawdataArray=createRawDataArray(21)
+createRawDataForArray(*CSSelectedRaw,0,272,270,351)
+createRawDataForArray(*CSSelectedRaw,1,282,336,243)
+createRawDataForArray(*CSSelectedRaw,2,430,216,328)
+createRawDataForArray(*CSSelectedRaw,3,371,349,207)
+createRawDataForArray(*CSSelectedRaw,4,398,280,237)
+createRawDataForArray(*CSSelectedRaw,5,460,175,315)
+createRawDataForArray(*CSSelectedRaw,6,461,175,312)
+createRawDataForArray(*CSSelectedRaw,7,442,216,303)
+createRawDataForArray(*CSSelectedRaw,8,323,342,235)
+createRawDataForArray(*CSSelectedRaw,9,451,312,293)
+createRawDataForArray(*CSSelectedRaw,10,316,259,359)
+createRawDataForArray(*CSSelectedRaw,11,262,322,358)
+createRawDataForArray(*CSSelectedRaw,12,245,419,284)
+createRawDataForArray(*CSSelectedRaw,13,366,269,345)
+createRawDataForArray(*CSSelectedRaw,14,329,304,346)
+createRawDataForArray(*CSSelectedRaw,15,340,309,347)
+createRawDataForArray(*CSSelectedRaw,16,316,333,351)
+createRawDataForArray(*CSSelectedRaw,17,314,325,348)
+createRawDataForArray(*CSSelectedRaw,18,328,336,343)
+createRawDataForArray(*CSSelectedRaw,19,295,383,343)
+createRawDataForArray(*CSSelectedRaw,20,296,349,353)
+createRawDataForArray(*CSSelectedRaw,21,324,343,350)
+
+*CSSelected_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_1WindFrontRaw,0,257,136,366)
+
+*CSSelected_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_2WindFrontRaw,0,212,119,147)
+
+*CSSelected_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_3WindFrontRaw,0,183,99,111)
+
+*CSSelected_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_4WindFrontRaw,0,188,75,135)
+
+*CSSelected_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_5WindFrontRaw,0,187,64,118)
+
+*CSSelected_6WindFrontRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*CSSelected_6WindFrontRaw,0,191,93,107)
+createRawDataForArray(*CSSelected_6WindFrontRaw,1,251,83,130)
+createRawDataForArray(*CSSelected_6WindFrontRaw,2,241,71,113)
+createRawDataForArray(*CSSelected_6WindFrontRaw,3,245,103,107)
+createRawDataForArray(*CSSelected_6WindFrontRaw,4,514,123,105)
+createRawDataForArray(*CSSelected_6WindFrontRaw,5,529,224,244)
+
+*CSSelected_8WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_8WindFrontRaw,0,432,162,295)
+
+*CSSelected_9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_9WindFrontRaw,0,272,161,184)
+
+*CSSelected_10WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_10WindFrontRaw,0,258,153,251)
+
+*CSSelected_11WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_11WindFrontRaw,0,255,148,157)
+
+*CSSelected_12WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_12WindFrontRaw,0,233,83,185)
+
+*CSSelected_13WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_13WindFrontRaw,0,130,86,167)
+
+*CSSelected_14WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*CSSelected_14WindFrontRaw,0,93,91,159)
+createRawDataForArray(*CSSelected_14WindFrontRaw,1,152,88,239)
+createRawDataForArray(*CSSelected_14WindFrontRaw,2,125,82,305)
+createRawDataForArray(*CSSelected_14WindFrontRaw,3,118,447,402)
+createRawDataForArray(*CSSelected_14WindFrontRaw,4,116,494,389)
+
+*CSSelected_17WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSSelected_17WindFrontRaw,0,309,305,387)
+createRawDataForArray(*CSSelected_17WindFrontRaw,1,300,323,379)
+
+*CSSelected_19WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_19WindFrontRaw,0,375,478,556)
+
+*CSSelected_20WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSSelected_20WindFrontRaw,0,291,332,362)
+createRawDataForArray(*CSSelected_20WindFrontRaw,1,284,356,353)
+
+*CSSelected_21WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_21WindFrontRaw,0,362,341,368)
+
+*CSSelected_22WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*CSSelected_22WindFrontRaw,0,294,332,362)
+createRawDataForArray(*CSSelected_22WindFrontRaw,1,319,302,364)
+createRawDataForArray(*CSSelected_22WindFrontRaw,2,318,297,406)
+
+*CSSelected_8WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*CSSelected_8WindBackRaw,0,461,325,400)
+createRawDataForArray(*CSSelected_8WindBackRaw,1,446,336,509)
+
+*CSSelected_10WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_10WindBackRaw,0,421,182,185)
+
+*CSSelected_11WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_11WindBackRaw,0,188,180,176)
+
+*CSSelected_12WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_12WindBackRaw,0,176,175,188)
+
+*CSSelected_13WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*CSSelected_13WindBackRaw,0,192,172,181)
+
+*CSSelected_14WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*CSSelected_14WindBackRaw,0,188,187,175)
+createRawDataForArray(*CSSelected_14WindBackRaw,1,184,203,196)
+createRawDataForArray(*CSSelected_14WindBackRaw,2,433,219,173)
+createRawDataForArray(*CSSelected_14WindBackRaw,3,429,214,201)
+createRawDataForArray(*CSSelected_14WindBackRaw,4,457,205,334)
 ;----BPIdle1
 *BPIdle1Raw.rawdataArray=createRawDataArray(9)
 createRawDataForArray(*BPIdle1Raw,0,310,333,321)
@@ -1530,92 +1590,26 @@ createRawDataForArray(*BPIdle3_7WindBackRaw,0,354,507,478)
 *BPIdle3_8WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPIdle3_8WindBackRaw,0,346,554,539)
 
-;----BPFrontNew
-*BPFrontNewRaw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*BPFrontNewRaw,0,272,429,345)
-createRawDataForArray(*BPFrontNewRaw,1,251,437,347)
-createRawDataForArray(*BPFrontNewRaw,2,278,422,342)
-createRawDataForArray(*BPFrontNewRaw,3,369,426,321)
-createRawDataForArray(*BPFrontNewRaw,4,398,428,346)
-createRawDataForArray(*BPFrontNewRaw,5,390,429,347)
-createRawDataForArray(*BPFrontNewRaw,6,315,432,305)
-createRawDataForArray(*BPFrontNewRaw,7,265,430,323)
-createRawDataForArray(*BPFrontNewRaw,8,273,428,335)
+;----BPFront
+*BPMoveFrontRaw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*BPMoveFrontRaw,0,272,429,345)
+createRawDataForArray(*BPMoveFrontRaw,1,251,437,347)
+createRawDataForArray(*BPMoveFrontRaw,2,278,422,342)
+createRawDataForArray(*BPMoveFrontRaw,3,369,426,321)
+createRawDataForArray(*BPMoveFrontRaw,4,398,428,346)
+createRawDataForArray(*BPMoveFrontRaw,5,390,429,347)
+createRawDataForArray(*BPMoveFrontRaw,6,315,432,305)
+createRawDataForArray(*BPMoveFrontRaw,7,265,430,323)
+createRawDataForArray(*BPMoveFrontRaw,8,273,428,335)
 
-;----BPMoveBack new
+;----BPMoveBack
 *BPMoveBackRaw.rawdataArray=createRawDataArray(3)
 createRawDataForArray(*BPMoveBackRaw,0,351,405,342)
 createRawDataForArray(*BPMoveBackRaw,1,313,411,327)
 createRawDataForArray(*BPMoveBackRaw,2,284,422,349)
 createRawDataForArray(*BPMoveBackRaw,3,272,423,347)
 
-;----BPNeutral1New
-; *BPNeutral1NewRaw.rawdataArray=createRawDataArray(9)
-; createRawDataForArray(*BPNeutral1NewRaw,0,360,288,316)
-; createRawDataForArray(*BPNeutral1NewRaw,1,335,422,325)
-; createRawDataForArray(*BPNeutral1NewRaw,2,171,428,347,168,517,622)
-; createRawDataForArray(*BPNeutral1NewRaw,3,353,274,311,126,268,611)
-; createRawDataForArray(*BPNeutral1NewRaw,4,401,356,243,359,248,238)
-; createRawDataForArray(*BPNeutral1NewRaw,5,445,424,200)
-; createRawDataForArray(*BPNeutral1NewRaw,6,437,440,241)
-; createRawDataForArray(*BPNeutral1NewRaw,7,404,428,331)
-; createRawDataForArray(*BPNeutral1NewRaw,8,241,395,314,213,387,456)
-; createRawDataForArray(*BPNeutral1NewRaw,9,367,229,316,234,213,485)
-; 
-; *BPNeutral1_1WindBackRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_1WindBackRaw,0,354,280,449)
-; 
-; *BPNeutral1_2WindBackRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_2WindBackRaw,0,374,448,552)
-; 
-; *BPNeutral1_3WindBackRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_3WindBackRaw,0,164,431,558)
-; 
-; *BPNeutral1_4WindBackRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_4WindBackRaw,0,333,398,551)
-; 
-; *BPNeutral1_5WindBackRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_5WindBackRaw,0,131,206,235)
-; 
-; *BPNeutral1_6WindBackRaw.rawdataArray=createRawDataArray(1)
-; createRawDataForArray(*BPNeutral1_6WindBackRaw,0,460,215,179)
-; createRawDataForArray(*BPNeutral1_6WindBackRaw,1,768,293,159)
-; 
-; *BPNeutral1_10WindBackRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_10WindBackRaw,0,351,414,520)
-; 
-; ;front
-; *BPNeutral1_1WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_1WindFrontRaw,0,304,268,440)
-; 
-; *BPNeutral1_2WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_2WindFrontRaw,0,321,262,391)
-; 
-; *BPNeutral1_3WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_3WindFrontRaw,0,166,274,397)
-; 
-; *BPNeutral1_4WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_4WindFrontRaw,0, 72,269,355)
-; 
-; *BPNeutral1_5WindFrontRaw.rawdataArray=createRawDataArray(1)
-; createRawDataForArray(*BPNeutral1_5WindFrontRaw,0, 63,293,791)
-; createRawDataForArray(*BPNeutral1_5WindFrontRaw,1, 39,313,894)
-; 
-; *BPNeutral1_7WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_7WindFrontRaw,0,430,316,204)
-; 
-; *BPNeutral1_8WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_8WindFrontRaw,0,392,332,175)
-; 
-; *BPNeutral1_9WindFrontRaw.rawdataArray=createRawDataArray(0)
-; createRawDataForArray(*BPNeutral1_9WindFrontRaw,0,193,328,180)
-; 
-; *BPNeutral1_10WindFrontRaw.rawdataArray=createRawDataArray(2)
-; createRawDataForArray(*BPNeutral1_10WindFrontRaw,0,171,207,279)
-; createRawDataForArray(*BPNeutral1_10WindFrontRaw,1,120,186,452)
-; createRawDataForArray(*BPNeutral1_10WindFrontRaw,2, 88,147,435)
-
-;----BPNeutral1 newer
+;----BPNeutral1
 *BPNeutral1Raw.rawdataArray=createRawDataArray(9)
 createRawDataForArray(*BPNeutral1Raw,0,360,288,330)
 createRawDataForArray(*BPNeutral1Raw,1,316,417,353)
@@ -1684,18 +1678,7 @@ createRawDataForArray(*BPNeutral1_9WindBackRaw,0,336,365,439)
 createRawDataForArray(*BPNeutral1_10WindBackRaw,0,273,332,403)
 createRawDataForArray(*BPNeutral1_10WindBackRaw,1,293,321,370)
 
-
 ;----BPNeutral2
-; *BPneutral2Raw.rawdataArray=createRawDataArray(7)
-; createRawDataForArray(*BPneutral2Raw,0,236,358,327,231,357,561)
-; createRawDataForArray(*BPneutral2Raw,1,246,359,345,230,467,593)
-; createRawDataForArray(*BPneutral2Raw,2,244,263,324)
-; createRawDataForArray(*BPneutral2Raw,3,203,256,328,200,252,422)
-; createRawDataForArray(*BPneutral2Raw,4,187,254,295,181,385,684)
-; createRawDataForArray(*BPneutral2Raw,5,185,256,295)
-; createRawDataForArray(*BPneutral2Raw,6,184,292,295)
-; createRawDataForArray(*BPneutral2Raw,7,196,426,295)
-
 *BPNeutral2Raw.rawdataArray=createRawDataArray(3)
 createRawDataForArray(*BPNeutral2Raw,0,386,388,369)
 createRawDataForArray(*BPNeutral2Raw,1,365,381,347)
@@ -1712,48 +1695,31 @@ createRawDataForArray(*BPNeutral2_2WindFrontRaw,0,155,341,269)
 createRawDataForArray(*BPNeutral2_3WindFrontRaw,0,197,155,212)
 
 *BPNeutral2_4WindFrontRaw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*BPNeutral2_4WindFrontRaw,0,12,89,263)
-createRawDataForArray(*BPNeutral2_4WindFrontRaw,1,35,128,231)
-createRawDataForArray(*BPNeutral2_4WindFrontRaw,2,13,145,677)
-createRawDataForArray(*BPNeutral2_4WindFrontRaw,3,1,443,768)
+createRawDataForArray(*BPNeutral2_4WindFrontRaw,0, 12,89,263)
+createRawDataForArray(*BPNeutral2_4WindFrontRaw,1, 35,128,231)
+createRawDataForArray(*BPNeutral2_4WindFrontRaw,2, 13,145,677)
+createRawDataForArray(*BPNeutral2_4WindFrontRaw,3, 1,443,768)
 
 ;----BPNeutral3
-; *BPneutral3Raw.rawdataArray=createRawDataArray(6)
-; createRawDataForArray(*BPneutral3Raw,0,199,430,313)
-; createRawDataForArray(*BPneutral3Raw,1,202,378,335)
-; createRawDataForArray(*BPneutral3Raw,2,248,378,338,257,396,623)
-; createRawDataForArray(*BPneutral3Raw,3,212,389,314,212,419,662)
-; createRawDataForArray(*BPneutral3Raw,4,202,403,314,203,469,767)
-; createRawDataForArray(*BPneutral3Raw,5,186,404,314,187,481,781)
-; createRawDataForArray(*BPneutral3Raw,6,212,417,314)
 *BPNeutral3Raw.rawdataArray=createRawDataArray(2)
 createRawDataForArray(*BPNeutral3Raw,0,212,390,397)
 createRawDataForArray(*BPNeutral3Raw,1,335,380,365)
 createRawDataForArray(*BPNeutral3Raw,2,194,424,370,192,375,483)
 
 *BPNeutral3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPNeutral3_1WindFrontRaw,0,69,380,398)
+createRawDataForArray(*BPNeutral3_1WindFrontRaw,0, 69,380,398)
 
 *BPNeutral3_2WindFrontRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*BPNeutral3_2WindFrontRaw,0,52,360,343)
+createRawDataForArray(*BPNeutral3_2WindFrontRaw,0, 52,360,343)
 createRawDataForArray(*BPNeutral3_2WindFrontRaw,1,219,317,290)
 createRawDataForArray(*BPNeutral3_2WindFrontRaw,2,649,340,273)
 
 *BPNeutral3_3WindFrontRaw.rawdataArray=createRawDataArray(2)
 createRawDataForArray(*BPNeutral3_3WindFrontRaw,0,157,324,322)
 createRawDataForArray(*BPNeutral3_3WindFrontRaw,1,126,303,514)
-createRawDataForArray(*BPNeutral3_3WindFrontRaw,2,87,398,571)
-
+createRawDataForArray(*BPNeutral3_3WindFrontRaw,2, 87,398,571)
 
 ;----BPNeutral4
-; *BPNeutral4Raw.rawdataArray=createRawDataArray(6)
-; createRawDataForArray(*BPNeutral4Raw,0,198,415,339)
-; createRawDataForArray(*BPNeutral4Raw,1,199,428,339)
-; createRawDataForArray(*BPNeutral4Raw,2,304,234,316)
-; createRawDataForArray(*BPNeutral4Raw,3,207,216,313,204,212,457)
-; createRawDataForArray(*BPNeutral4Raw,4,207,217,340,201,446,615)
-; createRawDataForArray(*BPNeutral4Raw,5,207,232,340)
-; createRawDataForArray(*BPNeutral4Raw,6,297,433,340)
 *BPNeutral4Raw.rawdataArray=createRawDataArray(7)
 createRawDataForArray(*BPNeutral4Raw,0,168,429,383)
 createRawDataForArray(*BPNeutral4Raw,1,208,423,370)
@@ -1785,13 +1751,7 @@ createRawDataForArray(*BPNeutral4_2WindBackRaw,0,150,462,559)
 *BPNeutral4_3WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPNeutral4_3WindBackRaw,0,146,368,375)
 
-
 ;----BPNeutral5
-; *BPNeutral5Raw.rawdataArray=createRawDataArray(3)
-; createRawDataForArray(*BPNeutral5Raw,0,358,265,282,356,472,463)
-; createRawDataForArray(*BPNeutral5Raw,1,291,268,269,288,448,535)
-; createRawDataForArray(*BPNeutral5Raw,2,307,268,252,306,465,620)
-; createRawDataForArray(*BPNeutral5Raw,3,307,282,315)
 *BPNeutral5Raw.rawdataArray=createRawDataArray(2)
 createRawDataForArray(*BPNeutral5Raw,0,403,280,345)
 createRawDataForArray(*BPNeutral5Raw,1,308,276,348,307,445,490)
@@ -1835,12 +1795,12 @@ createRawDataForArray(*BPNeutral6_3WindBackRaw,0,368,293,348)
 createRawDataForArray(*BPNeutral6_3WindBackRaw,1,376,284,349)
 createRawDataForArray(*BPNeutral6_3WindBackRaw,2,401,267,330)
 
-;----BPSide1New
-*BPSide1NewRaw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*BPSide1NewRaw,0,373,326,314)
-createRawDataForArray(*BPSide1NewRaw,1,200,421,325,205,342,442)
-createRawDataForArray(*BPSide1NewRaw,2,232,389,328,224,405,619)
-createRawDataForArray(*BPSide1NewRaw,3,416,363,329,274,359,539)
+;----BPSide1
+*BPSide1Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*BPSide1Raw,0,373,326,314)
+createRawDataForArray(*BPSide1Raw,1,200,421,325,205,342,442)
+createRawDataForArray(*BPSide1Raw,2,232,389,328,224,405,619)
+createRawDataForArray(*BPSide1Raw,3,416,363,329,274,359,539)
 
 *BPSide1_1WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPSide1_1WindBackRaw,0,290,321,548)
@@ -1866,13 +1826,13 @@ createRawDataForArray(*BPSide1_4WindFrontRaw,0,221,350,380)
 createRawDataForArray(*BPSide1_4WindFrontRaw,1,218,342,547)
 createRawDataForArray(*BPSide1_4WindFrontRaw,2,189,345,691)
 
-;----BPSide2New
-*BPSide2NewRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*BPSide2NewRaw,0,197,380,340,189,355,530)
-createRawDataForArray(*BPSide2NewRaw,1,375,392,316,216,389,289)
-createRawDataForArray(*BPSide2NewRaw,2,380,312,328)
-createRawDataForArray(*BPSide2NewRaw,3,387,248,327,385,231,290)
-createRawDataForArray(*BPSide2NewRaw,4,224,367,337,215,203,543)
+;----BPSide2
+*BPSide2Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*BPSide2Raw,0,197,380,340,189,355,530)
+createRawDataForArray(*BPSide2Raw,1,375,392,316,216,389,289)
+createRawDataForArray(*BPSide2Raw,2,380,312,328)
+createRawDataForArray(*BPSide2Raw,3,387,248,327,385,231,290)
+createRawDataForArray(*BPSide2Raw,4,224,367,337,215,203,543)
 
 *BPSide2_1WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPSide2_1WindBackRaw,0,194,358,490)
@@ -1900,15 +1860,15 @@ createRawDataForArray(*BPSide2_5WindFrontRaw,0,196,160,145)
 createRawDataForArray(*BPSide2_5WindFrontRaw,1,186,154,202)
 createRawDataForArray(*BPSide2_5WindFrontRaw,2,145,170,605)
 
-;----BPSide3New
-*BPSide3NewRaw.rawdataArray=createRawDataArray(6)
-createRawDataForArray(*BPSide3NewRaw,0,261,365,352)
-createRawDataForArray(*BPSide3NewRaw,1,275,395,339)
-createRawDataForArray(*BPSide3NewRaw,2,293,312,272)
-createRawDataForArray(*BPSide3NewRaw,3,227,406,340,225,405,634)
-createRawDataForArray(*BPSide3NewRaw,4,215,355,348,214,445,616)
-createRawDataForArray(*BPSide3NewRaw,5,203,405,314,200,436,655)
-createRawDataForArray(*BPSide3NewRaw,6,216,352,356,215,409,677)
+;----BPSide3
+*BPSide3Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*BPSide3Raw,0,261,365,352)
+createRawDataForArray(*BPSide3Raw,1,275,395,339)
+createRawDataForArray(*BPSide3Raw,2,293,312,272)
+createRawDataForArray(*BPSide3Raw,3,227,406,340,225,405,634)
+createRawDataForArray(*BPSide3Raw,4,215,355,348,214,445,616)
+createRawDataForArray(*BPSide3Raw,5,203,405,314,200,436,655)
+createRawDataForArray(*BPSide3Raw,6,216,352,356,215,409,677)
 
 *BPSide3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPSide3_1WindFrontRaw,0,205,402,588)
@@ -1941,15 +1901,6 @@ createRawDataForArray(*BPSide3_5WindBackRaw,0,388,339,381)
 createRawDataForArray(*BPSide3_6WindBackRaw,0,229,403,555)
 
 ;----BPSide4
-; *BPSide4Raw.rawdataArray=createRawDataArray(7)
-; createRawDataForArray(*BPSide4Raw,0,330,240,328)
-; createRawDataForArray(*BPSide4Raw,1,345,240,340,343,240,392)
-; createRawDataForArray(*BPSide4Raw,2,268,250,340,258,340,583)
-; createRawDataForArray(*BPSide4Raw,3,264,257,324,267,491,561)
-; createRawDataForArray(*BPSide4Raw,4,341,307,327,383,503,485)
-; createRawDataForArray(*BPSide4Raw,5,341,365,327)
-; createRawDataForArray(*BPSide4Raw,6,394,403,327)
-; createRawDataForArray(*BPSide4Raw,7,461,403,327)
 *BPSide4Raw.rawdataArray=createRawDataArray(4)
 createRawDataForArray(*BPSide4Raw,0,393,226,369)
 createRawDataForArray(*BPSide4Raw,1,326,313,371,325,217,418)
@@ -1980,16 +1931,6 @@ createRawDataForArray(*BPSide4_5WindBackRaw,0,260,473,471)
 createRawDataForArray(*BPSide4_5WindBackRaw,1,345,456,377)
 createRawDataForArray(*BPSide4_5WindBackRaw,2,489,446,325)
 
-
-; *BPSide5Raw.rawdataArray=createRawDataArray(7)
-; createRawDataForArray(*BPSide5Raw,0,334,422,309)
-; createRawDataForArray(*BPSide5Raw,1,385,415,307,448,470,303)
-; createRawDataForArray(*BPSide5Raw,2,297,382,310,293,450,553)
-; createRawDataForArray(*BPSide5Raw,3,141,343,309,138,414,626)
-; createRawDataForArray(*BPSide5Raw,4,142,331,347,140,347,623)
-; createRawDataForArray(*BPSide5Raw,5,144,331,347)
-; createRawDataForArray(*BPSide5Raw,6,153,331,347)
-; createRawDataForArray(*BPSide5Raw,7,269,331,347)
 ;----BPSide5
 *BPSide5Raw.rawdataArray=createRawDataArray(4)
 createRawDataForArray(*BPSide5Raw,0,340,419,346)
@@ -2083,12 +2024,12 @@ createRawDataForArray(*BPSide7_2WindBackRaw,0,310,326,294)
 createRawDataForArray(*BPSide7_3WindBackRaw,0,301,332,337)
 createRawDataForArray(*BPSide7_3WindBackRaw,1,483,465,328)
 
-;----BPUp1New
-*BPUp1NewRaw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*BPUp1NewRaw,0,425,337,333)
-createRawDataForArray(*BPUp1NewRaw,1,386,437,341,465,338,362)
-createRawDataForArray(*BPUp1NewRaw,2,289,388,345,290,434,485)
-createRawDataForArray(*BPUp1NewRaw,3,475,116,359,292,116,475)
+;----BPUp1
+*BPUp1Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*BPUp1Raw,0,425,337,333)
+createRawDataForArray(*BPUp1Raw,1,386,437,341,465,338,362)
+createRawDataForArray(*BPUp1Raw,2,289,388,345,290,434,485)
+createRawDataForArray(*BPUp1Raw,3,475,116,359,292,116,475)
 
 *BPUp1_1WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPUp1_1WindFrontRaw,0,323,310,481)
@@ -2118,33 +2059,25 @@ createRawDataForArray(*BPUp2Raw,2,355,391,342,425,468,309)
 createRawDataForArray(*BPUp2Raw,3,277,330,300,273,325,538)
 createRawDataForArray(*BPUp2Raw,4,408,249,293,273,239,519)
 
-*BPUp2_1FrontWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPUp2_1FrontWindRaw,0,326,189,477)
+*BPUp2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPUp2_1WindFrontRaw,0,326,189,477)
 
-*BPUp2_2BackWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPUp2_2BackWindRaw,0,324,196,306)
+*BPUp2_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPUp2_2WindBackRaw,0,324,196,306)
 
-*BPUp2_3BackWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPUp2_3BackWindRaw,0,336,197,280)
+*BPUp2_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPUp2_3WindBackRaw,0,336,197,280)
 
-*BPUp2_4BackWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPUp2_4BackWindRaw,0,421,365,281)
+*BPUp2_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPUp2_4WindBackRaw,0,421,365,281)
 
-*BPUp2_4FrontWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPUp2_4FrontWindRaw,0,274,325,288)
+*BPUp2_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPUp2_4WindFrontRaw,0,274,325,288)
 
-*BPUp2_5FrontWindRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*BPUp2_5FrontWindRaw,0,232,237,283)
-createRawDataForArray(*BPUp2_5FrontWindRaw,1,262,234,561)
-createRawDataForArray(*BPUp2_5FrontWindRaw,2,298,240,531)
-
-;----UAUp3
-*UAUp3Raw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*UAUp3Raw,0,366,382,340,365,428,449)
-createRawDataForArray(*UAUp3Raw,1,365,348,364,344,349,529)
-createRawDataForArray(*UAUp3Raw,2,415,295,377,374,293,438)
-createRawDataForArray(*UAUp3Raw,3,408,254,357,459,247,366)
-createRawDataForArray(*UAUp3Raw,4,398,307,390)
+*BPUp2_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*BPUp2_5WindFrontRaw,0,232,237,283)
+createRawDataForArray(*BPUp2_5WindFrontRaw,1,262,234,561)
+createRawDataForArray(*BPUp2_5WindFrontRaw,2,298,240,531)
 
 *UAUp3_1WindFrontRaw.rawdataArray=createRawDataArray(1)
 createRawDataForArray(*UAUp3_1WindFrontRaw,0,343,392,317)
@@ -2181,14 +2114,6 @@ createRawDataForArray(*BPDown1_3WindFrontRaw,0,249,373,240)
 createRawDataForArray(*BPDown1_3WindFrontRaw,1,232,354,254)
 createRawDataForArray(*BPDown1_3WindFrontRaw,2,194,389,579)
 createRawDataForArray(*BPDown1_3WindFrontRaw,3,197,505,720)
-
-; *BPDown2Raw.rawdataArray=createRawDataArray(5)
-; createRawDataForArray(*BPDown2Raw,0,372,225,318)
-; createRawDataForArray(*BPDown2Raw,1,386,226,285)
-; createRawDataForArray(*BPDown2Raw,2,346,288,280,350,423,570)
-; createRawDataForArray(*BPDown2Raw,3,308,422,261,307,424,609)
-; createRawDataForArray(*BPDown2Raw,4,308,422,258,306,454,648)
-; createRawDataForArray(*BPDown2Raw,5,327,422,318)
 
 ;----BPDown2
 *BPDown2Raw.rawdataArray=createRawDataArray(3)
@@ -2279,14 +2204,14 @@ createRawDataForArray(*BPBack1_4WindFrontRaw,0, 82,430,318)
 createRawDataForArray(*BPBack1_4WindFrontRaw,1,111,453,293)
 createRawDataForArray(*BPBack1_4WindFrontRaw,2,207,461,275)
 
-;----BPBack2New
-*BPBack2NewRaw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*BPBack2NewRaw,0,493,276,346)
-createRawDataForArray(*BPBack2NewRaw,1,448,215,357)
-createRawDataForArray(*BPBack2NewRaw,2,314,278,345,309,236,421)
-createRawDataForArray(*BPBack2NewRaw,3,208,385,332,202,293,611)
-createRawDataForArray(*BPBack2NewRaw,4,245,383,349,173,446,625)
-createRawDataForArray(*BPBack2NewRaw,5,272,398,316,255,542,650)
+;----BPBack2
+*BPBack2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*BPBack2Raw,0,493,276,346)
+createRawDataForArray(*BPBack2Raw,1,448,215,357)
+createRawDataForArray(*BPBack2Raw,2,314,278,345,309,236,421)
+createRawDataForArray(*BPBack2Raw,3,208,385,332,202,293,611)
+createRawDataForArray(*BPBack2Raw,4,245,383,349,173,446,625)
+createRawDataForArray(*BPBack2Raw,5,272,398,316,255,542,650)
 
 *BPBack2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPBack2_1WindFrontRaw,0,508,119,356)
@@ -2318,15 +2243,6 @@ createRawDataForArray(*BPBack2_5WindBackRaw,0,431,374,500)
 createRawDataForArray(*BPBack2_6WindBackRaw,0,435,370,500)
 
 ;----BPBack3
-; *BPBack3Raw.rawdataArray=createRawDataArray(7)
-; createRawDataForArray(*BPBack3Raw,0,304,341,321)
-; createRawDataForArray(*BPBack3Raw,1,332,247,329,422,242,416)
-; createRawDataForArray(*BPBack3Raw,2,186,242,269,175,241,614)
-; createRawDataForArray(*BPBack3Raw,3,140,238,325,131,451,680)
-; createRawDataForArray(*BPBack3Raw,4,108,239,326,122,519,651)
-; createRawDataForArray(*BPBack3Raw,5,108,252,326)
-; createRawDataForArray(*BPBack3Raw,6,109,253,326)
-; createRawDataForArray(*BPBack3Raw,7,237,431,326)
 *BPBack3Raw.rawdataArray=createRawDataArray(4)
 createRawDataForArray(*BPBack3Raw,0,307,328,366)
 createRawDataForArray(*BPBack3Raw,1,361,244,376,393,243,436)
@@ -2361,27 +2277,27 @@ createRawDataForArray(*BPBack4Raw,4,249,372,338,243,262,408)
 createRawDataForArray(*BPBack4Raw,5,329,400,316,223,393,588)
 createRawDataForArray(*BPBack4Raw,6,351,376,346)
 
-*BPBack4_2BackWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPBack4_2BackWindRaw,0,211,442,543)
+*BPBack4_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPBack4_2WindBackRaw,0,211,442,543)
 
-*BPBack4_3BackWindRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*BPBack4_3BackWindRaw,0,194,419,369)
-createRawDataForArray(*BPBack4_3BackWindRaw,1,178,381,588)
+*BPBack4_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*BPBack4_3WindBackRaw,0,194,419,369)
+createRawDataForArray(*BPBack4_3WindBackRaw,1,178,381,588)
 
-*BPBack4_4BackWindRaw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*BPBack4_4BackWindRaw,0,330,347,292)
-createRawDataForArray(*BPBack4_4BackWindRaw,1,698,362,229)
+*BPBack4_4WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*BPBack4_4WindBackRaw,0,330,347,292)
+createRawDataForArray(*BPBack4_4WindBackRaw,1,698,362,229)
 
-*BPBack4_5BackWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPBack4_5BackWindRaw,0,394,480,467)
+*BPBack4_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPBack4_5WindBackRaw,0,394,480,467)
 
-*BPBack4_5FrontWindRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPBack4_5FrontWindRaw,0,239,238,297)
+*BPBack4_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPBack4_5WindFrontRaw,0,239,238,297)
 
-*BPBack4_6FrontWindRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*BPBack4_6FrontWindRaw,0,210,233,337)
-createRawDataForArray(*BPBack4_6FrontWindRaw,1,207,221,524)
-createRawDataForArray(*BPBack4_6FrontWindRaw,2,239,307,608)
+*BPBack4_6WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*BPBack4_6WindFrontRaw,0,210,233,337)
+createRawDataForArray(*BPBack4_6WindFrontRaw,1,207,221,524)
+createRawDataForArray(*BPBack4_6WindFrontRaw,2,239,307,608)
 
 ;----BPHeavy1
 *BPHeavy1Raw.rawdataArray=createRawDataArray(6)
@@ -2488,23 +2404,23 @@ createRawDataForArray(*BPHeavy3_7WindFrontRaw,1,36,67,24)
 createRawDataForArray(*BPHeavy3_7WindFrontRaw,2,50,38,25)
 createRawDataForArray(*BPHeavy3_7WindFrontRaw,3,41,24,320)
 
-;----BPHitNew
-*BPHitNewRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*BPHitNewRaw,0,480,348,278)
-createRawDataForArray(*BPHitNewRaw,1,431,370,303)
-createRawDataForArray(*BPHitNewRaw,2,387,378,346)
+;----BPHit
+*BPHitRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*BPHitRaw,0,480,348,278)
+createRawDataForArray(*BPHitRaw,1,431,370,303)
+createRawDataForArray(*BPHitRaw,2,387,378,346)
 
-;----BPDeathNew
-*BPDeathNewRaw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*BPDeathNewRaw,0,182,367,334)
-createRawDataForArray(*BPDeathNewRaw,1,157,346,302)
-createRawDataForArray(*BPDeathNewRaw,2,259,310,269)
-createRawDataForArray(*BPDeathNewRaw,3,228,317,183)
-createRawDataForArray(*BPDeathNewRaw,4,249,372,86 )
-createRawDataForArray(*BPDeathNewRaw,5,242,495,37 )
-createRawDataForArray(*BPDeathNewRaw,6,245,505,34 )
-createRawDataForArray(*BPDeathNewRaw,7,254,484,51 )
-createRawDataForArray(*BPDeathNewRaw,8,242,505,34 )
+;----BPDeath
+*BPDeathRaw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*BPDeathRaw,0,182,367,334)
+createRawDataForArray(*BPDeathRaw,1,157,346,302)
+createRawDataForArray(*BPDeathRaw,2,259,310,269)
+createRawDataForArray(*BPDeathRaw,3,228,317,183)
+createRawDataForArray(*BPDeathRaw,4,249,372,86 )
+createRawDataForArray(*BPDeathRaw,5,242,495,37 )
+createRawDataForArray(*BPDeathRaw,6,245,505,34 )
+createRawDataForArray(*BPDeathRaw,7,254,484,51 )
+createRawDataForArray(*BPDeathRaw,8,242,505,34 )
 
 *BPDeath2WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPDeath2WindBackRaw,0,398,365,550)
@@ -2524,7 +2440,6 @@ createRawDataForArray(*BPDeath6_1WindBackRaw,0,519,374,52)
 *BPDeath6_2WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPDeath6_2WindBackRaw,0,295,527,683)
 
-
 *BPDeath2WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPDeath2WindFrontRaw,0,141,352,295)
 
@@ -2535,19 +2450,19 @@ createRawDataForArray(*BPDeath3WindFrontRaw,0,151,301,319)
 createRawDataForArray(*BPDeath4WindFrontRaw,0,154,298,190)
 
 *BPDeath5WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*BPDeath5WindFrontRaw,0,216,291,66 )
+createRawDataForArray(*BPDeath5WindFrontRaw,0,216,291, 66)
 
 *BPDeath6_1WindFrontRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*BPDeath6_1WindFrontRaw,0,546,279,3  )
-createRawDataForArray(*BPDeath6_1WindFrontRaw,1,570,268,60 )
-createRawDataForArray(*BPDeath6_1WindFrontRaw,2,796,423,42 )
-createRawDataForArray(*BPDeath6_1WindFrontRaw,3,923,523,12 )
-createRawDataForArray(*BPDeath6_1WindFrontRaw,4,860,543,31 )
+createRawDataForArray(*BPDeath6_1WindFrontRaw,0,546,279,  3)
+createRawDataForArray(*BPDeath6_1WindFrontRaw,1,570,268, 60)
+createRawDataForArray(*BPDeath6_1WindFrontRaw,2,796,423, 42)
+createRawDataForArray(*BPDeath6_1WindFrontRaw,3,923,523, 12)
+createRawDataForArray(*BPDeath6_1WindFrontRaw,4,860,543, 31)
 
 *BPDeath6_2WindFrontRaw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*BPDeath6_2WindFrontRaw,0,678,559,48 )
-createRawDataForArray(*BPDeath6_2WindFrontRaw,1,486,454,41 )
-createRawDataForArray(*BPDeath6_2WindFrontRaw,2,466,431,14 )
+createRawDataForArray(*BPDeath6_2WindFrontRaw,0,678,559, 48)
+createRawDataForArray(*BPDeath6_2WindFrontRaw,1,486,454, 41)
+createRawDataForArray(*BPDeath6_2WindFrontRaw,2,466,431, 14)
 
 *BPDeath6_3WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPDeath6_3WindFrontRaw,0,201,372,698)
@@ -2559,20 +2474,20 @@ createRawDataForArray(*BPDeath7WindFrontRaw,0,239,519,693)
 createRawDataForArray(*BPDeath8WindFrontRaw,0,236,546,686)
 createRawDataForArray(*BPDeath8WindFrontRaw,1,222,540,667)
 
-;----BPSpawnNew
-*BPSpawnNewRaw.rawdataArray=createRawDataArray(11)
-createRawDataForArray(*BPSpawnNewRaw,0 ,409,418,336)
-createRawDataForArray(*BPSpawnNewRaw,1 ,402,433,345)
-createRawDataForArray(*BPSpawnNewRaw,2 ,412,434,288)
-createRawDataForArray(*BPSpawnNewRaw,3 ,462,429,224)
-createRawDataForArray(*BPSpawnNewRaw,4 ,527,394,191)
-createRawDataForArray(*BPSpawnNewRaw,5 ,458,404,294)
-createRawDataForArray(*BPSpawnNewRaw,6 ,422,367,306)
-createRawDataForArray(*BPSpawnNewRaw,7 ,382,352,313)
-createRawDataForArray(*BPSpawnNewRaw,8 ,349,287,316)
-createRawDataForArray(*BPSpawnNewRaw,9 ,367,284,342)
-createRawDataForArray(*BPSpawnNewRaw,10,301,310,343)
-createRawDataForArray(*BPSpawnNewRaw,11,181,407,298)
+;----BPSpawn
+*BPSpawnRaw.rawdataArray=createRawDataArray(11)
+createRawDataForArray(*BPSpawnRaw,0 ,409,418,336)
+createRawDataForArray(*BPSpawnRaw,1 ,402,433,345)
+createRawDataForArray(*BPSpawnRaw,2 ,412,434,288)
+createRawDataForArray(*BPSpawnRaw,3 ,462,429,224)
+createRawDataForArray(*BPSpawnRaw,4 ,527,394,191)
+createRawDataForArray(*BPSpawnRaw,5 ,458,404,294)
+createRawDataForArray(*BPSpawnRaw,6 ,422,367,306)
+createRawDataForArray(*BPSpawnRaw,7 ,382,352,313)
+createRawDataForArray(*BPSpawnRaw,8 ,349,287,316)
+createRawDataForArray(*BPSpawnRaw,9 ,367,284,342)
+createRawDataForArray(*BPSpawnRaw,10,301,310,343)
+createRawDataForArray(*BPSpawnRaw,11,181,407,298)
 
 *BPSpawn2WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPSpawn2WindBackRaw,0,482,580,436)
@@ -2605,7 +2520,6 @@ createRawDataForArray(*BPSpawn9WindBackRaw,1,321,484,517)
 
 *BPSpawn12WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPSpawn12WindBackRaw,0,428,553,531)
-
 
 *BPSpawn2WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*BPSpawn2WindFrontRaw,0,392,431,338)
@@ -2644,28 +2558,132 @@ createRawDataForArray(*BPSpawn12WindFrontRaw,0,160,189,428)
 createRawDataForArray(*BPSpawn12WindFrontRaw,1,125,183,463)
 createRawDataForArray(*BPSpawn12WindFrontRaw,2,105,163,670)
 
-;----BPJumpNew
-*BPJumpNewRaw.rawdataArray=createRawDataArray(6)
-createRawDataForArray(*BPJumpNewRaw,0,377,341,341)
-createRawDataForArray(*BPJumpNewRaw,1,367,322,325)
-createRawDataForArray(*BPJumpNewRaw,2,406,289,344)
-createRawDataForArray(*BPJumpNewRaw,3,362,244,271)
-createRawDataForArray(*BPJumpNewRaw,4,431,210,345)
-createRawDataForArray(*BPJumpNewRaw,5,401,169,353)
-createRawDataForArray(*BPJumpNewRaw,6,377,229,345)
+;----BPJump
+*BPJumpRaw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*BPJumpRaw,0,377,341,341)
+createRawDataForArray(*BPJumpRaw,1,367,322,325)
+createRawDataForArray(*BPJumpRaw,2,406,289,344)
+createRawDataForArray(*BPJumpRaw,3,362,244,271)
+createRawDataForArray(*BPJumpRaw,4,431,210,345)
+createRawDataForArray(*BPJumpRaw,5,401,169,353)
+createRawDataForArray(*BPJumpRaw,6,377,229,345)
 
-;----BPLandNew
-*BPLandNewRaw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*BPLandNewRaw,0,387,258,329)
-createRawDataForArray(*BPLandNewRaw,1,319,424,332)
-createRawDataForArray(*BPLandNewRaw,2,346,428,327)
-createRawDataForArray(*BPLandNewRaw,3,234,360,332)
+;----BPLand
+*BPLandRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*BPLandRaw,0,387,258,329)
+createRawDataForArray(*BPLandRaw,1,319,424,332)
+createRawDataForArray(*BPLandRaw,2,346,428,327)
+createRawDataForArray(*BPLandRaw,3,234,360,332)
 
 ;----BPDodge
 *BPDodgeRaw.rawdataArray=createRawDataArray(2)
 createRawDataForArray(*BPDodgeRaw,0,196,427,334)
 createRawDataForArray(*BPDodgeRaw,1,198,398,351)
 createRawDataForArray(*BPDodgeRaw,2,223,333,338)
+
+;----BPParry
+*BPParryRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*BPParryRaw,0,199,405,356)
+createRawDataForArray(*BPParryRaw,1,301,316,387)
+createRawDataForArray(*BPParryRaw,2,334,350,370)
+createRawDataForArray(*BPParryRaw,3,410,371,354)
+createRawDataForArray(*BPParryRaw,4,419,355,331)
+createRawDataForArray(*BPParryRaw,5,447,361,345)
+
+;----BPSelection
+*BPSelectionRaw.rawdataArray=createRawDataArray(15)
+createRawDataForArray(*BPSelectionRaw,0,367,338,371)
+createRawDataForArray(*BPSelectionRaw,1,360,336,369)
+createRawDataForArray(*BPSelectionRaw,2,327,374,369)
+createRawDataForArray(*BPSelectionRaw,3,314,370,359)
+createRawDataForArray(*BPSelectionRaw,4,338,350,365)
+createRawDataForArray(*BPSelectionRaw,5,384,310,342)
+createRawDataForArray(*BPSelectionRaw,6,413,340,337)
+createRawDataForArray(*BPSelectionRaw,7,393,373,323)
+createRawDataForArray(*BPSelectionRaw,8,387,377,323)
+createRawDataForArray(*BPSelectionRaw,9,383,381,322)
+createRawDataForArray(*BPSelectionRaw,10,383,379,328)
+createRawDataForArray(*BPSelectionRaw,11,390,381,330)
+createRawDataForArray(*BPSelectionRaw,12,392,383,333)
+createRawDataForArray(*BPSelectionRaw,13,400,381,334)
+createRawDataForArray(*BPSelectionRaw,14,394,383,332)
+createRawDataForArray(*BPSelectionRaw,15,397,382,332)
+
+*BPSelection_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelection_2WindFrontRaw,0,378,335,390)
+
+*BPSelection_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelection_3WindFrontRaw,0,317,339,364)
+
+*BPSelection_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelection_4WindFrontRaw,0,305,356,356)
+
+*BPSelection_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelection_5WindFrontRaw,0,304,339,356)
+
+*BPSelection_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelection_6WindFrontRaw,0,306,300,330)
+
+*BPSelection_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelection_7WindFrontRaw,0,322,292,316)
+
+*BPSelection_8WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*BPSelection_8WindFrontRaw,0,344,280,385)
+createRawDataForArray(*BPSelection_8WindFrontRaw,1,356,274,392)
+createRawDataForArray(*BPSelection_8WindFrontRaw,2,355,402,398)
+createRawDataForArray(*BPSelection_8WindFrontRaw,3,543,460,399)
+
+*BPSelection_10WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*BPSelection_10WindFrontRaw,0,540,402,394)
+createRawDataForArray(*BPSelection_10WindFrontRaw,1,553,440,391)
+
+;----BPSelected
+*BPSelectedRaw.rawdataArray=createRawDataArray(13)
+createRawDataForArray(*BPSelectedRaw,0,359,363,313)
+createRawDataForArray(*BPSelectedRaw,1,395,381,337)
+createRawDataForArray(*BPSelectedRaw,2,348,389,368)
+createRawDataForArray(*BPSelectedRaw,3,335,422,299)
+createRawDataForArray(*BPSelectedRaw,4,354,366,350)
+createRawDataForArray(*BPSelectedRaw,5,384,362,343)
+createRawDataForArray(*BPSelectedRaw,6,407,361,346)
+createRawDataForArray(*BPSelectedRaw,7,415,364,341)
+createRawDataForArray(*BPSelectedRaw,8,410,386,328)
+createRawDataForArray(*BPSelectedRaw,9,401,396,325)
+createRawDataForArray(*BPSelectedRaw,10,400,396,324)
+createRawDataForArray(*BPSelectedRaw,11,398,389,328)
+createRawDataForArray(*BPSelectedRaw,12,399,391,330)
+createRawDataForArray(*BPSelectedRaw,13,404,388,330)
+
+*BPSelected_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelected_2WindFrontRaw,0,378,369,321)
+
+*BPSelected_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelected_3WindFrontRaw,0,318,366,326)
+
+*BPSelected_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelected_4WindFrontRaw,0,300,363,379)
+
+*BPSelected_5WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*BPSelected_5WindFrontRaw,0,284,357,439)
+createRawDataForArray(*BPSelected_5WindFrontRaw,1,283,362,470)
+createRawDataForArray(*BPSelected_5WindFrontRaw,2,282,401,478)
+createRawDataForArray(*BPSelected_5WindFrontRaw,3,282,524,604)
+
+*BPSelected_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelected_2WindBackRaw,0,360,521,534)
+
+*BPSelected_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelected_3WindBackRaw,0,362,560,380)
+
+*BPSelected_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*BPSelected_4WindBackRaw,0,285,383,264)
+
+*BPSelected_5WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*BPSelected_5WindBackRaw,0,293,341,250)
+createRawDataForArray(*BPSelected_5WindBackRaw,1,304,311,255)
+createRawDataForArray(*BPSelected_5WindBackRaw,2,490,307,255)
+createRawDataForArray(*BPSelected_5WindBackRaw,3,496,318,252)
+createRawDataForArray(*BPSelected_5WindBackRaw,4,508,316,352)
 
 ;----UAIdle 1
 *UAIdle1Raw.rawdataArray=createRawDataArray(9)
@@ -2679,7 +2697,6 @@ createRawDataForArray(*UAIdle1Raw,6,425,416,336)
 createRawDataForArray(*UAIdle1Raw,7,428,413,332)
 createRawDataForArray(*UAIdle1Raw,8,424,424,334)
 createRawDataForArray(*UAIdle1Raw,9,420,418,326)
-
 
 *UAIdle1_1WindFrontRaw.rawdataArray=createRawDataArray(1)
 createRawDataForArray(*UAIdle1_1WindFrontRaw,0,406,495,468)
@@ -2892,7 +2909,7 @@ createRawDataForArray(*UANeutral4_4WindBackRaw,0,279,321,215)
 createRawDataForArray(*UANeutral4_4WindBackRaw,1,258,322,319)
 createRawDataForArray(*UANeutral4_4WindBackRaw,2,231,282,451)
 
-;----UASide1 new
+;----UASide1
 *UASide1Raw.rawdataArray=createRawDataArray(9)
 createRawDataForArray(*UASide1Raw,0,389,385,303)
 createRawDataForArray(*UASide1Raw,1,335,369,302)
@@ -3031,16 +3048,35 @@ createRawDataForArray(*UASide4_6WindFrontRaw,1,235,391,410)
 createRawDataForArray(*UASide4_6WindFrontRaw,2,217,411,507)
 
 ;----UASide5
-*UASide5Raw.rawdataArray=createRawDataArray(2)
+; *UASide5Raw.rawdataArray=createRawDataArray(2)
+; createRawDataForArray(*UASide5Raw,0,382,406,314)
+; createRawDataForArray(*UASide5Raw,1,273,413,333,273,455,451)
+; createRawDataForArray(*UASide5Raw,2,291,439,358,273,474,627)
+; 
+; *UASide5_2WindFrontRaw.rawdataArray=createRawDataArray(3)
+; createRawDataForArray(*UASide5_2WindFrontRaw,0,236,378,316)
+; createRawDataForArray(*UASide5_2WindFrontRaw,1,204,333,499)
+; createRawDataForArray(*UASide5_2WindFrontRaw,2,155,373,627)
+; createRawDataForArray(*UASide5_2WindFrontRaw,3,115,418,765)
+*UASide5Raw.rawdataArray=createRawDataArray(3)
 createRawDataForArray(*UASide5Raw,0,382,406,314)
-createRawDataForArray(*UASide5Raw,1,273,413,333,273,455,451)
-createRawDataForArray(*UASide5Raw,2,291,439,358,273,474,627)
+createRawDataForArray(*UASide5Raw,1,480,396,373)
+createRawDataForArray(*UASide5Raw,2,273,413,336,274,424,449)
+createRawDataForArray(*UASide5Raw,3,291,439,358,273,474,627)
 
-*UASide5_2WindFrontRaw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*UASide5_2WindFrontRaw,0,236,378,316)
-createRawDataForArray(*UASide5_2WindFrontRaw,1,204,333,499)
-createRawDataForArray(*UASide5_2WindFrontRaw,2,155,373,627)
-createRawDataForArray(*UASide5_2WindFrontRaw,3,115,418,765)
+*UASide5_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*UASide5_2WindFrontRaw,0,400,374,349)
+createRawDataForArray(*UASide5_2WindFrontRaw,1,606,378,312)
+createRawDataForArray(*UASide5_2WindFrontRaw,2,636,493,309)
+
+*UASide5_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UASide5_3WindFrontRaw,0,236,378,316)
+createRawDataForArray(*UASide5_3WindFrontRaw,1,204,333,499)
+createRawDataForArray(*UASide5_3WindFrontRaw,2,155,373,627)
+createRawDataForArray(*UASide5_3WindFrontRaw,3,115,418,765)
+
+*UASide5_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASide5_2WindBackRaw,0,389,461,486)
 
 ;----UASide6
 *UASide6Raw.rawdataArray=createRawDataArray(4)
@@ -3081,19 +3117,18 @@ createRawDataForArray(*UASide6_5WindBackRaw,0,436,323,251)
 createRawDataForArray(*UASide6_5WindBackRaw,1,402,340,455)
 createRawDataForArray(*UASide6_5WindBackRaw,2,379,386,524)
 
-
-;----UABack1New
-*UABack1NewRaw.rawdataArray=createRawDataArray(9)
-createRawDataForArray(*UABack1NewRaw,0,425,393,339)
-createRawDataForArray(*UABack1NewRaw,1,442,408,348)
-createRawDataForArray(*UABack1NewRaw,2,456,376,366)
-createRawDataForArray(*UABack1NewRaw,3,452,378,356)
-createRawDataForArray(*UABack1NewRaw,4,438,391,292)
-createRawDataForArray(*UABack1NewRaw,5,453,411,267)
-createRawDataForArray(*UABack1NewRaw,6,442,372,370,441,370,237)
-createRawDataForArray(*UABack1NewRaw,7,397,399,350,396,354,464)
-createRawDataForArray(*UABack1NewRaw,8,351,449,349,349,364,516)
-createRawDataForArray(*UABack1NewRaw,9,413,398,338)
+;----UABack1
+*UABack1Raw.rawdataArray=createRawDataArray(9)
+createRawDataForArray(*UABack1Raw,0,425,393,339)
+createRawDataForArray(*UABack1Raw,1,442,408,348)
+createRawDataForArray(*UABack1Raw,2,456,376,366)
+createRawDataForArray(*UABack1Raw,3,452,378,356)
+createRawDataForArray(*UABack1Raw,4,438,391,292)
+createRawDataForArray(*UABack1Raw,5,453,411,267)
+createRawDataForArray(*UABack1Raw,6,442,372,370,441,370,237)
+createRawDataForArray(*UABack1Raw,7,397,399,350,396,354,464)
+createRawDataForArray(*UABack1Raw,8,351,449,349,349,364,516)
+createRawDataForArray(*UABack1Raw,9,413,398,338)
 
 *UABack1_2WindBackRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*UABack1_2WindBackRaw,0,563,413,336)
@@ -3187,6 +3222,29 @@ createRawDataForArray(*UABack3_3WindFrontRaw,0,190,267,295)
 createRawDataForArray(*UABack3_3WindFrontRaw,1,306,260,245)
 createRawDataForArray(*UABack3_3WindFrontRaw,2,486,374,235)
 createRawDataForArray(*UABack3_3WindFrontRaw,3,668,446,215)
+
+;----UABack4
+*UABack4Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UABack4Raw,0,377,397,358)
+createRawDataForArray(*UABack4Raw,1,393,438,352,396,602,393)
+createRawDataForArray(*UABack4Raw,2,406,426,243,509,511,242)
+createRawDataForArray(*UABack4Raw,3,417,436,299)
+
+*UABack4_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UABack4_1WindFrontRaw,0,345,371,325)
+
+*UABack4_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UABack4_2WindFrontRaw,0,285,369,343)
+
+*UABack4_3WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UABack4_3WindFrontRaw,0,249,461,193)
+createRawDataForArray(*UABack4_3WindFrontRaw,1,239,406,150)
+createRawDataForArray(*UABack4_3WindFrontRaw,2,358,405,142)
+createRawDataForArray(*UABack4_3WindFrontRaw,3,615,427,153)
+createRawDataForArray(*UABack4_3WindFrontRaw,4,773,447,153)
+
+*UABack4_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UABack4_1WindBackRaw,0,304,452,422)
 
 ;----UADown1
 *UADown1Raw.rawdataArray=createRawDataArray(4)
@@ -3298,6 +3356,122 @@ createRawDataForArray(*UADown3_4WindBackRaw,0,388,396,289)
 createRawDataForArray(*UADown3_4WindBackRaw,1,343,365,263)
 createRawDataForArray(*UADown3_4WindBackRaw,2,325,350,251)
 
+;----UADown4
+*UADown4Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UADown4Raw,0,403,340,383)
+createRawDataForArray(*UADown4Raw,1,325,423,359,325,388,501)
+createRawDataForArray(*UADown4Raw,2,315,369,347,314,387,585)
+createRawDataForArray(*UADown4Raw,3,288,409,358)
+
+*UADown4_1WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*UADown4_1WindFrontRaw,0,387,327,362)
+createRawDataForArray(*UADown4_1WindFrontRaw,1,542,304,333)
+createRawDataForArray(*UADown4_1WindFrontRaw,2,643,413,330)
+
+*UADown4_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown4_2WindFrontRaw,0,303,323,404)
+
+*UADown4_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UADown4_3WindFrontRaw,0,265,256,346)
+createRawDataForArray(*UADown4_3WindFrontRaw,1,219,282,397)
+createRawDataForArray(*UADown4_3WindFrontRaw,2,250,326,500)
+createRawDataForArray(*UADown4_3WindFrontRaw,3,251,330,655)
+
+;----UADown5
+*UADown5Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*UADown5Raw,0,398,379,366)
+createRawDataForArray(*UADown5Raw,1,434,384,379)
+createRawDataForArray(*UADown5Raw,2,369,348,352)
+createRawDataForArray(*UADown5Raw,3,373,419,362,372,391,428)
+createRawDataForArray(*UADown5Raw,4,420,449,302,392,504,512)
+createRawDataForArray(*UADown5Raw,5,369,442,342)
+
+*UADown5_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown5_1WindFrontRaw,0,383,356,358)
+
+*UADown5_2WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UADown5_2WindFrontRaw,0,417,358,337)
+createRawDataForArray(*UADown5_2WindFrontRaw,1,628,404,329)
+
+*UADown5_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown5_3WindFrontRaw,0,346,263,267)
+
+*UADown5_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown5_4WindFrontRaw,0,331,267,251)
+
+*UADown5_5WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UADown5_5WindFrontRaw,0,269,270,265)
+createRawDataForArray(*UADown5_5WindFrontRaw,1,247,332,255)
+createRawDataForArray(*UADown5_5WindFrontRaw,2,284,333,381)
+createRawDataForArray(*UADown5_5WindFrontRaw,3,272,571,367)
+createRawDataForArray(*UADown5_5WindFrontRaw,4,264,655,339)
+
+;----UADown6
+*UADown6Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UADown6Raw,0,354,427,368)
+createRawDataForArray(*UADown6Raw,1,405,393,352)
+createRawDataForArray(*UADown6Raw,2,402,397,360,402,505,289)
+createRawDataForArray(*UADown6Raw,3,406,386,351,406,499,335)
+createRawDataForArray(*UADown6Raw,4,439,435,362,406,541,323)
+
+*UADown6_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown6_1WindFrontRaw,0,356,407,351)
+
+*UADown6_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown6_2WindFrontRaw,0,395,363,311)
+
+*UADown6_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UADown6_3WindFrontRaw,0,367,347,368)
+createRawDataForArray(*UADown6_3WindFrontRaw,1,353,346,407)
+
+*UADown6_4WindFrontRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*UADown6_4WindFrontRaw,0,383,368,328)
+createRawDataForArray(*UADown6_4WindFrontRaw,1,376,196,314)
+createRawDataForArray(*UADown6_4WindFrontRaw,2,334,304,272)
+createRawDataForArray(*UADown6_4WindFrontRaw,3,288,364,247)
+createRawDataForArray(*UADown6_4WindFrontRaw,4,277,396,237)
+createRawDataForArray(*UADown6_4WindFrontRaw,5,260,567,230)
+
+*UADown6_5WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UADown6_5WindFrontRaw,0,372,474,263)
+createRawDataForArray(*UADown6_5WindFrontRaw,1,271,383,157)
+createRawDataForArray(*UADown6_5WindFrontRaw,2,260,372,141)
+createRawDataForArray(*UADown6_5WindFrontRaw,3,268,362,137)
+createRawDataForArray(*UADown6_5WindFrontRaw,4,249,527,124)
+
+;----UADown7
+*UADown7Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UADown7Raw,0,380,433,390)
+createRawDataForArray(*UADown7Raw,1,388,352,335)
+createRawDataForArray(*UADown7Raw,2,356,461,377,354,359,413)
+createRawDataForArray(*UADown7Raw,3,348,428,355,348,523,481)
+
+*UADown7_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown7_1WindFrontRaw,0,396,415,375)
+
+*UADown7_2WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UADown7_2WindFrontRaw,0,370,326,300)
+createRawDataForArray(*UADown7_2WindFrontRaw,1,362,293,292)
+createRawDataForArray(*UADown7_2WindFrontRaw,2,514,274,282)
+createRawDataForArray(*UADown7_2WindFrontRaw,3,632,306,284)
+
+*UADown7_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown7_3WindFrontRaw,0,331,322,284)
+
+*UADown7_4WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UADown7_4WindFrontRaw,0,306,300,318)
+createRawDataForArray(*UADown7_4WindFrontRaw,1,240,287,342)
+createRawDataForArray(*UADown7_4WindFrontRaw,2,235,446,423)
+createRawDataForArray(*UADown7_4WindFrontRaw,3,203,559,599)
+createRawDataForArray(*UADown7_4WindFrontRaw,4,189,647,693)
+
+*UADown7_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UADown7_1WindBackRaw,0,359,453,455)
+
+*UADown7_2WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UADown7_2WindBackRaw,0,340,451,433)
+createRawDataForArray(*UADown7_2WindBackRaw,1,338,541,492)
+
 ;----UAUp1
 *UAUp1Raw.rawdataArray=createRawDataArray(5)
 createRawDataForArray(*UAUp1Raw,0,327,355,359,327,351,466)
@@ -3326,20 +3500,63 @@ createRawDataForArray(*UAUp1_6WindFrontRaw,1,258,330,583)
 createRawDataForArray(*UAUp1_6WindFrontRaw,2,247,324,690)
 
 ;----UAUp2
-*UAUp2Raw.rawdataArray=createRawDataArray(12)
-createRawDataForArray(*UAUp2Raw,0 ,410,331,284)
-createRawDataForArray(*UAUp2Raw,1 ,405,335,319)
-createRawDataForArray(*UAUp2Raw,2 ,413,460,329)
-createRawDataForArray(*UAUp2Raw,3 ,399,410,344)
-createRawDataForArray(*UAUp2Raw,4 ,385,431,343)
-createRawDataForArray(*UAUp2Raw,5 ,391,438,339)
-createRawDataForArray(*UAUp2Raw,6 ,408,424,327)
-createRawDataForArray(*UAUp2Raw,7 ,397,361,330)
-createRawDataForArray(*UAUp2Raw,8 ,389,378,344,403,456,528)
-createRawDataForArray(*UAUp2Raw,9 ,339,413,357,345,480,552)
-createRawDataForArray(*UAUp2Raw,10,301,413,321,314,485,561)
-createRawDataForArray(*UAUp2Raw,11,288,415,321)
-createRawDataForArray(*UAUp2Raw,12,317,427,321)
+*UAUp2Raw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*UAUp2Raw,0,414,421,352)
+createRawDataForArray(*UAUp2Raw,1,411,453,358)
+createRawDataForArray(*UAUp2Raw,2,397,444,363)
+createRawDataForArray(*UAUp2Raw,3,402,454,385)
+createRawDataForArray(*UAUp2Raw,4,400,446,367)
+createRawDataForArray(*UAUp2Raw,5,406,396,370)
+createRawDataForArray(*UAUp2Raw,6,370,421,395,370,439,557)
+createRawDataForArray(*UAUp2Raw,7,304,417,357,303,465,549)
+createRawDataForArray(*UAUp2Raw,8,339,430,365)
+
+*UAUp2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UAUp2_2WindFrontRaw,0,293,409,244)
+
+*UAUp2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UAUp2_3WindFrontRaw,0,325,379,291)
+
+*UAUp2_4WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*UAUp2_4WindFrontRaw,0,315,361,281)
+createRawDataForArray(*UAUp2_4WindFrontRaw,1,308,340,265)
+createRawDataForArray(*UAUp2_4WindFrontRaw,2,399,301,363)
+
+*UAUp2_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UAUp2_7WindFrontRaw,0,350,413,559)
+
+*UAUp2_8WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*UAUp2_8WindFrontRaw,0,241,403,325)
+createRawDataForArray(*UAUp2_8WindFrontRaw,1,189,404,307)
+createRawDataForArray(*UAUp2_8WindFrontRaw,2,176,433,721)
+
+*UAUp2_1WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UAUp2_1WindBackRaw,0,415,317,413)
+createRawDataForArray(*UAUp2_1WindBackRaw,1,396,434,395)
+createRawDataForArray(*UAUp2_1WindBackRaw,2,367,482,350)
+createRawDataForArray(*UAUp2_1WindBackRaw,3,411,530,360)
+
+*UAUp2_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UAUp2_4WindBackRaw,0,421,554,493)
+
+*UAUp2_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UAUp2_5WindBackRaw,0,408,419,458)
+
+*UAUp2_6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UAUp2_6WindBackRaw,0,363,365,446)
+
+*UAUp2_7WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*UAUp2_7WindBackRaw,0,350,382,432)
+createRawDataForArray(*UAUp2_7WindBackRaw,1,345,387,436)
+createRawDataForArray(*UAUp2_7WindBackRaw,2,335,372,437)
+
+;----UAUp3
+*UAUp3Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UAUp3Raw,0,366,382,340,365,428,449)
+createRawDataForArray(*UAUp3Raw,1,365,348,364,344,349,529)
+createRawDataForArray(*UAUp3Raw,2,415,295,377,374,293,438)
+createRawDataForArray(*UAUp3Raw,3,408,254,357,459,247,366)
+createRawDataForArray(*UAUp3Raw,4,398,307,390)
 
 ;----UAHeavy1
 *UAHeavy1Raw.rawdataArray=createRawDataArray(5)
@@ -3422,55 +3639,34 @@ createRawDataForArray(*UAHeavy3_5WindFrontRaw,1,210,293,522)
 createRawDataForArray(*UAHeavy3_5WindFrontRaw,2,152,282,565)
 
 ;----UAHitNew
-*UAHitNewRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*UAHitNewRaw,0,441,324,324)
-createRawDataForArray(*UAHitNewRaw,1,354,437,343)
-createRawDataForArray(*UAHitNewRaw,2,454,351,287)
-createRawDataForArray(*UAHitNewRaw,3,415,404,325)
-createRawDataForArray(*UAHitNewRaw,4,377,369,368)
+*UAHitRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UAHitRaw,0,441,324,324)
+createRawDataForArray(*UAHitRaw,1,354,437,343)
+createRawDataForArray(*UAHitRaw,2,454,351,287)
+createRawDataForArray(*UAHitRaw,3,415,404,325)
+createRawDataForArray(*UAHitRaw,4,377,369,368)
 
-;----UASpawnNew
-*UASpawnNewRaw.rawdataArray=createRawDataArray(12)
-createRawDataForArray(*UASpawnNewRaw, 0,448,421,337)
-createRawDataForArray(*UASpawnNewRaw, 2,443,410,339)
-createRawDataForArray(*UASpawnNewRaw, 1,448,424,343)
-createRawDataForArray(*UASpawnNewRaw, 3,443,367,327)
-createRawDataForArray(*UASpawnNewRaw, 4,427,364,330)
-createRawDataForArray(*UASpawnNewRaw, 5,419,309,325)
-createRawDataForArray(*UASpawnNewRaw, 6,419,340,321)
-createRawDataForArray(*UASpawnNewRaw, 7,364,353,309)
-createRawDataForArray(*UASpawnNewRaw, 8,435,354,317)
-createRawDataForArray(*UASpawnNewRaw, 9,439,377,310)
-createRawDataForArray(*UASpawnNewRaw,10,437,385,327)
-createRawDataForArray(*UASpawnNewRaw,11,434,381,321)
-createRawDataForArray(*UASpawnNewRaw,12,433,384,339)
+;----UASpawn
+*UASpawnRaw.rawdataArray=createRawDataArray(12)
+createRawDataForArray(*UASpawnRaw, 0,448,421,337)
+createRawDataForArray(*UASpawnRaw, 2,443,410,339)
+createRawDataForArray(*UASpawnRaw, 1,448,424,343)
+createRawDataForArray(*UASpawnRaw, 3,443,367,327)
+createRawDataForArray(*UASpawnRaw, 4,427,364,330)
+createRawDataForArray(*UASpawnRaw, 5,419,309,325)
+createRawDataForArray(*UASpawnRaw, 6,419,340,321)
+createRawDataForArray(*UASpawnRaw, 7,364,353,309)
+createRawDataForArray(*UASpawnRaw, 8,435,354,317)
+createRawDataForArray(*UASpawnRaw, 9,439,377,310)
+createRawDataForArray(*UASpawnRaw,10,437,385,327)
+createRawDataForArray(*UASpawnRaw,11,434,381,321)
+createRawDataForArray(*UASpawnRaw,12,433,384,339)
 
 *UASpawn1_13WindFrontRaw.rawdataArray=createRawDataArray(12)
 createRawDataForArray(*UASpawn1_13WindFrontRaw,0,436,413,324)
 createRawDataForArray(*UASpawn1_13WindFrontRaw,1,409,443,492)
 
 ;----UADeath
-; *UADeathRaw.rawdataArray=createRawDataArray(17)
-; createRawDataForArray(*UADeathRaw,0 ,448,348,331)
-; createRawDataForArray(*UADeathRaw,1 ,396,390,368)
-; createRawDataForArray(*UADeathRaw,2 ,356,407,419)
-; createRawDataForArray(*UADeathRaw,3 ,362,370,395)
-; createRawDataForArray(*UADeathRaw,4 ,384,346,380)
-; createRawDataForArray(*UADeathRaw,5 ,378,311,369)
-; createRawDataForArray(*UADeathRaw,6 ,455,283,324)
-; createRawDataForArray(*UADeathRaw,7 ,532,290,183)
-; createRawDataForArray(*UADeathRaw,8 ,541,323,183)
-; createRawDataForArray(*UADeathRaw,9 ,553,276,243)
-; createRawDataForArray(*UADeathRaw,10,385,262,281)
-; createRawDataForArray(*UADeathRaw,11,213,265,279)
-; createRawDataForArray(*UADeathRaw,12,92,269,428)
-; createRawDataForArray(*UADeathRaw,13,75,371,488)
-; createRawDataForArray(*UADeathRaw,14,52,513,453)
-; createRawDataForArray(*UADeathRaw,15,49,505,447)
-; createRawDataForArray(*UADeathRaw,16,147,530,516)
-; createRawDataForArray(*UADeathRaw,17,166,530,545)
-
-;----UADeathNew
 *UADeathRaw.rawdataArray=createRawDataArray(13)
 createRawDataForArray(*UADeathRaw, 0,448,349,355)
 createRawDataForArray(*UADeathRaw, 1,396,390,386)
@@ -3514,8 +3710,7 @@ createRawDataForArray(*UADeath12WindBack2Raw,1,105,503,474)
 createRawDataForArray(*UADeath12WindBack2Raw,2, 90,494,433)
 createRawDataForArray(*UADeath12WindBack2Raw,3, 69,484,412)
 
-
-;----UAJump new
+;----UAJump
 *UAJumpRaw.rawdataArray=createRawDataArray(8)
 createRawDataForArray(*UAJumpRaw,0,421,419,328)
 createRawDataForArray(*UAJumpRaw,1,426,401,316)
@@ -3539,77 +3734,210 @@ createRawDataForArray(*UALandRaw,3,383,438,347)
 createRawDataForArray(*UADodgeRaw,0,438,374,321)
 createRawDataForArray(*UADodgeRaw,1,444,388,288)
 
-;----PSIdle
-*PSIdleRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*PSIdleRaw,0,368,354,285)
-createRawDataForArray(*PSIdleRaw,1,365,355,324)
-createRawDataForArray(*PSIdleRaw,2,357,356,318)
-createRawDataForArray(*PSIdleRaw,3,355,374,321)
-createRawDataForArray(*PSIdleRaw,4,366,368,294)
+;----UAParry
+*UAParryRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*UAParryRaw,0,417,356,352)
+createRawDataForArray(*UAParryRaw,1,422,427,377)
+createRawDataForArray(*UAParryRaw,2,437,418,375)
+createRawDataForArray(*UAParryRaw,3,446,419,362)
+createRawDataForArray(*UAParryRaw,4,445,392,352)
+createRawDataForArray(*UAParryRaw,5,451,343,363)
 
-;----PSFront
-*PSFrontRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*PSFrontRaw,0,342,356,333)
-createRawDataForArray(*PSFrontRaw,1,359,359,335)
-createRawDataForArray(*PSFrontRaw,2,365,361,343)
-createRawDataForArray(*PSFrontRaw,3,358,360,328)
-createRawDataForArray(*PSFrontRaw,4,348,352,330)
+;----UASelection
+*UASelectionRaw.rawdataArray=createRawDataArray(9)
+createRawDataForArray(*UASelectionRaw,0,426,389,376)
+createRawDataForArray(*UASelectionRaw,1,391,414,381)
+createRawDataForArray(*UASelectionRaw,2,383,416,382)
+createRawDataForArray(*UASelectionRaw,3,413,411,365)
+createRawDataForArray(*UASelectionRaw,4,416,382,346)
+createRawDataForArray(*UASelectionRaw,5,422,382,346)
+createRawDataForArray(*UASelectionRaw,6,425,384,346)
+createRawDataForArray(*UASelectionRaw,7,432,400,343)
+createRawDataForArray(*UASelectionRaw,8,442,406,353)
+createRawDataForArray(*UASelectionRaw,9,430,390,341)
 
-;----PSBack
-*PSBackRaw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*PSBackRaw,0,245,399,335)
-createRawDataForArray(*PSBackRaw,1,247,411,321)
-createRawDataForArray(*PSBackRaw,2,239,410,310)
-createRawDataForArray(*PSBackRaw,3,250,397,334)
-createRawDataForArray(*PSBackRaw,4,279,396,335)
-createRawDataForArray(*PSBackRaw,5,252,408,332)
+*UASelection_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelection_2WindFrontRaw,0,399,385,543)
 
-;----PSNeutral1
-*PSNeutral1Raw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*PSNeutral1Raw,0,361,334,333)
-createRawDataForArray(*PSNeutral1Raw,1,354,314,325,382,313,487)
-createRawDataForArray(*PSNeutral1Raw,2,276,321,336,276,316,598)
-createRawDataForArray(*PSNeutral1Raw,3,231,322,322,230,400,669)
-createRawDataForArray(*PSNeutral1Raw,4,232,337,326)
-createRawDataForArray(*PSNeutral1Raw,5,237,339,333)
+*UASelection_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelection_3WindFrontRaw,0,368,410,555)
 
-;----PSSide1
-*PSSide1Raw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*PSSide1Raw,0,366,335,318)
-createRawDataForArray(*PSSide1Raw,1,349,314,323)
-createRawDataForArray(*PSSide1Raw,2,337,305,319)
-createRawDataForArray(*PSSide1Raw,3,359,304,328,382,424,482)
-createRawDataForArray(*PSSide1Raw,4,267,306,330,264,490,585)
-createRawDataForArray(*PSSide1Raw,5,225,358,304,224,446,685)
-createRawDataForArray(*PSSide1Raw,6,224,384,304)
-createRawDataForArray(*PSSide1Raw,7,225,384,304)
+*UASelection_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelection_4WindFrontRaw,0,366,536,556)
 
-;----PSJump
-*PSJumpRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*PSJumpRaw,0,379,350,324)
-createRawDataForArray(*PSJumpRaw,1,299,427,286)
-createRawDataForArray(*PSJumpRaw,2,329,427,316)
-createRawDataForArray(*PSJumpRaw,3,365,380,329)
-createRawDataForArray(*PSJumpRaw,4,349,340,333)
+*UASelection_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelection_5WindBackRaw,0,409,531,539)
 
-;----PSDeath
-*PSDeathRaw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*PSDeathRaw,0,363,321,312)
-createRawDataForArray(*PSDeathRaw,1,321,321,322)
-createRawDataForArray(*PSDeathRaw,2,213,362,333)
-createRawDataForArray(*PSDeathRaw,3,207,425,361)
-createRawDataForArray(*PSDeathRaw,4,185,472,381)
-createRawDataForArray(*PSDeathRaw,5,174,483,357)
-createRawDataForArray(*PSDeathRaw,6,229,513,356)
-createRawDataForArray(*PSDeathRaw,7,295,513,356)
+;----UASelected
+*UASelectedRaw.rawdataArray=createRawDataArray(21)
+createRawDataForArray(*UASelectedRaw,0,431,414,347)
+createRawDataForArray(*UASelectedRaw,1,408,385,358)
+createRawDataForArray(*UASelectedRaw,2,452,363,363)
+createRawDataForArray(*UASelectedRaw,3,465,345,363)
+createRawDataForArray(*UASelectedRaw,4,440,327,368)
+createRawDataForArray(*UASelectedRaw,5,367,300,341)
+createRawDataForArray(*UASelectedRaw,6,368,316,344)
+createRawDataForArray(*UASelectedRaw,7,387,317,346)
+createRawDataForArray(*UASelectedRaw,8,406,318,340)
+createRawDataForArray(*UASelectedRaw,9,437,317,329)
+createRawDataForArray(*UASelectedRaw,10,469,364,343)
+createRawDataForArray(*UASelectedRaw,11,487,365,280)
+createRawDataForArray(*UASelectedRaw,12,472,400,329)
+createRawDataForArray(*UASelectedRaw,13,463,388,334)
+createRawDataForArray(*UASelectedRaw,14,455,415,370)
+createRawDataForArray(*UASelectedRaw,15,416,398,364)
+createRawDataForArray(*UASelectedRaw,16,413,397,360)
+createRawDataForArray(*UASelectedRaw,17,416,397,362)
+createRawDataForArray(*UASelectedRaw,18,413,393,364)
+createRawDataForArray(*UASelectedRaw,19,418,395,364)
+createRawDataForArray(*UASelectedRaw,20,418,392,365)
+createRawDataForArray(*UASelectedRaw,21,414,402,361)
 
-;----PSHit
-*PSHitRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*PSHitRaw,0,355,368,340)
-createRawDataForArray(*PSHitRaw,1,456,415,343)
-createRawDataForArray(*PSHitRaw,2,346,365,322)
-createRawDataForArray(*PSHitRaw,3,334,440,310)
-createRawDataForArray(*PSHitRaw,4,438,400,302)
+*UASelected_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UASelected_3WindFrontRaw,0,408,429,415)
+createRawDataForArray(*UASelected_3WindFrontRaw,1,497,421,401)
+
+*UASelected_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_5WindFrontRaw,0,450,316,359)
+
+*UASelected_6WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UASelected_6WindFrontRaw,0,479,279,319)
+createRawDataForArray(*UASelected_6WindFrontRaw,1,659,310,303)
+
+*UASelected_7WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UASelected_7WindFrontRaw,0,460,402,333)
+createRawDataForArray(*UASelected_7WindFrontRaw,1,445,393,337)
+createRawDataForArray(*UASelected_7WindFrontRaw,2,446,391,337)
+createRawDataForArray(*UASelected_7WindFrontRaw,3,440,363,332)
+createRawDataForArray(*UASelected_7WindFrontRaw,4,439,362,333)
+
+*UASelected_9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_9WindFrontRaw,0,410,500,445)
+
+*UASelected_10WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_10WindFrontRaw,0,407,336,415)
+
+*UASelected_11WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UASelected_11WindFrontRaw,0,425,303,350)
+createRawDataForArray(*UASelected_11WindFrontRaw,1,467,347,335)
+
+*UASelected_12WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*UASelected_12WindFrontRaw,0,472,336,265)
+createRawDataForArray(*UASelected_12WindFrontRaw,1,516,321,246)
+createRawDataForArray(*UASelected_12WindFrontRaw,2,706,361,244)
+
+*UASelected_13WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_13WindFrontRaw,0,449,339,287)
+
+*UASelected_14WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UASelected_14WindFrontRaw,0,392,351,301)
+createRawDataForArray(*UASelected_14WindFrontRaw,1,399,338,388)
+createRawDataForArray(*UASelected_14WindFrontRaw,2,385,406,542)
+createRawDataForArray(*UASelected_14WindFrontRaw,3,384,483,594)
+
+*UASelected_15WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UASelected_15WindFrontRaw,0,445,405,411)
+createRawDataForArray(*UASelected_15WindFrontRaw,1,436,389,340)
+createRawDataForArray(*UASelected_15WindFrontRaw,2,480,378,331)
+createRawDataForArray(*UASelected_15WindFrontRaw,3,603,381,325)
+
+*UASelected_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_5WindBackRaw,0,436,384,496)
+
+*UASelected_6WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*UASelected_6WindBackRaw,0,358,374,519)
+createRawDataForArray(*UASelected_6WindBackRaw,1,343,374,596)
+
+*UASelected_8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_8WindBackRaw,0,360,317,480)
+
+*UASelected_9WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*UASelected_9WindBackRaw,0,380,314,370)
+
+*UASelected_14WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*UASelected_14WindBackRaw,0,485,376,328)
+createRawDataForArray(*UASelected_14WindBackRaw,1,573,369,308)
+createRawDataForArray(*UASelected_14WindBackRaw,2,614,365,305)
+createRawDataForArray(*UASelected_14WindBackRaw,3,668,380,306)
+
+*UASelected_15WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*UASelected_15WindBackRaw,0,509,405,379)
+createRawDataForArray(*UASelected_15WindBackRaw,1,395,420,380)
+createRawDataForArray(*UASelected_15WindBackRaw,2,391,395,445)
+createRawDataForArray(*UASelected_15WindBackRaw,3,375,398,546)
+createRawDataForArray(*UASelected_15WindBackRaw,4,373,404,577)
+
+; ;----PSIdle
+; *PSIdleRaw.rawdataArray=createRawDataArray(4)
+; createRawDataForArray(*PSIdleRaw,0,368,354,285)
+; createRawDataForArray(*PSIdleRaw,1,365,355,324)
+; createRawDataForArray(*PSIdleRaw,2,357,356,318)
+; createRawDataForArray(*PSIdleRaw,3,355,374,321)
+; createRawDataForArray(*PSIdleRaw,4,366,368,294)
+; 
+; ;----PSFront
+; *PSFrontRaw.rawdataArray=createRawDataArray(4)
+; createRawDataForArray(*PSFrontRaw,0,342,356,333)
+; createRawDataForArray(*PSFrontRaw,1,359,359,335)
+; createRawDataForArray(*PSFrontRaw,2,365,361,343)
+; createRawDataForArray(*PSFrontRaw,3,358,360,328)
+; createRawDataForArray(*PSFrontRaw,4,348,352,330)
+; 
+; ;----PSBack
+; *PSBackRaw.rawdataArray=createRawDataArray(5)
+; createRawDataForArray(*PSBackRaw,0,245,399,335)
+; createRawDataForArray(*PSBackRaw,1,247,411,321)
+; createRawDataForArray(*PSBackRaw,2,239,410,310)
+; createRawDataForArray(*PSBackRaw,3,250,397,334)
+; createRawDataForArray(*PSBackRaw,4,279,396,335)
+; createRawDataForArray(*PSBackRaw,5,252,408,332)
+; 
+; ;----PSNeutral1
+; *PSNeutral1Raw.rawdataArray=createRawDataArray(5)
+; createRawDataForArray(*PSNeutral1Raw,0,361,334,333)
+; createRawDataForArray(*PSNeutral1Raw,1,354,314,325,382,313,487)
+; createRawDataForArray(*PSNeutral1Raw,2,276,321,336,276,316,598)
+; createRawDataForArray(*PSNeutral1Raw,3,231,322,322,230,400,669)
+; createRawDataForArray(*PSNeutral1Raw,4,232,337,326)
+; createRawDataForArray(*PSNeutral1Raw,5,237,339,333)
+; 
+; ;----PSSide1
+; *PSSide1Raw.rawdataArray=createRawDataArray(7)
+; createRawDataForArray(*PSSide1Raw,0,366,335,318)
+; createRawDataForArray(*PSSide1Raw,1,349,314,323)
+; createRawDataForArray(*PSSide1Raw,2,337,305,319)
+; createRawDataForArray(*PSSide1Raw,3,359,304,328,382,424,482)
+; createRawDataForArray(*PSSide1Raw,4,267,306,330,264,490,585)
+; createRawDataForArray(*PSSide1Raw,5,225,358,304,224,446,685)
+; createRawDataForArray(*PSSide1Raw,6,224,384,304)
+; createRawDataForArray(*PSSide1Raw,7,225,384,304)
+; 
+; ;----PSJump
+; *PSJumpRaw.rawdataArray=createRawDataArray(4)
+; createRawDataForArray(*PSJumpRaw,0,379,350,324)
+; createRawDataForArray(*PSJumpRaw,1,299,427,286)
+; createRawDataForArray(*PSJumpRaw,2,329,427,316)
+; createRawDataForArray(*PSJumpRaw,3,365,380,329)
+; createRawDataForArray(*PSJumpRaw,4,349,340,333)
+; 
+; ;----PSDeath
+; *PSDeathRaw.rawdataArray=createRawDataArray(7)
+; createRawDataForArray(*PSDeathRaw,0,363,321,312)
+; createRawDataForArray(*PSDeathRaw,1,321,321,322)
+; createRawDataForArray(*PSDeathRaw,2,213,362,333)
+; createRawDataForArray(*PSDeathRaw,3,207,425,361)
+; createRawDataForArray(*PSDeathRaw,4,185,472,381)
+; createRawDataForArray(*PSDeathRaw,5,174,483,357)
+; createRawDataForArray(*PSDeathRaw,6,229,513,356)
+; createRawDataForArray(*PSDeathRaw,7,295,513,356)
+; 
+; ;----PSHit
+; *PSHitRaw.rawdataArray=createRawDataArray(4)
+; createRawDataForArray(*PSHitRaw,0,355,368,340)
+; createRawDataForArray(*PSHitRaw,1,456,415,343)
+; createRawDataForArray(*PSHitRaw,2,346,365,322)
+; createRawDataForArray(*PSHitRaw,3,334,440,310)
+; createRawDataForArray(*PSHitRaw,4,438,400,302)
 
 ;----GSIdle1
 *GSIdle1Raw.rawdataArray=createRawDataArray(8)
@@ -3631,24 +3959,56 @@ createRawDataForArray(*GSIdle1_8WindBackRaw,1,571,387,341)
 createRawDataForArray(*GSIdle1_9WindBackRaw,0,628,398,301)
 createRawDataForArray(*GSIdle1_9WindBackRaw,1,612,443,294)
 
-;----GSFront
-*GSFrontRaw.rawdataArray=createRawDataArray(15)
-createRawDataForArray(*GSFrontRaw,0,414,372,286)
-createRawDataForArray(*GSFrontRaw,1,413,374,332)
-createRawDataForArray(*GSFrontRaw,2,421,385,335)
-createRawDataForArray(*GSFrontRaw,3,380,402,337)
-createRawDataForArray(*GSFrontRaw,4,368,387,349)
-createRawDataForArray(*GSFrontRaw,5,382,387,349)
-createRawDataForArray(*GSFrontRaw,6,380,402,337)
-createRawDataForArray(*GSFrontRaw,7,421,417,335)
-createRawDataForArray(*GSFrontRaw,8,413,388,332)
-createRawDataForArray(*GSFrontRaw,9,414,370,329)
-createRawDataForArray(*GSFrontRaw,10,430,379,306)
-createRawDataForArray(*GSFrontRaw,11,418,374,320)
-createRawDataForArray(*GSFrontRaw,12,414,347,301)
-createRawDataForArray(*GSFrontRaw,13,414,356,312)
-createRawDataForArray(*GSFrontRaw,14,418,351,275)
-createRawDataForArray(*GSFrontRaw,15,430,364,303)
+;----GSIdle2
+*GSIdle2Raw.rawdataArray=createRawDataArray(7)
+createRawDataForArray(*GSIdle2Raw,0,432,398,310)
+createRawDataForArray(*GSIdle2Raw,1,429,384,301)
+createRawDataForArray(*GSIdle2Raw,2,443,379,297)
+createRawDataForArray(*GSIdle2Raw,3,452,382,292)
+createRawDataForArray(*GSIdle2Raw,4,432,381,301)
+createRawDataForArray(*GSIdle2Raw,5,415,379,312)
+createRawDataForArray(*GSIdle2Raw,6,417,378,310)
+createRawDataForArray(*GSIdle2Raw,7,425,380,296)
+
+*GSIdle2_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSIdle2_1WindFrontRaw,0,417,401,303)
+createRawDataForArray(*GSIdle2_1WindFrontRaw,1,411,393,300)
+
+*GSIdle2_6WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSIdle2_6WindFrontRaw,0,461,496,436)
+createRawDataForArray(*GSIdle2_6WindFrontRaw,1,490,510,440)
+
+;----GSIdle3
+*GSIdle3Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSIdle3Raw,0,407,373,321)
+createRawDataForArray(*GSIdle3Raw,1,413,367,327)
+createRawDataForArray(*GSIdle3Raw,2,418,378,308)
+createRawDataForArray(*GSIdle3Raw,3,427,355,289)
+createRawDataForArray(*GSIdle3Raw,4,431,357,287)
+createRawDataForArray(*GSIdle3Raw,5,420,362,290)
+
+*GSIdle3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSIdle3_1WindFrontRaw,0,393,355,307)
+
+*GSIdle3_2WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSIdle3_2WindFrontRaw,0,386,347,299)
+createRawDataForArray(*GSIdle3_2WindFrontRaw,1,382,344,452)
+
+*GSIdle3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSIdle3_3WindFrontRaw,0,417,407,297)
+
+*GSIdle3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSIdle3_4WindFrontRaw,0,414,377,269)
+
+*GSIdle3_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSIdle3_5WindFrontRaw,0,507,355,265)
+createRawDataForArray(*GSIdle3_5WindFrontRaw,1,614,384,257)
+createRawDataForArray(*GSIdle3_5WindFrontRaw,2,651,422,312)
+
+*GSIdle3_6WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSIdle3_6WindFrontRaw,0,412,350,277)
+createRawDataForArray(*GSIdle3_6WindFrontRaw,1,408,358,400)
+createRawDataForArray(*GSIdle3_6WindFrontRaw,2,434,481,442)
 
 ;----GSMoveFront
 *GSMoveFrontRaw.rawdataArray=createRawDataArray(6)
@@ -3686,16 +4046,6 @@ createRawDataForArray(*GSMoveFront1WindBackRaw,0,654,412,307)
 createRawDataForArray(*GSMoveFront1WindBackRaw,1,659,418,331)
 
 ;----GSBack
-; *GSBackRaw.rawdataArray=createRawDataArray(6)
-; createRawDataForArray(*GSBackRaw,0,410,394,317)
-; createRawDataForArray(*GSBackRaw,1,392,381,315)
-; createRawDataForArray(*GSBackRaw,2,408,384,294)
-; createRawDataForArray(*GSBackRaw,3,432,388,306)
-; createRawDataForArray(*GSBackRaw,4,432,388,306)
-; createRawDataForArray(*GSBackRaw,5,414,384,294)
-; createRawDataForArray(*GSBackRaw,6,417,381,315)
-
-;----truc
 *GSMoveBackRaw.rawdataArray=createRawDataArray(3)
 createRawDataForArray(*GSMoveBackRaw,0,396,407,335)
 createRawDataForArray(*GSMoveBackRaw,1,410,399,339)
@@ -3708,25 +4058,6 @@ createRawDataForArray(*GSMoveBack4WindFrontRaw,1,573,402,261)
 
 *GSMoveBack5WindFrontRaw.rawdataArray=createRawDataArray(0)
 createRawDataForArray(*GSMoveBack5WindFrontRaw,0,474,414,356)
-
-;----GSSpawn
-; *GSSpawnRaw.rawdataArray=createRawDataArray(15)
-; createRawDataForArray(*GSSpawnRaw,0 ,348,402,349)
-; createRawDataForArray(*GSSpawnRaw,1 ,339,397,352)
-; createRawDataForArray(*GSSpawnRaw,2 ,345,411,352)
-; createRawDataForArray(*GSSpawnRaw,3 ,348,420,351)
-; createRawDataForArray(*GSSpawnRaw,4 ,333,429,351)
-; createRawDataForArray(*GSSpawnRaw,5 ,356,429,351)
-; createRawDataForArray(*GSSpawnRaw,6 ,247,432,347)
-; createRawDataForArray(*GSSpawnRaw,7 ,247,404,347)
-; createRawDataForArray(*GSSpawnRaw,8 ,201,399,335)
-; createRawDataForArray(*GSSpawnRaw,9 ,201,381,360)
-; createRawDataForArray(*GSSpawnRaw,10,200,388,332)
-; createRawDataForArray(*GSSpawnRaw,11,217,389,332)
-; createRawDataForArray(*GSSpawnRaw,12,285,393,373)
-; createRawDataForArray(*GSSpawnRaw,13,328,383,365)
-; createRawDataForArray(*GSSpawnRaw,14,398,386,354)
-; createRawDataForArray(*GSSpawnRaw,15,425,393,315)
 
 ;----GSSpawn
 *GSSpawnRaw.rawdataArray=createRawDataArray(11)
@@ -3785,21 +4116,6 @@ createRawDataForArray(*GSSpawn12WindFrontRaw,1,420,406,498)
 createRawDataForArray(*GSSpawn12WindFrontRaw,2,397,419,522)
 
 ;----GSDeath
-; *GSDeathRaw.rawdataArray=createRawDataArray(11)
-; createRawDataForArray(*GSDeathRaw,0 ,403,372,345)
-; createRawDataForArray(*GSDeathRaw,1 ,347,383,356)
-; createRawDataForArray(*GSDeathRaw,2 ,348,392,332)
-; createRawDataForArray(*GSDeathRaw,3 ,316,349,306)
-; createRawDataForArray(*GSDeathRaw,4 ,232,340,222)
-; createRawDataForArray(*GSDeathRaw,5 ,185,343,209)
-; createRawDataForArray(*GSDeathRaw,6 ,146,356,194)
-; createRawDataForArray(*GSDeathRaw,7 ,63 ,416,156)
-; createRawDataForArray(*GSDeathRaw,8 ,29 ,430,131)
-; createRawDataForArray(*GSDeathRaw,9 ,22 ,473,104)
-; createRawDataForArray(*GSDeathRaw,10,53 ,469,94 )
-; createRawDataForArray(*GSDeathRaw,11,215,509,179)
-
-;----GSDeath new
 *GSDeathRaw.rawdataArray=createRawDataArray(8)
 createRawDataForArray(*GSDeathRaw,0,404,372,371)
 createRawDataForArray(*GSDeathRaw,1,347,412,382)
@@ -3852,14 +4168,6 @@ createRawDataForArray(*GSDeath8WindBackRaw,0,457,465,222)
 
 ;----GSHit
 *GSHitRaw.rawdataArray=createRawDataArray(6)
-; createRawDataForArray(*GSHitRaw,0,439,408,337)
-; createRawDataForArray(*GSHitRaw,1,453,374,276)
-; createRawDataForArray(*GSHitRaw,2,365,394,363)
-; createRawDataForArray(*GSHitRaw,3,395,423,329)
-; createRawDataForArray(*GSHitRaw,4,370,345,292)
-; createRawDataForArray(*GSHitRaw,5,428,359,340)
-; createRawDataForArray(*GSHitRaw,6,412,387,301)
-
 createRawDataForArray(*GSHitRaw,0,439,409,337)
 createRawDataForArray(*GSHitRaw,1,454,374,276)
 createRawDataForArray(*GSHitRaw,2,365,394,371)
@@ -3870,13 +4178,6 @@ createRawDataForArray(*GSHitRaw,6,412,388,301)
 
 ;----GSJump
 *GSJumpRaw.rawdataArray=createRawDataArray(6)
-; createRawDataForArray(*GSJumpRaw,0,436,394,312)
-; createRawDataForArray(*GSJumpRaw,1,459,371,338)
-; createRawDataForArray(*GSJumpRaw,2,437,380,347)
-; createRawDataForArray(*GSJumpRaw,3,413,410,358)
-; createRawDataForArray(*GSJumpRaw,4,428,374,332)
-; createRawDataForArray(*GSJumpRaw,5,455,390,297)
-; createRawDataForArray(*GSJumpRaw,6,433,340,355)
 createRawDataForArray(*GSJumpRaw,0,436,396,312)
 createRawDataForArray(*GSJumpRaw,1,460,386,339)
 createRawDataForArray(*GSJumpRaw,2,453,389,349)
@@ -3891,7 +4192,7 @@ createRawDataForArray(*GSLandRaw,0,444,349,341)
 createRawDataForArray(*GSLandRaw,1,404,419,345)
 createRawDataForArray(*GSLandRaw,2,406,388,348)
 
-;----GSNeutral1New
+;----GSNeutral1
 *GSNeutral1Raw.rawdataArray=createRawDataArray(5)
 createRawDataForArray(*GSNeutral1Raw,0,413,417,341,494,409,361)
 createRawDataForArray(*GSNeutral1Raw,1,362,433,335,358,416,505)
@@ -3922,64 +4223,175 @@ createRawDataForArray(*GSNeutral1_5WindFrontRaw,0,465,366,300)
 createRawDataForArray(*GSNeutral1_5WindFrontRaw,1,425,374,300)
 createRawDataForArray(*GSNeutral1_5WindFrontRaw,2,367,393,338)
 
-;----GSNeutral2New
-*GSNeutral2NewRaw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*GSNeutral2NewRaw,0,434,383,337)
-createRawDataForArray(*GSNeutral2NewRaw,1,463,394,255)
-createRawDataForArray(*GSNeutral2NewRaw,2,445,354,333,566,348,247)
-createRawDataForArray(*GSNeutral2NewRaw,3,347,438,325,335,345,335)
-createRawDataForArray(*GSNeutral2NewRaw,4,330,419,327)
+;----GSNeutral2
+*GSNeutral2Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSNeutral2Raw,0,434,383,337)
+createRawDataForArray(*GSNeutral2Raw,1,463,394,255)
+createRawDataForArray(*GSNeutral2Raw,2,445,354,333,566,348,247)
+createRawDataForArray(*GSNeutral2Raw,3,347,438,325,335,345,335)
+createRawDataForArray(*GSNeutral2Raw,4,330,419,327)
 
-*GSNeutral2NewBackWind2Raw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*GSNeutral2NewBackWind2Raw,0,427,378,246)
-createRawDataForArray(*GSNeutral2NewBackWind2Raw,1,635,392,214)
-createRawDataForArray(*GSNeutral2NewBackWind2Raw,2,759,420,196)
+*GSNeutral2_2WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral2_2WindBackRaw,0,427,378,246)
+createRawDataForArray(*GSNeutral2_2WindBackRaw,1,635,392,214)
+createRawDataForArray(*GSNeutral2_2WindBackRaw,2,759,420,196)
 
-*GSNeutral2NewFrontWind2Raw.rawdataArray=createRawDataArray(1)
-createRawDataForArray(*GSNeutral2NewFrontWind2Raw,0,421,376,311)
-createRawDataForArray(*GSNeutral2NewFrontWind2Raw,1,426,363,296)
+*GSNeutral2_2WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSNeutral2_2WindFrontRaw,0,421,376,311)
+createRawDataForArray(*GSNeutral2_2WindFrontRaw,1,426,363,296)
 
-*GSNeutral2NewFrontWind3Raw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*GSNeutral2NewFrontWind3Raw,0,435,332,215)
+*GSNeutral2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral2_3WindFrontRaw,0,435,332,215)
 
-*GSNeutral2NewFrontWind4Raw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*GSNeutral2NewFrontWind4Raw,0,328,325,172)
-createRawDataForArray(*GSNeutral2NewFrontWind4Raw,1,301,292,230)
-createRawDataForArray(*GSNeutral2NewFrontWind4Raw,2,256,280,226)
-createRawDataForArray(*GSNeutral2NewFrontWind4Raw,3,231,434,616)
+*GSNeutral2_4WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSNeutral2_4WindFrontRaw,0,328,325,172)
+createRawDataForArray(*GSNeutral2_4WindFrontRaw,1,301,292,230)
+createRawDataForArray(*GSNeutral2_4WindFrontRaw,2,256,280,226)
+createRawDataForArray(*GSNeutral2_4WindFrontRaw,3,231,434,616)
 
 ;----GSNeutral3
-*GSNeutral3Raw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*GSNeutral3Raw,0,305,329,345)
-createRawDataForArray(*GSNeutral3Raw,1,298,344,355)
-createRawDataForArray(*GSNeutral3Raw,2,311,258,354,316,267,409)
-createRawDataForArray(*GSNeutral3Raw,3,264,262,344,267,314,587)
-createRawDataForArray(*GSNeutral3Raw,4,266,261,346,309,360,470)
-createRawDataForArray(*GSNeutral3Raw,5,270,260,339,293,413,564)
-createRawDataForArray(*GSNeutral3Raw,6,291,368,339)
-createRawDataForArray(*GSNeutral3Raw,7,291,384,339)
-createRawDataForArray(*GSNeutral3Raw,8,358,402,339)
+*GSNeutral3Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSNeutral3Raw,0,303,319,369)
+createRawDataForArray(*GSNeutral3Raw,1,357,373,375)
+createRawDataForArray(*GSNeutral3Raw,2,352,285,380)
+createRawDataForArray(*GSNeutral3Raw,3,270,279,389,270,249,454)
+createRawDataForArray(*GSNeutral3Raw,4,300,326,382,233,313,609)
+createRawDataForArray(*GSNeutral3Raw,5,312,372,373,303,324,483)
+createRawDataForArray(*GSNeutral3Raw,6,341,384,358,289,409,573)
+
+*GSNeutral3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral3_1WindFrontRaw,0,251,297,474)
+
+*GSNeutral3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral3_2WindFrontRaw,0,243,374,346)
+
+*GSNeutral3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral3_3WindFrontRaw,0,239,240,281)
+
+*GSNeutral3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral3_4WindFrontRaw,0,232,172,265)
+
+*GSNeutral3_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral3_5WindFrontRaw,0,141,151,350)
+
+*GSNeutral3_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral3_6WindFrontRaw,0,132,198,353)
+
+*GSNeutral3_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral3_7WindFrontRaw,0,212,293,520)
+createRawDataForArray(*GSNeutral3_7WindFrontRaw,1,189,279,477)
+createRawDataForArray(*GSNeutral3_7WindFrontRaw,2,224,353,474)
+
+*GSNeutral3_7WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral3_7WindBackRaw,0,116,198,351)
+createRawDataForArray(*GSNeutral3_7WindBackRaw,1,185,315,425)
+createRawDataForArray(*GSNeutral3_7WindBackRaw,2,329,319,408)
 
 ;----GSNeutral4
 *GSNeutral4Raw.rawdataArray=createRawDataArray(6)
-createRawDataForArray(*GSNeutral4Raw,0,292,414,342)
-createRawDataForArray(*GSNeutral4Raw,1,308,403,276)
-createRawDataForArray(*GSNeutral4Raw,2,383,347,344)
-createRawDataForArray(*GSNeutral4Raw,3,212,148,349,211,149,506)
-createRawDataForArray(*GSNeutral4Raw,4,187,104,356,201,259,603)
-createRawDataForArray(*GSNeutral4Raw,5,172,267,334,284,328,399)
-createRawDataForArray(*GSNeutral4Raw,6,313,380,329)
+createRawDataForArray(*GSNeutral4Raw,0,304,430,357)
+createRawDataForArray(*GSNeutral4Raw,1,339,420,348)
+createRawDataForArray(*GSNeutral4Raw,2,422,317,359)
+createRawDataForArray(*GSNeutral4Raw,3,354,382,355)
+createRawDataForArray(*GSNeutral4Raw,4,337,394,362)
+createRawDataForArray(*GSNeutral4Raw,5,402,421,350)
+createRawDataForArray(*GSNeutral4Raw,6,402,360,335)
+
+*GSNeutral4_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral4_1WindFrontRaw,0,293,404,425)
+
+*GSNeutral4_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral4_2WindFrontRaw,0,293,359,381)
+
+*GSNeutral4_3WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral4_3WindFrontRaw,0,296,291,342)
+createRawDataForArray(*GSNeutral4_3WindFrontRaw,1,283,249,318)
+createRawDataForArray(*GSNeutral4_3WindFrontRaw,2,465,213,291)
+
+*GSNeutral4_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral4_4WindFrontRaw,0,337,304,383)
+
+*GSNeutral4_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral4_5WindFrontRaw,0,319,350,484)
+
+*GSNeutral4_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral4_6WindFrontRaw,0,287,351,392)
+
+*GSNeutral4_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral4_7WindFrontRaw,0,323,353,287)
+createRawDataForArray(*GSNeutral4_7WindFrontRaw,1,618,327,255)
+createRawDataForArray(*GSNeutral4_7WindFrontRaw,2,643,320,248)
+
+;----GSGatling1
+*GSGatling1Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSGatling1Raw,0,323, 25,459,301,  5,457)
+createRawDataForArray(*GSGatling1Raw,1,108,  0,458,108, 40,578)
+createRawDataForArray(*GSGatling1Raw,2, 30, 16,471)
+createRawDataForArray(*GSGatling1Raw,3,327,330,586)
+
+;----GSGatling2
+*GSGatling2Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSGatling2Raw,0, 21,171,506, 20,173,519)
+createRawDataForArray(*GSGatling2Raw,1,  7,204,497,  7,364,514)
+createRawDataForArray(*GSGatling2Raw,2,124,397,526)
+createRawDataForArray(*GSGatling2Raw,3,435,429,540)
+
+;----GSGatling3
+*GSGatling3Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSGatling3Raw,0,10,450,521,  2,441,508)
+createRawDataForArray(*GSGatling3Raw,1,14,447, 96,469,443, 87)
+createRawDataForArray(*GSGatling3Raw,2,272,433, 11)
+createRawDataForArray(*GSGatling3Raw,3,470,473,384)
 
 ;----GSNeutral5
-*GSNeutral5Raw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*GSNeutral5Raw,0,405,384,322)
-createRawDataForArray(*GSNeutral5Raw,1,9,388,336,4,451,500)
-createRawDataForArray(*GSNeutral5Raw,2,4,398,343,4,442,569)
-createRawDataForArray(*GSNeutral5Raw,3,1,404,334,1,440,577)
-createRawDataForArray(*GSNeutral5Raw,4,5,311,347,48,522,608)
-createRawDataForArray(*GSNeutral5Raw,5,34,306,338)
-createRawDataForArray(*GSNeutral5Raw,6,321,309,344)
-createRawDataForArray(*GSNeutral5Raw,7,340,365,337)
+*GSNeutral5Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSNeutral5Raw,0,419,386,343)
+createRawDataForArray(*GSNeutral5Raw,1,400,372,363)
+createRawDataForArray(*GSNeutral5Raw,2,363,379,377)
+createRawDataForArray(*GSNeutral5Raw,3,322,400,356)
+createRawDataForArray(*GSNeutral5Raw,4,342,310,369)
+createRawDataForArray(*GSNeutral5Raw,5,346,270,371)
+createRawDataForArray(*GSNeutral5Raw,6,412,370,346)
+
+;----GSGatling4
+*GSGatling4Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSGatling4Raw,0,66,473,298,67,475,380)
+createRawDataForArray(*GSGatling4Raw,1,38,453,389,39,454,402)
+createRawDataForArray(*GSGatling4Raw,2,3,451,405)
+createRawDataForArray(*GSGatling4Raw,3,557,451,426)
+
+;----GSGatling5
+*GSGatling5Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSGatling5Raw,0,19,440,504,18,439,503)
+createRawDataForArray(*GSGatling5Raw,1,0,421,518,32,416,534)
+createRawDataForArray(*GSGatling5Raw,2,15,419,534)
+createRawDataForArray(*GSGatling5Raw,3,417,424,566)
+
+;----GSGatling6
+*GSGatling6Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSGatling6Raw,0,0,397,502,5,391,508)
+createRawDataForArray(*GSGatling6Raw,1,0,395,511,1,471,558)
+createRawDataForArray(*GSGatling6Raw,2,0,408,550)
+createRawDataForArray(*GSGatling6Raw,3,379,466,586)
+
+*GSNeutral5_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral5_1WindFrontRaw,0,404,369,365)
+
+*GSNeutral5_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral5_2WindFrontRaw,0,352,368,401)
+createRawDataForArray(*GSNeutral5_2WindFrontRaw,1,341,365,492)
+createRawDataForArray(*GSNeutral5_2WindFrontRaw,2,339,433,567)
+
+*GSNeutral5_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral5_5WindFrontRaw,0,364,289,384)
+
+*GSNeutral5_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSNeutral5_6WindFrontRaw,0,327,236,372)
+
+*GSNeutral5_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSNeutral5_7WindFrontRaw,0,266,236,320)
+createRawDataForArray(*GSNeutral5_7WindFrontRaw,1,220,344,301)
+createRawDataForArray(*GSNeutral5_7WindFrontRaw,2,354,369,293)
 
 ;----GSNeutral6
 *GSNeutral6Raw.rawdataArray=createRawDataArray(3)
@@ -4031,55 +4443,147 @@ createRawDataForArray(*GSSide1_6WindFrontRaw,1,227,266,288)
 createRawDataForArray(*GSSide1_6WindFrontRaw,2,210,270,537)
 
 ;----GSSide2
-*GSSide2Raw.rawdataArray=createRawDataArray(4)
-createRawDataForArray(*GSSide2Raw,0,300,352,356)
-createRawDataForArray(*GSSide2Raw,1,386,369,362)
-createRawDataForArray(*GSSide2Raw,2,362,296,350)
-createRawDataForArray(*GSSide2Raw,3,267,441,343,210,213,441)
-createRawDataForArray(*GSSide2Raw,4,202,442,290)
+; *GSSide2Raw.rawdataArray=createRawDataArray(4)
+; createRawDataForArray(*GSSide2Raw,0,300,352,356)
+; createRawDataForArray(*GSSide2Raw,1,386,369,362)
+; createRawDataForArray(*GSSide2Raw,2,362,296,350)
+; createRawDataForArray(*GSSide2Raw,3,267,441,343,210,213,441)
+; createRawDataForArray(*GSSide2Raw,4,202,442,290)
+; 
+; *GSSide2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+; createRawDataForArray(*GSSide2_1WindFrontRaw,0,275,334,476)
+; 
+; *GSSide2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+; createRawDataForArray(*GSSide2_2WindFrontRaw,0,219,329,450)
+; 
+; *GSSide2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+; createRawDataForArray(*GSSide2_3WindFrontRaw,0,176,244,318)
+; 
+; *GSSide2_4WindFront1Raw.rawdataArray=createRawDataArray(3)
+; createRawDataForArray(*GSSide2_4WindFront1Raw,0,145,189,236)
+; createRawDataForArray(*GSSide2_4WindFront1Raw,1,108,148,196)
+; createRawDataForArray(*GSSide2_4WindFront1Raw,2,67,166,522)
+; createRawDataForArray(*GSSide2_4WindFront1Raw,3,63,342,779)
+; 
+; *GSSide2_4WindFront2Raw.rawdataArray=createRawDataArray(2)
+; createRawDataForArray(*GSSide2_4WindFront2Raw,0,187,540,612)
+; createRawDataForArray(*GSSide2_4WindFront2Raw,1,110,461,633)
+; createRawDataForArray(*GSSide2_4WindFront2Raw,2,47,390,612)
+;----GSSide2
+*GSSide2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSSide2Raw,0,285,343,367)
+createRawDataForArray(*GSSide2Raw,1,362,360,386)
+createRawDataForArray(*GSSide2Raw,2,348,287,373)
+createRawDataForArray(*GSSide2Raw,3,227,352,340,225,235,477)
+createRawDataForArray(*GSSide2Raw,4,251,438,339,222,401,600)
+createRawDataForArray(*GSSide2Raw,5,192,442,300)
 
 *GSSide2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*GSSide2_1WindFrontRaw,0,275,334,476)
+createRawDataForArray(*GSSide2_1WindFrontRaw,0,232,325,491)
 
 *GSSide2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*GSSide2_2WindFrontRaw,0,219,329,450)
+createRawDataForArray(*GSSide2_2WindFrontRaw,0,195,320,474)
 
 *GSSide2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
-createRawDataForArray(*GSSide2_3WindFrontRaw,0,176,244,318)
+createRawDataForArray(*GSSide2_3WindFrontRaw,0,162,232,311)
 
-*GSSide2_4WindFront1Raw.rawdataArray=createRawDataArray(3)
-createRawDataForArray(*GSSide2_4WindFront1Raw,0,145,189,236)
-createRawDataForArray(*GSSide2_4WindFront1Raw,1,108,148,196)
-createRawDataForArray(*GSSide2_4WindFront1Raw,2,67,166,522)
-createRawDataForArray(*GSSide2_4WindFront1Raw,3,63,342,779)
+*GSSide2_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide2_4WindFrontRaw,0,139,105,300)
 
-*GSSide2_4WindFront2Raw.rawdataArray=createRawDataArray(2)
-createRawDataForArray(*GSSide2_4WindFront2Raw,0,187,540,612)
-createRawDataForArray(*GSSide2_4WindFront2Raw,1,110,461,633)
-createRawDataForArray(*GSSide2_4WindFront2Raw,2,47,390,612)
+*GSSide2_5WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSSide2_5WindFrontRaw,0,79,119,303)
+createRawDataForArray(*GSSide2_5WindFrontRaw,1,33,116,246)
+createRawDataForArray(*GSSide2_5WindFrontRaw,2,23,144,227)
+createRawDataForArray(*GSSide2_5WindFrontRaw,3,77,136,624)
+createRawDataForArray(*GSSide2_5WindFrontRaw,4,80,155,686)
+
+*GSSide2_5WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSide2_5WindBackRaw,0,232,575,656)
+createRawDataForArray(*GSSide2_5WindBackRaw,1,203,534,629)
+createRawDataForArray(*GSSide2_5WindBackRaw,2,184,490,615)
+createRawDataForArray(*GSSide2_5WindBackRaw,3,156,418,727)
 
 ;----GSSide3
-*GSSide3Raw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*GSSide3Raw,0,265,429,313)
-createRawDataForArray(*GSSide3Raw,1,269,264,329)
-createRawDataForArray(*GSSide3Raw,2,249,301,308)
-createRawDataForArray(*GSSide3Raw,3,333,306,280,389,415,280)
-createRawDataForArray(*GSSide3Raw,4,265,335,228,276,460,556)
-createRawDataForArray(*GSSide3Raw,5,312,336,214,332,414,530)
-createRawDataForArray(*GSSide3Raw,6,281,378,232)
-createRawDataForArray(*GSSide3Raw,7,276,378,326)
-createRawDataForArray(*GSSide3Raw,8,388,378,326)
+*GSSide3Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSSide3Raw,0,250,422,355)
+createRawDataForArray(*GSSide3Raw,1,386,272,348)
+createRawDataForArray(*GSSide3Raw,2,407,349,336)
+createRawDataForArray(*GSSide3Raw,3,345,408,378,357,395,299)
+createRawDataForArray(*GSSide3Raw,4,250,383,373,245,446,528)
+createRawDataForArray(*GSSide3Raw,5,368,357,338,312,403,497)
+
+*GSSide3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide3_1WindFrontRaw,0,216,428,533)
+
+*GSSide3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide3_2WindFrontRaw,0,187,196,370)
+
+*GSSide3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide3_3WindFrontRaw,0,139,129,296)
+
+*GSSide3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide3_4WindFrontRaw,0,206,179,223)
+
+*GSSide3_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide3_5WindFrontRaw,0,211,191,188)
+
+*GSSide3_6WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSide3_6WindFrontRaw,0,217,226,173)
+createRawDataForArray(*GSSide3_6WindFrontRaw,1,193,352,148)
+createRawDataForArray(*GSSide3_6WindFrontRaw,2,181,373,391)
+createRawDataForArray(*GSSide3_6WindFrontRaw,3,193,361,516)
 
 ;----GSSide4
-*GSSide4Raw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*GSSide4Raw,0,403,372,231)
-createRawDataForArray(*GSSide4Raw,1,391,407,324)
-createRawDataForArray(*GSSide4Raw,2,53 ,426,341,54 ,452,618)
-createRawDataForArray(*GSSide4Raw,3,17 ,431,346,20,551,613)
-createRawDataForArray(*GSSide4Raw,4,9  ,435,357,8  ,573,633)
-createRawDataForArray(*GSSide4Raw,5,6  ,393,349,42 ,393,626)
-createRawDataForArray(*GSSide4Raw,6,131,419,349)
-createRawDataForArray(*GSSide4Raw,7,285,401,330)
+*GSSide4Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSSide4Raw,0,386,358,338)
+createRawDataForArray(*GSSide4Raw,1,359,421,359)
+createRawDataForArray(*GSSide4Raw,2,316,419,395)
+createRawDataForArray(*GSSide4Raw,3,339,423,383)
+createRawDataForArray(*GSSide4Raw,4,317,404,383)
+createRawDataForArray(*GSSide4Raw,5,319,378,371)
+createRawDataForArray(*GSSide4Raw,6,437,383,344)
+
+*GSSide4_1WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSSide4_1WindFrontRaw,0,359,338,455)
+createRawDataForArray(*GSSide4_1WindFrontRaw,1,337,348,530)
+createRawDataForArray(*GSSide4_1WindFrontRaw,2,316,443,577)
+
+*GSSide4_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSSide4_7WindFrontRaw,0,305,363,321)
+createRawDataForArray(*GSSide4_7WindFrontRaw,1,345,332,282)
+createRawDataForArray(*GSSide4_7WindFrontRaw,2,651,395,275)
+
+*GSSide4_1WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSSide4_1WindBackRaw,0,474,380,217)
+createRawDataForArray(*GSSide4_1WindBackRaw,1,452,383,236)
+
+;----GSShot5
+*GSShot5Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSShot5Raw,0,100,433,472,99,433,476)
+createRawDataForArray(*GSShot5Raw,1,166,441,473)
+createRawDataForArray(*GSShot5Raw,2,439,466,475)
+createRawDataForArray(*GSShot5Raw,3,474,465,473)
+
+;----GSShot6
+*GSShot6Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSShot6Raw,0,5,501,478,32-23,551-13,451+23) ; dumb me forgot some shifts in the drawing file
+createRawDataForArray(*GSShot6Raw,1,97,526,451)
+createRawDataForArray(*GSShot6Raw,2,410,519,451)
+createRawDataForArray(*GSShot6Raw,3,468,513,446)
+
+;----GSShot7
+*GSShot7Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSShot7Raw,0,1,524,524,11-3,573-23,525+3) ; again
+createRawDataForArray(*GSShot7Raw,1,117,549,512)
+createRawDataForArray(*GSShot7Raw,2,378,548,512)
+createRawDataForArray(*GSShot7Raw,3,420,545,506)
+
+;----GSShot8
+*GSShot8Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSShot8Raw,0,4,331,554,3,331,556)
+createRawDataForArray(*GSShot8Raw,1,214,405,547)
+createRawDataForArray(*GSShot8Raw,2,332,428,539)
+createRawDataForArray(*GSShot8Raw,3,362,428,538)
 
 ;----GSSide5
 *GSSide5Raw.rawdataArray=createRawDataArray(5)
@@ -4115,20 +4619,69 @@ createRawDataForArray(*GSSide5_5WindFrontRaw,3,96 ,413,794)
 createRawDataForArray(*GSSide5_6WindBackRaw,0,227,419,467)
 createRawDataForArray(*GSSide5_6WindBackRaw,1,266,405,443)
 
-;----GSBack1
-; *GSBack1Raw.rawdataArray=createRawDataArray(10)
-; createRawDataForArray(*GSBack1Raw,0 ,381,390,282)
-; createRawDataForArray(*GSBack1Raw,1 ,336,388,291)
-; createRawDataForArray(*GSBack1Raw,2 ,308,393,320)
-; createRawDataForArray(*GSBack1Raw,3 ,136,419,320,159,561,644)
-; createRawDataForArray(*GSBack1Raw,4 ,44 ,423,317,89 ,564,718)
-; createRawDataForArray(*GSBack1Raw,5 ,12 ,433,320,45 ,573,814)
-; createRawDataForArray(*GSBack1Raw,6 ,0  ,433,320)
-; createRawDataForArray(*GSBack1Raw,7 ,320,358,313)
-; createRawDataForArray(*GSBack1Raw,8 ,309,367,313)
-; createRawDataForArray(*GSBack1Raw,9 ,398,367,313)
-; createRawDataForArray(*GSBack1Raw,10,398,367,313)
+;----GSSide6
+*GSSide6Raw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*GSSide6Raw,0,315,374,369)
+createRawDataForArray(*GSSide6Raw,1,223,367,317)
+createRawDataForArray(*GSSide6Raw,2,295,397,373,355,371,286)
+createRawDataForArray(*GSSide6Raw,3,195,400,313,194,394,641)
+createRawDataForArray(*GSSide6Raw,4,227,409,356)
+createRawDataForArray(*GSSide6Raw,5,210,387,361)
+createRawDataForArray(*GSSide6Raw,6,391,409,343,365,531,399)
+createRawDataForArray(*GSSide6Raw,7,268,418,379)
+createRawDataForArray(*GSSide6Raw,8,408,369,344)
 
+*GSSide6_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide6_1WindFrontRaw,0,518,344,346)
+
+*GSSide6_2WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSide6_2WindFrontRaw,0,349,317,250)
+createRawDataForArray(*GSSide6_2WindFrontRaw,1,421,309,245)
+createRawDataForArray(*GSSide6_2WindFrontRaw,2,638,343,201)
+createRawDataForArray(*GSSide6_2WindFrontRaw,3,695,442,186)
+
+*GSSide6_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSide6_3WindFrontRaw,0,287,349,191)
+createRawDataForArray(*GSSide6_3WindFrontRaw,1,289,331,625)
+createRawDataForArray(*GSSide6_3WindFrontRaw,2,254,297,632)
+createRawDataForArray(*GSSide6_3WindFrontRaw,3,245,290,623)
+
+*GSSide6_4WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSSide6_4WindFrontRaw,0,172,345,322)
+createRawDataForArray(*GSSide6_4WindFrontRaw,1,274,343,517)
+createRawDataForArray(*GSSide6_4WindFrontRaw,2,258,356,639)
+
+*GSSide6_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSSide6_5WindFrontRaw,0,174,378,530)
+createRawDataForArray(*GSSide6_5WindFrontRaw,1,150,407,678)
+createRawDataForArray(*GSSide6_5WindFrontRaw,2,150,576,663)
+
+*GSSide6_8WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSSide6_8WindFrontRaw,0,232,397,462)
+createRawDataForArray(*GSSide6_8WindFrontRaw,1,227,499,631)
+
+*GSSide6_9WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSSide6_9WindFrontRaw,0,256,339,347)
+createRawDataForArray(*GSSide6_9WindFrontRaw,1,339,306,286)
+createRawDataForArray(*GSSide6_9WindFrontRaw,2,680,361,279)
+
+*GSSide6_7WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSSide6_7WindBackRaw,0,195,463,348)
+createRawDataForArray(*GSSide6_7WindBackRaw,1,260,363,290)
+createRawDataForArray(*GSSide6_7WindBackRaw,2,493,365,257)
+createRawDataForArray(*GSSide6_7WindBackRaw,3,571,418,251)
+createRawDataForArray(*GSSide6_7WindBackRaw,4,621,555,246)
+
+*GSSide6_8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSide6_8WindBackRaw,0,251,443,615)
+
+*GSSide6_9WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSide6_9WindBackRaw,0,271,369,310)
+createRawDataForArray(*GSSide6_9WindBackRaw,1,288,350,276)
+createRawDataForArray(*GSSide6_9WindBackRaw,2,608,360,271)
+createRawDataForArray(*GSSide6_9WindBackRaw,3,683,383,288)
+
+;----GSBack1
 *GSBack1Raw.rawdataArray=createRawDataArray(5)
 createRawDataForArray(*GSBack1Raw,0,390,399,282)
 createRawDataForArray(*GSBack1Raw,1,350,432,339)
@@ -4178,6 +4731,7 @@ createRawDataForArray(*GSBack1_4WindBackRaw,2,226,596,621)
 createRawDataForArray(*GSBack1_6WindBackRaw,0,339,604,561)
 createRawDataForArray(*GSBack1_6WindBackRaw,1,338,589,564)
 
+;----GSExplosion1
 *GSExplosion1Raw.rawdataArray=createRawDataArray(6)
 createRawDataForArray(*GSExplosion1Raw,0,126,554,644,148,569,646)
 createRawDataForArray(*GSExplosion1Raw,1, 79,545,617,117,556,618)
@@ -4187,141 +4741,776 @@ createRawDataForArray(*GSExplosion1Raw,4, 44,466,564)
 createRawDataForArray(*GSExplosion1Raw,5, 19,450,611)
 createRawDataForArray(*GSExplosion1Raw,6, 21,451,597)
 
+;----GSExplosion2
+*GSExplosion2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSExplosion2Raw,0,583,378,197,581,384,204)
+createRawDataForArray(*GSExplosion2Raw,1,491,292,122,519,374,190)
+createRawDataForArray(*GSExplosion2Raw,2,462,336,135,551,352,176)
+createRawDataForArray(*GSExplosion2Raw,3,439,289,106)
+createRawDataForArray(*GSExplosion2Raw,4,472,326,98)
+createRawDataForArray(*GSExplosion2Raw,5,465,329,93)
+
+;----GSExplosion3
+*GSExplosion3Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSExplosion3Raw,0,219,578,655)
+createRawDataForArray(*GSExplosion3Raw,1,119,465,559,159,502,606)
+createRawDataForArray(*GSExplosion3Raw,2, 37,526,479,215,554,608)
+createRawDataForArray(*GSExplosion3Raw,3,144,513,546,238,587,653)
+createRawDataForArray(*GSExplosion3Raw,4,138,491,536)
+createRawDataForArray(*GSExplosion3Raw,5,159,516,530)
+
+;----GSExplosion4
+*GSExplosion4Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSExplosion4Raw,0,125,411,716,176,475,734)
+createRawDataForArray(*GSExplosion4Raw,1,129,373,582,142,420,644)
+createRawDataForArray(*GSExplosion4Raw,2,106,375,609,160,449,683)
+createRawDataForArray(*GSExplosion4Raw,3,140,355,557,215,449,651)
+createRawDataForArray(*GSExplosion4Raw,4,125,346,589)
+createRawDataForArray(*GSExplosion4Raw,5,122,345,589)
+
+;----GSExplosion5
+*GSExplosion5Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSExplosion5Raw,0,92,513,778,130,531,782)
+createRawDataForArray(*GSExplosion5Raw,1,0,432,725,45,502,722)
+createRawDataForArray(*GSExplosion5Raw,2,0,444,672,1,465,685)
+createRawDataForArray(*GSExplosion5Raw,3,9,388,468,11,438,528)
+createRawDataForArray(*GSExplosion5Raw,4,23,351,235,54,483,329)
+createRawDataForArray(*GSExplosion5Raw,5,56,349,41,54,460,770)
+createRawDataForArray(*GSExplosion5Raw,6,18,341,4,1,364,893)
+
 ;----GSBack2
-*GSBack2Raw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*GSBack2Raw,0,310,428,326)
-createRawDataForArray(*GSBack2Raw,1,223,426,326)
-createRawDataForArray(*GSBack2Raw,2,113,398,348,181,433,662)
-createRawDataForArray(*GSBack2Raw,3, 23,269,342,140,449,739)
-createRawDataForArray(*GSBack2Raw,4, 54,325,320)
-createRawDataForArray(*GSBack2Raw,5, 20,361,312)
-createRawDataForArray(*GSBack2Raw,6,405,358,305)
-createRawDataForArray(*GSBack2Raw,7,433,403,340)
+*GSBack2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSBack2Raw,0,316,430,352)
+createRawDataForArray(*GSBack2Raw,1,309,397,382)
+createRawDataForArray(*GSBack2Raw,2,432,338,370)
+createRawDataForArray(*GSBack2Raw,3,387,351,314)
+createRawDataForArray(*GSBack2Raw,4,373,349,313)
+createRawDataForArray(*GSBack2Raw,5,410,381,349)
+
+*GSBack2_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSBack2_1WindFrontRaw,0,295,392,487)
+createRawDataForArray(*GSBack2_1WindFrontRaw,1,326,422,339)
+
+*GSBack2_2WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSBack2_2WindFront1Raw,0,227,385,347)
+
+*GSBack2_2WindFront2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSBack2_2WindFront2Raw,0,184,447,668)
+createRawDataForArray(*GSBack2_2WindFront2Raw,1,165,441,694)
+createRawDataForArray(*GSBack2_2WindFront2Raw,2,161,444,716)
+
+*GSBack2_3WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSBack2_3WindFront1Raw,0,173,324,346)
+
+*GSBack2_3WindFront2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSBack2_3WindFront2Raw,0,206,331,528)
+createRawDataForArray(*GSBack2_3WindFront2Raw,1,207,332,575)
+createRawDataForArray(*GSBack2_3WindFront2Raw,2,208,334,589)
+
+*GSBack2_4WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSBack2_4WindFront1Raw,0,157,316,252)
+
+*GSBack2_4WindFront2Raw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSBack2_4WindFront2Raw,0,320,362,470)
+createRawDataForArray(*GSBack2_4WindFront2Raw,1,351,356,482)
+
+*GSBack2_5WindFront1Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSBack2_5WindFront1Raw,0,291,261,249)
+createRawDataForArray(*GSBack2_5WindFront1Raw,1,510,274,274)
+createRawDataForArray(*GSBack2_5WindFront1Raw,2,658,296,246)
+
+*GSBack2_5WindFront2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSBack2_5WindFront2Raw,0,477,537,255)
+createRawDataForArray(*GSBack2_5WindFront2Raw,1,468,517,213)
+createRawDataForArray(*GSBack2_5WindFront2Raw,2,603,488,190)
+
+*GSBack2_6WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSBack2_6WindFrontRaw,0,413,365,390)
+createRawDataForArray(*GSBack2_6WindFrontRaw,1,388,400,495)
 
 ;----GSDown1
-*GSDown1Raw.rawdataArray=createRawDataArray(10)
-createRawDataForArray(*GSDown1Raw,0 ,442,314,308)
-createRawDataForArray(*GSDown1Raw,1 ,297,342,264)
-createRawDataForArray(*GSDown1Raw,2 ,295,307,292)
-createRawDataForArray(*GSDown1Raw,3 ,279,295,276)
-createRawDataForArray(*GSDown1Raw,4 ,279,363,336,323,570,593)
-createRawDataForArray(*GSDown1Raw,5 ,249,301,325,331,673,588)
-createRawDataForArray(*GSDown1Raw,6 ,213,312,336,262,646-40,521)
-createRawDataForArray(*GSDown1Raw,7 ,188,312,336,227,647-40,470)
-createRawDataForArray(*GSDown1Raw,8 ,115,314,313,106,641-40,315)
-createRawDataForArray(*GSDown1Raw,9 ,89 ,448,287)
-createRawDataForArray(*GSDown1Raw,10,325,448,336)
+*GSDown1Raw.rawdataArray=createRawDataArray(7)
+createRawDataForArray(*GSDown1Raw,0,434,294,350)
+createRawDataForArray(*GSDown1Raw,1,356,334,379)
+createRawDataForArray(*GSDown1Raw,2,446,313,377)
+createRawDataForArray(*GSDown1Raw,3,364,300,357,384,472,559)
+createRawDataForArray(*GSDown1Raw,4,298,433,374,300,478,625)
+createRawDataForArray(*GSDown1Raw,5,401,403,365)
+createRawDataForArray(*GSDown1Raw,6,358,416,362)
+createRawDataForArray(*GSDown1Raw,7,360,374,390)
+
+*GSDown1_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown1_1WindFrontRaw,0,474,269,290)
+
+*GSDown1_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown1_2WindFrontRaw,0,281,240,270)
+
+*GSDown1_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSDown1_3WindFrontRaw,0,278,248,332)
+createRawDataForArray(*GSDown1_3WindFrontRaw,1,276,284,484)
+createRawDataForArray(*GSDown1_3WindFrontRaw,2,271,493,488)
+createRawDataForArray(*GSDown1_3WindFrontRaw,3,406,543,486)
+
+*GSDown1_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown1_4WindFrontRaw,0,325,437,511)
+
+*GSDown1_5WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSDown1_5WindFrontRaw,0,185,384,356)
+createRawDataForArray(*GSDown1_5WindFrontRaw,1,179,410,397)
+createRawDataForArray(*GSDown1_5WindFrontRaw,2,120,529,442)
+createRawDataForArray(*GSDown1_5WindFrontRaw,3,83,528,400)
+
+*GSDown1_6WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSDown1_6WindFrontRaw,0,384,381,285)
+createRawDataForArray(*GSDown1_6WindFrontRaw,1,367,364,281)
+createRawDataForArray(*GSDown1_6WindFrontRaw,2,363,336,287)
+createRawDataForArray(*GSDown1_6WindFrontRaw,3,402,308,329)
+
+*GSDown1_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown1_7WindFrontRaw,0,429,335,347)
+
+*GSDown1_8WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSDown1_8WindFrontRaw,0,429,310,335)
+createRawDataForArray(*GSDown1_8WindFrontRaw,1,414,447,302)
+createRawDataForArray(*GSDown1_8WindFrontRaw,2,392,507,283)
+
+*GSDown1_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSDown1_3WindBackRaw,0,468,304,402)
+createRawDataForArray(*GSDown1_3WindBackRaw,1,450,295,423)
+
+*GSDown1_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown1_4WindBackRaw,0,378,172,565)
+
+*GSDown1_5WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSDown1_5WindBackRaw,0,285,223,625)
+createRawDataForArray(*GSDown1_5WindBackRaw,1,245,266,558)
+createRawDataForArray(*GSDown1_5WindBackRaw,2,134,401,462)
+createRawDataForArray(*GSDown1_5WindBackRaw,3,108,580,428)
+createRawDataForArray(*GSDown1_5WindBackRaw,4,167,624,436)
+
+*GSDown1_6WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSDown1_6WindBackRaw,0,468,613,313)
+createRawDataForArray(*GSDown1_6WindBackRaw,1,478,443,375)
+
+;----GSShockwave1
+*GSShockwave1Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSShockwave1Raw,0,293,651,612)
+createRawDataForArray(*GSShockwave1Raw,1,228,600,546,239,605-15,553)
+createRawDataForArray(*GSShockwave1Raw,2,139,564,462,146,583-15,461)
+createRawDataForArray(*GSShockwave1Raw,3, 74,547,394, 76,642-15,390)
+createRawDataForArray(*GSShockwave1Raw,4, 12,537,385, 11,658-15,384)
+createRawDataForArray(*GSShockwave1Raw,5, 35,647,264, 34,660-15,260)
+createRawDataForArray(*GSShockwave1Raw,6, 28,678,138)
+
+;----GSDown2
+*GSDown2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSDown2Raw,0,320,372,385)
+createRawDataForArray(*GSDown2Raw,1,265,355,323)
+createRawDataForArray(*GSDown2Raw,2,278,371,387)
+createRawDataForArray(*GSDown2Raw,3,371,437,365)
+createRawDataForArray(*GSDown2Raw,4,349,288,378)
+createRawDataForArray(*GSDown2Raw,5,407,243,375)
+
+*GSDown2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown2_1WindFrontRaw,0,356,344,347)
+
+*GSDown2_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSDown2_2WindFrontRaw,0,335,324,279)
+createRawDataForArray(*GSDown2_2WindFrontRaw,1,508,312,255)
+createRawDataForArray(*GSDown2_2WindFrontRaw,2,680,374,245)
+
+*GSDown2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown2_3WindFrontRaw,0,344,329,368)
+
+*GSDown2_4WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSDown2_4WindFrontRaw,0,318,367,413)
+createRawDataForArray(*GSDown2_4WindFrontRaw,1,293,403,377)
+createRawDataForArray(*GSDown2_4WindFrontRaw,2,278,543,598)
+
+*GSDown2_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown2_5WindFrontRaw,0,294,240,399)
+
+*GSDown2_6WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSDown2_6WindFrontRaw,0,304,145,343)
+createRawDataForArray(*GSDown2_6WindFrontRaw,1,413,166,304)
+createRawDataForArray(*GSDown2_6WindFrontRaw,2,600,201,321)
+
+*GSDown2_2WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSDown2_2WindBackRaw,0,33,587,474)
+createRawDataForArray(*GSDown2_2WindBackRaw,1,72,603,527)
+createRawDataForArray(*GSDown2_2WindBackRaw,2,141,609,536)
+
+*GSDown2_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSDown2_5WindBackRaw,0,286,409,554)
+
+*GSDown2_6WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSDown2_6WindBackRaw,0,323,391,529)
+createRawDataForArray(*GSDown2_6WindBackRaw,1,353,386,538)
+
+;----GSCrack1
+*GSCrack1Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSCrack1Raw,0,68,549,462)
+createRawDataForArray(*GSCrack1Raw,1,61,527,451)
+createRawDataForArray(*GSCrack1Raw,2,57,523,448)
+
+;----GSCrack2
+*GSCrack2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSCrack2Raw,0,306,576,534)
+createRawDataForArray(*GSCrack2Raw,1,275,554,502)
+createRawDataForArray(*GSCrack2Raw,2,310,539,525)
+
+;----GSShockwave2
+*GSShockwave2Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSShockwave2Raw,0,35,543,506,29,546,480)
+createRawDataForArray(*GSShockwave2Raw,1,36,532,509,162,543,533)
+createRawDataForArray(*GSShockwave2Raw,2,41,529,416,52,577,451)
+createRawDataForArray(*GSShockwave2Raw,3,1,559,271,36,607,313)
+createRawDataForArray(*GSShockwave2Raw,4,11,589,173)
+
+;----GSShockwave3
+*GSShockwave3Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSShockwave3Raw,0,170,537,629,171,539,638)
+createRawDataForArray(*GSShockwave3Raw,1,93,447,650,99,449,681)
+createRawDataForArray(*GSShockwave3Raw,2,30,387,579)
+createRawDataForArray(*GSShockwave3Raw,3,21,345,586)
+
+;----GSExplosion6
+*GSExplosion6Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSExplosion6Raw,0,278,283,571,309,307,600)
+createRawDataForArray(*GSExplosion6Raw,1,183,250,508,276,260,583)
+createRawDataForArray(*GSExplosion6Raw,2,243,162,557,240,169,558)
+createRawDataForArray(*GSExplosion6Raw,3,205,13,528,256,2,576)
+createRawDataForArray(*GSExplosion6Raw,4,200,215,516)
+createRawDataForArray(*GSExplosion6Raw,5,193,271,517)
+createRawDataForArray(*GSExplosion6Raw,6,191,280,521)
+
+;----GSExplosion7
+*GSExplosion7Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSExplosion7Raw,0,130,529,771,137,534,780)
+createRawDataForArray(*GSExplosion7Raw,1,104,489,598,114,492,598)
+createRawDataForArray(*GSExplosion7Raw,2,109,476,595,136,501,594)
+createRawDataForArray(*GSExplosion7Raw,3,83,464,564)
+createRawDataForArray(*GSExplosion7Raw,4,78,450,575)
+createRawDataForArray(*GSExplosion7Raw,5,72,444,571)
 
 ;----GSUp1
 *GSUp1Raw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*GSUp1Raw,0,405,324,312)
-createRawDataForArray(*GSUp1Raw,1,411,315,254)
-createRawDataForArray(*GSUp1Raw,2,361,265,294,360,259,341)
-createRawDataForArray(*GSUp1Raw,3,212,263,308,215,275,625)
-createRawDataForArray(*GSUp1Raw,4,248,280,337,288,521,454)
-createRawDataForArray(*GSUp1Raw,5,249,322,337)
-createRawDataForArray(*GSUp1Raw,6,247,460,337)
-createRawDataForArray(*GSUp1Raw,7,300,460,337)
+createRawDataForArray(*GSUp1Raw,0,417,307,322)
+createRawDataForArray(*GSUp1Raw,1,462,277,306)
+createRawDataForArray(*GSUp1Raw,2,397,244,371,396,242,282)
+createRawDataForArray(*GSUp1Raw,3,257,331,372,258,234,428)
+createRawDataForArray(*GSUp1Raw,4,200,421,351,176,339,584)
+createRawDataForArray(*GSUp1Raw,5,356,427,371,265,585,554)
+createRawDataForArray(*GSUp1Raw,6,300,447,366,418,522,460)
+createRawDataForArray(*GSUp1Raw,7,400,432,345,353,516,344)
+
+*GSUp1_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_1WindFrontRaw,0,387,285,295)
+
+*GSUp1_2WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSUp1_2WindFrontRaw,0,371,262,269)
+createRawDataForArray(*GSUp1_2WindFrontRaw,1,348,220,243)
+createRawDataForArray(*GSUp1_2WindFrontRaw,2,560,233,208)
+createRawDataForArray(*GSUp1_2WindFrontRaw,3,709,401,199)
+
+*GSUp1_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_3WindFrontRaw,0,407,215,283)
+
+*GSUp1_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_4WindFrontRaw,0,235,139,243)
+
+*GSUp1_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_5WindFrontRaw,0,74,127,185)
+
+*GSUp1_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_6WindFrontRaw,0,68,167,264)
+
+*GSUp1_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_7WindFrontRaw,0,112,188,433)
+
+*GSUp1_8WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSUp1_8WindFrontRaw,0,356,525,324)
+createRawDataForArray(*GSUp1_8WindFrontRaw,1,330,504,301)
+createRawDataForArray(*GSUp1_8WindFrontRaw,2,309,479,270)
+createRawDataForArray(*GSUp1_8WindFrontRaw,3,310,480,267)
+
+*GSUp1_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_3WindBackRaw,0,355,287,449)
+
+*GSUp1_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp1_4WindBackRaw,0,338,313,422)
+
+*GSUp1_8WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSUp1_8WindBackRaw,0,114,231,252)
+createRawDataForArray(*GSUp1_8WindBackRaw,1,102,432,201)
+createRawDataForArray(*GSUp1_8WindBackRaw,2,144,490,193)
 
 ;----GSUp2
 *GSUp2Raw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*GSUp2Raw,0,359,424,324)
-createRawDataForArray(*GSUp2Raw,1,394,350,325)
-createRawDataForArray(*GSUp2Raw,2,349,327,294,356,333,311)
-createRawDataForArray(*GSUp2Raw,3,253,307,263,256,305,582)
-createRawDataForArray(*GSUp2Raw,4,238,309,292)
-createRawDataForArray(*GSUp2Raw,5,266,313,351)
+createRawDataForArray(*GSUp2Raw,0,362,426,367)
+createRawDataForArray(*GSUp2Raw,1,459,405,275)
+createRawDataForArray(*GSUp2Raw,2,388,332,350,497,408,227)
+createRawDataForArray(*GSUp2Raw,3,336,312,384,334,306,396)
+createRawDataForArray(*GSUp2Raw,4,246,290,381,244,282,581)
+createRawDataForArray(*GSUp2Raw,5,291,291,355)
+
+*GSUp2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp2_1WindFrontRaw,0,325,360,412)
+
+*GSUp2_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp2_4WindFrontRaw,0,404,303,363)
+
+*GSUp2_2WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSUp2_2WindBackRaw,0,296,425,239)
+createRawDataForArray(*GSUp2_2WindBackRaw,1,320,444,216)
+createRawDataForArray(*GSUp2_2WindBackRaw,2,642,446,205)
+
+*GSUp2_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp2_3WindBackRaw,0,365,309,245)
+
+*GSUp2_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp2_4WindBackRaw,0,306,286,226)
+
+*GSUp2_5WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSUp2_5WindBackRaw,0,202,248,276)
+createRawDataForArray(*GSUp2_5WindBackRaw,1,123,214,338)
+createRawDataForArray(*GSUp2_5WindBackRaw,2,130,226,568)
+createRawDataForArray(*GSUp2_5WindBackRaw,3,124,227,733)
 
 ;----GSUp3
-*GSUp3Raw.rawdataArray=createRawDataArray(9)
-createRawDataForArray(*GSUp3Raw,0,324,377,318)
-createRawDataForArray(*GSUp3Raw,1,350,378,326)
-createRawDataForArray(*GSUp3Raw,2,380,318,342)
-createRawDataForArray(*GSUp3Raw,3,16 ,167,353,14,166,584)
-createRawDataForArray(*GSUp3Raw,4,23 ,248,337,24,265,584)
-createRawDataForArray(*GSUp3Raw,5,34 ,255,347,37,254,587)
-createRawDataForArray(*GSUp3Raw,6,19 ,271,348,20,274,578)
-createRawDataForArray(*GSUp3Raw,7,194,314,348)
-createRawDataForArray(*GSUp3Raw,8,361,321,348)
-createRawDataForArray(*GSUp3Raw,9,411,348,348)
+*GSUp3Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSUp3Raw,0,391,356,341)
+createRawDataForArray(*GSUp3Raw,1,400,370,361,401,382,500)
+createRawDataForArray(*GSUp3Raw,2,366,316,379,365,317,554)
+createRawDataForArray(*GSUp3Raw,3,379,324,378)
+createRawDataForArray(*GSUp3Raw,4,372,340,370)
+createRawDataForArray(*GSUp3Raw,5,402,338,367)
+createRawDataForArray(*GSUp3Raw,6,413,349,364)
+
+*GSUp3_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSUp3_1WindFrontRaw,0,437,335,323)
+createRawDataForArray(*GSUp3_1WindFrontRaw,1,465,327,298)
+
+*GSUp3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSUp3_2WindFrontRaw,0,369,332,335)
+
+*GSUp3_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSUp3_3WindFrontRaw,0,336,285,379)
+createRawDataForArray(*GSUp3_3WindFrontRaw,1,318,267,433)
 
 ;----GSHeavy1
-*GSHeavy1Raw.rawdataArray=createRawDataArray(13)
-createRawDataForArray(*GSHeavy1Raw,0 ,433,385,315)
-createRawDataForArray(*GSHeavy1Raw,1 ,423,386,325)
-createRawDataForArray(*GSHeavy1Raw,2 ,311,386,316,319,417,490)
-createRawDataForArray(*GSHeavy1Raw,3 ,183,390,337,194,453,615)
-createRawDataForArray(*GSHeavy1Raw,4 ,209,374,296,217,517,744)
-createRawDataForArray(*GSHeavy1Raw,5 ,207,424,318)
-createRawDataForArray(*GSHeavy1Raw,6 ,190,424,318)
-createRawDataForArray(*GSHeavy1Raw,7 ,220,424,318)
-createRawDataForArray(*GSHeavy1Raw,8 ,48 ,404,296,68 ,464,714)
-createRawDataForArray(*GSHeavy1Raw,9 ,28 ,410,345,27 ,481,676)
-createRawDataForArray(*GSHeavy1Raw,10,55 ,411,345,133,492,681)
-createRawDataForArray(*GSHeavy1Raw,11,28 ,375,311)
-createRawDataForArray(*GSHeavy1Raw,12,315,413,318)
-createRawDataForArray(*GSHeavy1Raw,13,344,413,318)
+*GSHeavy1Raw.rawdataArray=createRawDataArray(7)
+createRawDataForArray(*GSHeavy1Raw,0,446,347,322)
+createRawDataForArray(*GSHeavy1Raw,1,426,358,349)
+createRawDataForArray(*GSHeavy1Raw,2,299,374,377,299,378,499)
+createRawDataForArray(*GSHeavy1Raw,3,183,408,373,181,434,619)
+createRawDataForArray(*GSHeavy1Raw,4,203,421,372,203,498,658)
+createRawDataForArray(*GSHeavy1Raw,5,252,388,364)
+createRawDataForArray(*GSHeavy1Raw,6,320,421,374)
+createRawDataForArray(*GSHeavy1Raw,7,351,394,330)
+
+*GSHeavy1_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSHeavy1_1WindFrontRaw,0,470,347,289)
+createRawDataForArray(*GSHeavy1_1WindFrontRaw,1,541,364,272)
+
+*GSHeavy1_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy1_2WindFrontRaw,0,406,363,408)
+
+*GSHeavy1_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy1_3WindFrontRaw,0,280,362,288)
+
+*GSHeavy1_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy1_4WindFrontRaw,0,150,361,257)
+
+*GSHeavy1_5WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSHeavy1_5WindFrontRaw,0,147,327,358)
+createRawDataForArray(*GSHeavy1_5WindFrontRaw,1,124,352,482)
+createRawDataForArray(*GSHeavy1_5WindFrontRaw,2,89,373,567)
+createRawDataForArray(*GSHeavy1_5WindFrontRaw,3,103,541,730)
+
+*GSHeavy1_6WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy1_6WindFront1Raw,0,289,364,318)
+
+*GSHeavy1_6WindFront2Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSHeavy1_6WindFront2Raw,0,153,516,728)
+createRawDataForArray(*GSHeavy1_6WindFront2Raw,1,133,492,671)
+createRawDataForArray(*GSHeavy1_6WindFront2Raw,2,122,473,677)
+createRawDataForArray(*GSHeavy1_6WindFront2Raw,3,115,464,675)
+
+*GSHeavy1_7WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy1_7WindFront1Raw,0,290,365,324)
+
+*GSHeavy1_7WindFront2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy1_7WindFront2Raw,0,218,511,660)
+createRawDataForArray(*GSHeavy1_7WindFront2Raw,1,206,502,634)
+createRawDataForArray(*GSHeavy1_7WindFront2Raw,2,213,503,645)
+
+*GSHeavy1_8WindFront1Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy1_8WindFront1Raw,0,207,337,286)
+createRawDataForArray(*GSHeavy1_8WindFront1Raw,1,285,341,264)
+createRawDataForArray(*GSHeavy1_8WindFront1Raw,2,462,345,249)
+
+*GSHeavy1_8WindFront2Raw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSHeavy1_8WindFront2Raw,0,235,391,620)
+createRawDataForArray(*GSHeavy1_8WindFront2Raw,1,237,389,637)
+
+*GSHeavy1_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy1_2WindBackRaw,0,570,362,302)
 
 ;----GSHeavy2
-*GSHeavy2Raw.rawdataArray=createRawDataArray(10)
-createRawDataForArray(*GSHeavy2Raw,0 ,348,409,326)
-createRawDataForArray(*GSHeavy2Raw,1 ,377,395,328)
-createRawDataForArray(*GSHeavy2Raw,2 ,366,397,303)
-createRawDataForArray(*GSHeavy2Raw,3 ,329,411,282,328,444,588)
-createRawDataForArray(*GSHeavy2Raw,4 ,170,407,324,179,454,590)
-createRawDataForArray(*GSHeavy2Raw,5 ,233,355,261,238,363,620)
-createRawDataForArray(*GSHeavy2Raw,6 ,271,302,331,356,295,354)
-createRawDataForArray(*GSHeavy2Raw,7 ,269,284,213,604,334,211)
-createRawDataForArray(*GSHeavy2Raw,8 ,448,307,219)
-createRawDataForArray(*GSHeavy2Raw,9 ,448,380,221)
-createRawDataForArray(*GSHeavy2Raw,10,448,429,221)
+*GSHeavy2Raw.rawdataArray=createRawDataArray(7)
+createRawDataForArray(*GSHeavy2Raw,0,357,389,348)
+createRawDataForArray(*GSHeavy2Raw,1,339,364,338)
+createRawDataForArray(*GSHeavy2Raw,2,336,384,325)
+createRawDataForArray(*GSHeavy2Raw,3,310,390,362,309,429,559)
+createRawDataForArray(*GSHeavy2Raw,4,160,400,385,159,453,577)
+createRawDataForArray(*GSHeavy2Raw,5,249,343,373,192,342,654)
+createRawDataForArray(*GSHeavy2Raw,6,395,303,356,254,275,387)
+createRawDataForArray(*GSHeavy2Raw,7,433,419,215,542,310,213)
+
+*GSHeavy2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy2_1WindFrontRaw,0,321,414,321)
+
+*GSHeavy2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy2_2WindFrontRaw,0,309,316,383)
+
+*GSHeavy2_3WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy2_3WindFrontRaw,0,277,304,301)
+createRawDataForArray(*GSHeavy2_3WindFrontRaw,1,265,344,284)
+createRawDataForArray(*GSHeavy2_3WindFrontRaw,2,327,341,348)
+
+*GSHeavy2_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy2_4WindFrontRaw,0,270,401,334)
+
+*GSHeavy2_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy2_5WindFrontRaw,0,109,368,153)
+
+*GSHeavy2_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy2_6WindFrontRaw,0,121,313,358)
+
+*GSHeavy2_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy2_7WindFrontRaw,0,111,178,339)
+
+*GSHeavy2_8WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSHeavy2_8WindFrontRaw,0,113,163,133)
+createRawDataForArray(*GSHeavy2_8WindFrontRaw,1,89,192,152)
+createRawDataForArray(*GSHeavy2_8WindFrontRaw,2,325,218,109)
+createRawDataForArray(*GSHeavy2_8WindFrontRaw,3,674,349,94)
+createRawDataForArray(*GSHeavy2_8WindFrontRaw,4,758,481,79)
 
 ;----GSHeavy3
-*GSHeavy3Raw.rawdataArray=createRawDataArray(5)
-createRawDataForArray(*GSHeavy3Raw,0,436,441,211,473,521,213)
-createRawDataForArray(*GSHeavy3Raw,1,282,350,214,279,358,515)
-createRawDataForArray(*GSHeavy3Raw,2,258,142,196,292,137,204)
-createRawDataForArray(*GSHeavy3Raw,3,298,134,179)
-createRawDataForArray(*GSHeavy3Raw,4,418,132,161)
-createRawDataForArray(*GSHeavy3Raw,5,418,216,205)
+*GSHeavy3Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSHeavy3Raw,0,456,424,218)
+createRawDataForArray(*GSHeavy3Raw,1,393,410,345,398,569,234)
+createRawDataForArray(*GSHeavy3Raw,2,305,367,355,283,367,506)
+createRawDataForArray(*GSHeavy3Raw,3,406,135,349,271,135,385)
+createRawDataForArray(*GSHeavy3Raw,4,422,314,97,577,120,97)
+
+*GSHeavy3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy3_1WindFrontRaw,0,439,476,196)
+
+*GSHeavy3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy3_2WindFrontRaw,0,353,378,177)
+
+*GSHeavy3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy3_3WindFrontRaw,0,230,305,226)
+
+*GSHeavy3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy3_4WindFrontRaw,0,189,100,290)
+
+*GSHeavy3_5WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSHeavy3_5WindFrontRaw,0,136,33,37)
+createRawDataForArray(*GSHeavy3_5WindFrontRaw,1,70,23,26)
+createRawDataForArray(*GSHeavy3_5WindFrontRaw,2,620,75,19)
+createRawDataForArray(*GSHeavy3_5WindFrontRaw,3,728,228,35)
+createRawDataForArray(*GSHeavy3_5WindFrontRaw,4,847,433,26)
 
 ;----GSHeavy4
-*GSHeavy4Raw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*GSHeavy4Raw,0,372,412,331)
-createRawDataForArray(*GSHeavy4Raw,1,377,425,325)
-createRawDataForArray(*GSHeavy4Raw,2,374,414,325,383,484,543)
-createRawDataForArray(*GSHeavy4Raw,3,357,403,266)
-createRawDataForArray(*GSHeavy4Raw,4,344,394,177)
-createRawDataForArray(*GSHeavy4Raw,5,348,396,121)
-createRawDataForArray(*GSHeavy4Raw,6,337,389,46)
-createRawDataForArray(*GSHeavy4Raw,7,295,362,327)
-createRawDataForArray(*GSHeavy4Raw,8,286,368,315)
+*GSHeavy4Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSHeavy4Raw,0,359,397,347)
+createRawDataForArray(*GSHeavy4Raw,1,363,418,344,362,480,566)
+createRawDataForArray(*GSHeavy4Raw,2,415,422,363)
+createRawDataForArray(*GSHeavy4Raw,3,398,373,337)
+
+*GSHeavy4_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy4_2WindFrontRaw,0,328,374,375)
+createRawDataForArray(*GSHeavy4_2WindFrontRaw,1,324,372,299)
+createRawDataForArray(*GSHeavy4_2WindFrontRaw,2,303,350,234)
+
+*GSHeavy4_3WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy4_3WindFrontRaw,0,240,338,193)
+createRawDataForArray(*GSHeavy4_3WindFrontRaw,1,244,319,216)
+createRawDataForArray(*GSHeavy4_3WindFrontRaw,2,250,438,552)
+
+*GSHeavy4_4WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy4_4WindFrontRaw,0,382,354,315)
+createRawDataForArray(*GSHeavy4_4WindFrontRaw,1,493,331,287)
+createRawDataForArray(*GSHeavy4_4WindFrontRaw,2,618,318,272)
+
+*GSHeavy4_1WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSHeavy4_1WindBackRaw,0,329,385,354)
+createRawDataForArray(*GSHeavy4_1WindBackRaw,1,330,373,347)
 
 ;----GSHeavy5
-*GSHeavy5Raw.rawdataArray=createRawDataArray(7)
-createRawDataForArray(*GSHeavy5Raw,0,288,432,340)
-createRawDataForArray(*GSHeavy5Raw,1,208,409,332,256,500,649)
-createRawDataForArray(*GSHeavy5Raw,2,126,391,324,138,438,649)
-createRawDataForArray(*GSHeavy5Raw,3,124,399,318,160,449,683)
-createRawDataForArray(*GSHeavy5Raw,4, 42,319,308)
-createRawDataForArray(*GSHeavy5Raw,5, 25,336,322)
-createRawDataForArray(*GSHeavy5Raw,6,398,339,322)
-createRawDataForArray(*GSHeavy5Raw,7,400,372,322)
+*GSHeavy5Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSHeavy5Raw,0,304,429,371,305,508,540)
+createRawDataForArray(*GSHeavy5Raw,1,263,415,357,263,471,667)
+createRawDataForArray(*GSHeavy5Raw,2,317,410,328)
+createRawDataForArray(*GSHeavy5Raw,3,379,387,379)
+createRawDataForArray(*GSHeavy5Raw,4,384,322,364)
+createRawDataForArray(*GSHeavy5Raw,5,380,351,328)
+
+*GSHeavy5_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy5_1WindFrontRaw,0,272,401,352)
+
+*GSHeavy5_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy5_2WindFrontRaw,0,236,382,346)
+createRawDataForArray(*GSHeavy5_2WindFrontRaw,1,194,430,632)
+createRawDataForArray(*GSHeavy5_2WindFrontRaw,2,180,428,685)
+
+*GSHeavy5_3WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy5_3WindFront1Raw,0,295,322,247)
+
+*GSHeavy5_3WindFront2Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSHeavy5_3WindFront2Raw,0,175,440,673)
+createRawDataForArray(*GSHeavy5_3WindFront2Raw,1,176,430,610)
+createRawDataForArray(*GSHeavy5_3WindFront2Raw,2,160,417,600)
+createRawDataForArray(*GSHeavy5_3WindFront2Raw,3,163,417,596)
+
+*GSHeavy5_4WindFront1Raw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy5_4WindFront1Raw,0,264,327,279)
+
+*GSHeavy5_4WindFront2Raw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSHeavy5_4WindFront2Raw,0,227,355,580)
+createRawDataForArray(*GSHeavy5_4WindFront2Raw,1,215,355,600)
+
+*GSHeavy5_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy5_5WindFrontRaw,0,222,295,277)
+
+*GSHeavy5_6WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSHeavy5_6WindFrontRaw,0,298,266,255)
+createRawDataForArray(*GSHeavy5_6WindFrontRaw,1,509,232,225)
+createRawDataForArray(*GSHeavy5_6WindFrontRaw,2,647,258,265)
+
+*GSHeavy5_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSHeavy5_3WindBackRaw,0,262,363,316)
 
 ;----GSDodge
 *GSDodgeRaw.rawdataArray=createRawDataArray(1)
 createRawDataForArray(*GSDodgeRaw,0,441,375,305)
 createRawDataForArray(*GSDodgeRaw,1,472,394,226)
 
-;----HKIdle
-*HKIdleRaw.rawdataArray=createRawDataArray(6)
-createRawDataForArray(*HKIdleRaw,0,316+20,309,353-20)
-createRawDataForArray(*HKIdleRaw,1,320+15,316,353-15)
-createRawDataForArray(*HKIdleRaw,2,327+10,324,347-10)
-createRawDataForArray(*HKIdleRaw,3,327+5,318,352-5)
-createRawDataForArray(*HKIdleRaw,4,322,312,345+10)
-createRawDataForArray(*HKIdleRaw,5,307,302,334)
-createRawDataForArray(*HKIdleRaw,6,317,309,336)
+;----GSParry
+*GSParryRaw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*GSParryRaw,0,415,357,371)
+createRawDataForArray(*GSParryRaw,1,384,359,371)
+createRawDataForArray(*GSParryRaw,2,437,351,371)
+createRawDataForArray(*GSParryRaw,3,447,344,372)
+createRawDataForArray(*GSParryRaw,4,438,358,365)
+createRawDataForArray(*GSParryRaw,5,422,362,344)
+createRawDataForArray(*GSParryRaw,6,420,373,343)
+
+;----GSShot1
+*GSShot1Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSShot1Raw,0,1,148,594,0,147,599)
+createRawDataForArray(*GSShot1Raw,1,177,227,597)
+createRawDataForArray(*GSShot1Raw,2,311,272,601)
+
+;----GSShot2
+*GSShot2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSShot2Raw,0,0,286,592,0,288,599)
+createRawDataForArray(*GSShot2Raw,1,17,278,576)
+createRawDataForArray(*GSShot2Raw,2,324,319,592)
+
+;----GSShot3
+*GSShot3Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSShot3Raw,0,52,215,573,52,215,581)
+createRawDataForArray(*GSShot3Raw,1,123,237,576)
+createRawDataForArray(*GSShot3Raw,2,347,299,580)
+
+;----GSShot4
+*GSShot4Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSShot4Raw,0,19,274,568,20,274,578)
+createRawDataForArray(*GSShot4Raw,1,194,314,567)
+createRawDataForArray(*GSShot4Raw,2,361,321,566)
+
+;----GSSelection
+*GSSelectionRaw.rawdataArray=createRawDataArray(11)
+createRawDataForArray(*GSSelectionRaw,0,346,391,269)
+createRawDataForArray(*GSSelectionRaw,1,346,386,311)
+createRawDataForArray(*GSSelectionRaw,2,346,405,347)
+createRawDataForArray(*GSSelectionRaw,3,346,419,364)
+createRawDataForArray(*GSSelectionRaw,4,339,419,377)
+createRawDataForArray(*GSSelectionRaw,5,339,419,376)
+createRawDataForArray(*GSSelectionRaw,6,338,417,382)
+createRawDataForArray(*GSSelectionRaw,7,337,414,386)
+createRawDataForArray(*GSSelectionRaw,8,337,419,381)
+createRawDataForArray(*GSSelectionRaw,9,341,419,374)
+createRawDataForArray(*GSSelectionRaw,10,346,419,384)
+createRawDataForArray(*GSSelectionRaw,11,340,419,376)
+
+*GSSelection_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelection_2WindFrontRaw,0,468,396,307)
+
+*GSSelection_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelection_3WindFrontRaw,0,371,377,313)
+
+*GSSelection_4WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*GSSelection_4WindFrontRaw,0,332,378,440)
+createRawDataForArray(*GSSelection_4WindFrontRaw,1,316,385,481)
+createRawDataForArray(*GSSelection_4WindFrontRaw,2,311,409,666)
+
+;----GSSelected
+*GSSelectedRaw.rawdataArray=createRawDataArray(24)
+createRawDataForArray(*GSSelectedRaw,0,249,388,385)
+createRawDataForArray(*GSSelectedRaw,1,286,315,366)
+createRawDataForArray(*GSSelectedRaw,2,466,154,355)
+createRawDataForArray(*GSSelectedRaw,3,480,217,326)
+createRawDataForArray(*GSSelectedRaw,4,493,323,162)
+createRawDataForArray(*GSSelectedRaw,5,529,352,181)
+createRawDataForArray(*GSSelectedRaw,6,508,317,135)
+createRawDataForArray(*GSSelectedRaw,7,501,194,305)
+createRawDataForArray(*GSSelectedRaw,8,296,285,357)
+createRawDataForArray(*GSSelectedRaw,9,175,433,403)
+createRawDataForArray(*GSSelectedRaw,10,181,421,442)
+createRawDataForArray(*GSSelectedRaw,11,222,407,376)
+createRawDataForArray(*GSSelectedRaw,12,382,306,376)
+createRawDataForArray(*GSSelectedRaw,13,435,313,373)
+createRawDataForArray(*GSSelectedRaw,14,397,335,353)
+createRawDataForArray(*GSSelectedRaw,15,358,356,337)
+createRawDataForArray(*GSSelectedRaw,16,351,360,328)
+createRawDataForArray(*GSSelectedRaw,17,369,361,327)
+createRawDataForArray(*GSSelectedRaw,18,373,369,328)
+createRawDataForArray(*GSSelectedRaw,19,375,373,338)
+createRawDataForArray(*GSSelectedRaw,20,365,374,340)
+createRawDataForArray(*GSSelectedRaw,21,361,378,343)
+createRawDataForArray(*GSSelectedRaw,22,371,367,329)
+createRawDataForArray(*GSSelectedRaw,23,354,374,331)
+createRawDataForArray(*GSSelectedRaw,24,367,367,326)
+
+*GSSelected_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_1WindFrontRaw,0,236,400,527)
+
+*GSSelected_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_2WindFrontRaw,0,186,293,430)
+
+*GSSelected_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_3WindFrontRaw,0,164,96,363)
+
+*GSSelected_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_4WindFrontRaw,0,163,75,293)
+
+*GSSelected_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_5WindFrontRaw,0,161,71,71)
+
+*GSSelected_6WindFrontRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*GSSelected_6WindFrontRaw,0,201,71,15)
+createRawDataForArray(*GSSelected_6WindFrontRaw,1,161,62,20)
+createRawDataForArray(*GSSelected_6WindFrontRaw,2,350,58,16)
+createRawDataForArray(*GSSelected_6WindFrontRaw,3,582,180,33)
+createRawDataForArray(*GSSelected_6WindFrontRaw,4,598,611,52)
+createRawDataForArray(*GSSelected_6WindFrontRaw,5,686,742,140)
+
+*GSSelected_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_7WindFrontRaw,0,610,291,59)
+
+*GSSelected_8WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_8WindFrontRaw,0,524,118,60)
+
+*GSSelected_9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_9WindFrontRaw,0,276,67,60)
+
+*GSSelected_10WindFront1Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSSelected_10WindFront1Raw,0,87,55,48)
+createRawDataForArray(*GSSelected_10WindFront1Raw,1,64,58,196)
+createRawDataForArray(*GSSelected_10WindFront1Raw,2,78,52,228)
+createRawDataForArray(*GSSelected_10WindFront1Raw,3,58,261,548)
+createRawDataForArray(*GSSelected_10WindFront1Raw,4,53,516,553)
+
+*GSSelected_10WindFront2Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*GSSelected_10WindFront2Raw,0,107,545,691)
+createRawDataForArray(*GSSelected_10WindFront2Raw,1,37,507,716)
+createRawDataForArray(*GSSelected_10WindFront2Raw,2,25,439,688)
+createRawDataForArray(*GSSelected_10WindFront2Raw,3,26,434,644)
+createRawDataForArray(*GSSelected_10WindFront2Raw,4,39,432,757)
+
+*GSSelected_12WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_12WindFrontRaw,0,171,401,556)
+
+*GSSelected_13WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_13WindFrontRaw,0,167,238,472)
+
+*GSSelected_14WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSelected_14WindFrontRaw,0,168,225,349)
+createRawDataForArray(*GSSelected_14WindFrontRaw,1,166,236,332)
+createRawDataForArray(*GSSelected_14WindFrontRaw,2,500,236,324)
+createRawDataForArray(*GSSelected_14WindFrontRaw,3,636,293,324)
+
+*GSSelected_15WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_15WindFrontRaw,0,378,368,339)
+
+*GSSelected_16WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSelected_16WindFrontRaw,0,339,348,310)
+createRawDataForArray(*GSSelected_16WindFrontRaw,1,335,397,304)
+createRawDataForArray(*GSSelected_16WindFrontRaw,2,590,403,355)
+createRawDataForArray(*GSSelected_16WindFrontRaw,3,629,409,352)
+
+*GSSelected_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_2WindBackRaw,0,529,345,348)
+
+*GSSelected_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSSelected_3WindBackRaw,0,583,328,336)
+createRawDataForArray(*GSSelected_3WindBackRaw,1,622,334,324)
+
+*GSSelected_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_5WindBackRaw,0,509,296,284)
+
+*GSSelected_6WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*GSSelected_6WindBackRaw,0,523,272,161)
+createRawDataForArray(*GSSelected_6WindBackRaw,1,589,259,155)
+createRawDataForArray(*GSSelected_6WindBackRaw,2,634,255,135)
+createRawDataForArray(*GSSelected_6WindBackRaw,3,734,341,127)
+
+*GSSelected_7WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_7WindBackRaw,0,512,405,281)
+
+*GSSelected_8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_8WindBackRaw,0,508,391,299)
+
+*GSSelected_9WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*GSSelected_9WindBackRaw,0,471,384,343)
+
+*GSSelected_12WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*GSSelected_12WindBackRaw,0,487,414,353)
+createRawDataForArray(*GSSelected_12WindBackRaw,1,517,407,332)
+
+;----HKIdle1
+*HKIdle1Raw.rawdataArray=createRawDataArray(12)
+createRawDataForArray(*HKIdle1Raw,0,306,288,377)
+createRawDataForArray(*HKIdle1Raw,1,314,295,374)
+createRawDataForArray(*HKIdle1Raw,2,316,306,373)
+createRawDataForArray(*HKIdle1Raw,3,316,298,373)
+createRawDataForArray(*HKIdle1Raw,4,310,294,380)
+createRawDataForArray(*HKIdle1Raw,5,299,295,343)
+createRawDataForArray(*HKIdle1Raw,6,292,301,360)
+createRawDataForArray(*HKIdle1Raw,7,330,281,386)
+createRawDataForArray(*HKIdle1Raw,8,323,270,379)
+createRawDataForArray(*HKIdle1Raw,9,313,288,387)
+createRawDataForArray(*HKIdle1Raw,10,316,289,376)
+createRawDataForArray(*HKIdle1Raw,11,293,297,370)
+createRawDataForArray(*HKIdle1Raw,12,302,280,378)
+
+*HKIdle1_8WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKIdle1_8WindFrontRaw,0,284,273,448)
+createRawDataForArray(*HKIdle1_8WindFrontRaw,1,318,268,473)
+createRawDataForArray(*HKIdle1_8WindFrontRaw,2,368,263,519)
+
+*HKIdle1_12WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKIdle1_12WindFrontRaw,0,287,283,439)
+createRawDataForArray(*HKIdle1_12WindFrontRaw,1,281,313,429)
+
+*HKIdle1_8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKIdle1_8WindBackRaw,0,292,431,594)
 
 ;----HKIdle2
 *HKIdle2Raw.rawdataArray=createRawDataArray(8)
@@ -4335,29 +5524,29 @@ createRawDataForArray(*HKIdle2Raw,6,337,282,347)
 createRawDataForArray(*HKIdle2Raw,7,352,291,351)
 createRawDataForArray(*HKIdle2Raw,8,333,279,357)
 
-;----HKFront
-*HKFrontRaw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*HKFrontRaw,0,374,283,341)
-createRawDataForArray(*HKFrontRaw,1,367,290,337)
-createRawDataForArray(*HKFrontRaw,2,363,290,298)
-createRawDataForArray(*HKFrontRaw,3,327,283,339)
-createRawDataForArray(*HKFrontRaw,4,322,285,339)
-createRawDataForArray(*HKFrontRaw,5,358,293,326)
-createRawDataForArray(*HKFrontRaw,6,400,307,323)
-createRawDataForArray(*HKFrontRaw,7,354,302,341)
-createRawDataForArray(*HKFrontRaw,8,350,307,328)
+;----HKMoveFront
+*HKMoveFrontRaw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*HKMoveFrontRaw,0,374,280,360)
+createRawDataForArray(*HKMoveFrontRaw,1,365,300,356)
+createRawDataForArray(*HKMoveFrontRaw,2,364,304,369)
+createRawDataForArray(*HKMoveFrontRaw,3,334,298,381)
+createRawDataForArray(*HKMoveFrontRaw,4,350,319,372)
+createRawDataForArray(*HKMoveFrontRaw,5,376,313,358)
+createRawDataForArray(*HKMoveFrontRaw,6,374,291,360)
+createRawDataForArray(*HKMoveFrontRaw,7,339,306,361)
+createRawDataForArray(*HKMoveFrontRaw,8,352,315,352)
 
-;----HKBack
-*HKBackRaw.rawdataArray=createRawDataArray(8)
-createRawDataForArray(*HKBackRaw,0,391,283,331)
-createRawDataForArray(*HKBackRaw,1,406,299,357)
-createRawDataForArray(*HKBackRaw,2,429,317,355)
-createRawDataForArray(*HKBackRaw,3,429,324,356)
-createRawDataForArray(*HKBackRaw,4,405,327,341)
-createRawDataForArray(*HKBackRaw,5,350,319,344)
-createRawDataForArray(*HKBackRaw,6,383,354,333)
-createRawDataForArray(*HKBackRaw,7,406,342,346)
-createRawDataForArray(*HKBackRaw,8,422,348,338)
+;----HKMoveBack
+*HKMoveBackRaw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*HKMoveBackRaw,0,386,281,369)
+createRawDataForArray(*HKMoveBackRaw,1,400,289,371)
+createRawDataForArray(*HKMoveBackRaw,2,425,304,375)
+createRawDataForArray(*HKMoveBackRaw,3,432,315,359)
+createRawDataForArray(*HKMoveBackRaw,4,409,318,339)
+createRawDataForArray(*HKMoveBackRaw,5,345,309,360)
+createRawDataForArray(*HKMoveBackRaw,6,373,337,345)
+createRawDataForArray(*HKMoveBackRaw,7,396,328,369)
+createRawDataForArray(*HKMoveBackRaw,8,412,336,360)
 
 ;----HKNeutral1
 *HKNeutral1Raw.rawdataArray=createRawDataArray(3)
@@ -4445,6 +5634,292 @@ createRawDataForArray(*HKNeutral3_3WindBackRaw,0,297,350,434)
 createRawDataForArray(*HKNeutral3_3WindBackRaw,1,269,352,442)
 createRawDataForArray(*HKNeutral3_3WindBackRaw,2,257,385,600)
 
+;----HKNeutral4
+*HKNeutral4Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral4Raw,0,207,429,373,212,464,384)
+createRawDataForArray(*HKNeutral4Raw,1,330,260,373,189,253,576)
+createRawDataForArray(*HKNeutral4Raw,2,388,299,325,396,256,325)
+createRawDataForArray(*HKNeutral4Raw,3,383,241,363)
+
+*HKNeutral4_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral4_1WindFrontRaw,0,168,431,337)
+
+*HKNeutral4_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral4_2WindFrontRaw,0,68,220,499)
+
+*HKNeutral4_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral4_3WindFrontRaw,0,53,155,235)
+createRawDataForArray(*HKNeutral4_3WindFrontRaw,1,89,144,194)
+createRawDataForArray(*HKNeutral4_3WindFrontRaw,2,86,190,190)
+createRawDataForArray(*HKNeutral4_3WindFrontRaw,3,688,242,225)
+
+;----HKNeutral5
+*HKNeutral5Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKNeutral5Raw,0,388,425,315)
+createRawDataForArray(*HKNeutral5Raw,1,434,425,355)
+createRawDataForArray(*HKNeutral5Raw,2,349,423,385,331,406,338)
+createRawDataForArray(*HKNeutral5Raw,3,441,299,380,344,282,393)
+createRawDataForArray(*HKNeutral5Raw,4,430,386,276,411,300,264)
+
+*HKNeutral5_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral5_3WindFrontRaw,0,259,380,493)
+
+*HKNeutral5_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral5_4WindFrontRaw,0,218,131,306)
+
+*HKNeutral5_5WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKNeutral5_5WindFrontRaw,0,175,129,147)
+createRawDataForArray(*HKNeutral5_5WindFrontRaw,1,181,179,108)
+createRawDataForArray(*HKNeutral5_5WindFrontRaw,2,423,165,91)
+createRawDataForArray(*HKNeutral5_5WindFrontRaw,3,498,415,101)
+createRawDataForArray(*HKNeutral5_5WindFrontRaw,4,776,550,140)
+
+*HKNeutral5_1WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral5_1WindBackRaw,0,375,432,301)
+createRawDataForArray(*HKNeutral5_1WindBackRaw,1,612,436,283)
+createRawDataForArray(*HKNeutral5_1WindBackRaw,2,654,474,272)
+
+*HKNeutral5_2WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral5_2WindBackRaw,0,363,406,298)
+createRawDataForArray(*HKNeutral5_2WindBackRaw,1,351,391,288)
+createRawDataForArray(*HKNeutral5_2WindBackRaw,2,344,377,288)
+createRawDataForArray(*HKNeutral5_2WindBackRaw,3,585,601,345)
+
+*HKNeutral5_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral5_3WindBackRaw,0,484,418,308)
+
+*HKNeutral5_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral5_4WindBackRaw,0,399,446,313)
+
+*HKNeutral5_5WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral5_5WindBackRaw,0,350,355,309)
+createRawDataForArray(*HKNeutral5_5WindBackRaw,1,342,334,339)
+createRawDataForArray(*HKNeutral5_5WindBackRaw,2,349,309,333)
+
+;----HKNeutral6
+*HKNeutral6Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*HKNeutral6Raw,0,325,433,360)
+createRawDataForArray(*HKNeutral6Raw,1,318,418,378)
+createRawDataForArray(*HKNeutral6Raw,2,340,378,366)
+createRawDataForArray(*HKNeutral6Raw,3,346,342,361)
+createRawDataForArray(*HKNeutral6Raw,4,270,405,384,270,341,518)
+createRawDataForArray(*HKNeutral6Raw,5,238,420,378,239,424,589)
+
+*HKNeutral6_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_1WindFrontRaw,0,432,441,469)
+
+*HKNeutral6_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_2WindFrontRaw,0,423,434,470)
+
+*HKNeutral6_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKNeutral6_3WindFrontRaw,0,407,422,445)
+createRawDataForArray(*HKNeutral6_3WindFrontRaw,1,393,410,519)
+
+*HKNeutral6_4WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral6_4WindFrontRaw,0,307,319,392)
+createRawDataForArray(*HKNeutral6_4WindFrontRaw,1,372,286,386)
+createRawDataForArray(*HKNeutral6_4WindFrontRaw,2,450,286,413)
+
+*HKNeutral6_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_5WindFrontRaw,0,243,277,468)
+
+*HKNeutral6_6WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral6_6WindFrontRaw,0,201,276,447)
+createRawDataForArray(*HKNeutral6_6WindFrontRaw,1,174,299,437)
+createRawDataForArray(*HKNeutral6_6WindFrontRaw,2,183,292,490)
+createRawDataForArray(*HKNeutral6_6WindFrontRaw,3,203,538,620)
+
+*HKNeutral6_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_1WindBackRaw,0,319,455,535)
+
+*HKNeutral6_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_2WindBackRaw,0,305,392,419)
+
+*HKNeutral6_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_3WindBackRaw,0,294,368,407)
+
+*HKNeutral6_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_4WindBackRaw,0,368,353,540)
+
+*HKNeutral6_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral6_5WindBackRaw,0,382,361,391)
+
+*HKNeutral6_6WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral6_6WindBackRaw,0,326,379,375)
+createRawDataForArray(*HKNeutral6_6WindBackRaw,1,302,438,458)
+createRawDataForArray(*HKNeutral6_6WindBackRaw,2,288,467,642)
+
+;----HKNeutral7
+*HKNeutral7Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral7Raw,0,351,414,335,284,472,621)
+createRawDataForArray(*HKNeutral7Raw,1,392,371,350,392,569,572)
+createRawDataForArray(*HKNeutral7Raw,2,428,369,347,429,540,513)
+
+*HKNeutral7_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral7_1WindFrontRaw,0,403,405,408)
+
+*HKNeutral7_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral7_2WindFrontRaw,0,384,349,355)
+
+*HKNeutral7_3WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral7_3WindFrontRaw,0,361,353,441)
+createRawDataForArray(*HKNeutral7_3WindFrontRaw,1,356,340,510)
+createRawDataForArray(*HKNeutral7_3WindFrontRaw,2,357,340,544)
+
+*HKNeutral7_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral7_2WindBackRaw,0,533,429,349)
+
+*HKNeutral7_3WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKNeutral7_3WindBackRaw,0,508,385,309)
+createRawDataForArray(*HKNeutral7_3WindBackRaw,1,498,378,308)
+createRawDataForArray(*HKNeutral7_3WindBackRaw,2,513,365,341)
+
+;----HKNeutral8
+*HKNeutral8Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral8Raw,0,384,419,358)
+createRawDataForArray(*HKNeutral8Raw,1,366,426,390)
+createRawDataForArray(*HKNeutral8Raw,2,461,407,379,469,554,453)
+createRawDataForArray(*HKNeutral8Raw,3,404,401,300,404,422,300)
+
+*HKNeutral8_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral8_1WindFrontRaw,0,367,452,540)
+
+*HKNeutral8_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral8_2WindFrontRaw,0,335,418,494)
+
+*HKNeutral8_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral8_3WindFrontRaw,0,345,361,359)
+
+*HKNeutral8_4WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral8_4WindFrontRaw,0,347,334,277)
+createRawDataForArray(*HKNeutral8_4WindFrontRaw,1,343,322,251)
+createRawDataForArray(*HKNeutral8_4WindFrontRaw,2,353,333,230)
+createRawDataForArray(*HKNeutral8_4WindFrontRaw,3,647,443,225)
+
+*HKNeutral8_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral8_1WindBackRaw,0,415,370,359)
+
+*HKNeutral8_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral8_2WindBackRaw,0,415,388,344)
+
+*HKNeutral8_4WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral8_4WindBackRaw,0,395,372,285)
+createRawDataForArray(*HKNeutral8_4WindBackRaw,1,399,368,286)
+createRawDataForArray(*HKNeutral8_4WindBackRaw,2,629,365,265)
+createRawDataForArray(*HKNeutral8_4WindBackRaw,3,711,425,254)
+
+;----HKNeutral9
+*HKNeutral9Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral9Raw,0,364,395,369,364,455,303)
+createRawDataForArray(*HKNeutral9Raw,1,202,390,366,201,390,561)
+createRawDataForArray(*HKNeutral9Raw,2,341,276,364,173,276,563)
+createRawDataForArray(*HKNeutral9Raw,3,338,271,375,303,260,522)
+
+*HKNeutral9_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral9_1WindFrontRaw,0,341,461,292)
+
+*HKNeutral9_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral9_2WindFrontRaw,0,145,364,286)
+
+*HKNeutral9_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral9_3WindFrontRaw,0,122,227,336)
+
+*HKNeutral9_4WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKNeutral9_4WindFrontRaw,0,106,192,473)
+createRawDataForArray(*HKNeutral9_4WindFrontRaw,1,91,170,421)
+createRawDataForArray(*HKNeutral9_4WindFrontRaw,2,92,185,429)
+createRawDataForArray(*HKNeutral9_4WindFrontRaw,3,91,178,420)
+createRawDataForArray(*HKNeutral9_4WindFrontRaw,4,480,197,416)
+
+;----HKNeutral10
+*HKNeutral10Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*HKNeutral10Raw,0,362,414,342)
+createRawDataForArray(*HKNeutral10Raw,1,348,369,359)
+createRawDataForArray(*HKNeutral10Raw,2,442,385,361,482,363,383)
+createRawDataForArray(*HKNeutral10Raw,3,391,422,353,391,389,514)
+createRawDataForArray(*HKNeutral10Raw,4,382,418,358,380,475,532)
+createRawDataForArray(*HKNeutral10Raw,5,413,393,313,400,523,506)
+createRawDataForArray(*HKNeutral10Raw,6,440,370,326,443,582,454)
+
+*HKNeutral10_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_1WindFrontRaw,0,347,409,562)
+
+*HKNeutral10_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_2WindFrontRaw,0,331,358,341)
+
+*HKNeutral10_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_3WindFrontRaw,0,458,331,330)
+
+*HKNeutral10_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_4WindFrontRaw,0,352,317,320)
+
+*HKNeutral10_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_5WindFrontRaw,0,313,324,319)
+
+*HKNeutral10_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_6WindFrontRaw,0,297,309,320)
+
+*HKNeutral10_7WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKNeutral10_7WindFrontRaw,0,291,307,361)
+createRawDataForArray(*HKNeutral10_7WindFrontRaw,1,293,301,360)
+createRawDataForArray(*HKNeutral10_7WindFrontRaw,2,294,366,315)
+createRawDataForArray(*HKNeutral10_7WindFrontRaw,3,283,438,300)
+createRawDataForArray(*HKNeutral10_7WindFrontRaw,4,280,519,291)
+
+*HKNeutral10_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_3WindBackRaw,0,322,408,414)
+
+*HKNeutral10_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_4WindBackRaw,0,319,448,389)
+
+*HKNeutral10_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_5WindBackRaw,0,433,420,338)
+
+*HKNeutral10_6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral10_6WindBackRaw,0,425,406,278)
+
+*HKNeutral10_7WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral10_7WindBackRaw,0,532,343,254)
+createRawDataForArray(*HKNeutral10_7WindBackRaw,1,532,345,266)
+createRawDataForArray(*HKNeutral10_7WindBackRaw,2,527,341,261)
+createRawDataForArray(*HKNeutral10_7WindBackRaw,3,533,341,336)
+
+;----HKNeutral11
+*HKNeutral11Raw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKNeutral11Raw,0,421,408,344)
+createRawDataForArray(*HKNeutral11Raw,1,385,382,338,385,379,490)
+createRawDataForArray(*HKNeutral11Raw,2,280,427,341,278,385,540)
+createRawDataForArray(*HKNeutral11Raw,3,308,431,355,297,490,576)
+createRawDataForArray(*HKNeutral11Raw,4,421,416,344,319,561,514)
+
+*HKNeutral11_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral11_1WindFrontRaw,0,411,580,528)
+
+*HKNeutral11_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral11_2WindFrontRaw,0,369,337,381)
+
+*HKNeutral11_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral11_3WindFrontRaw,0,255,305,360)
+
+*HKNeutral11_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral11_4WindFrontRaw,0,244,335,347)
+
+*HKNeutral11_5WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKNeutral11_5WindFrontRaw,0,236,388,353)
+createRawDataForArray(*HKNeutral11_5WindFrontRaw,1,240,379,364)
+createRawDataForArray(*HKNeutral11_5WindFrontRaw,2,243,456,409)
+createRawDataForArray(*HKNeutral11_5WindFrontRaw,3,243,489,401)
+
+*HKNeutral11_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral11_1WindBackRaw,0,458,371,361)
+
+*HKNeutral11_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKNeutral11_2WindBackRaw,0,404,514,499)
+
+*HKNeutral11_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKNeutral11_3WindBackRaw,0,408,509,461)
+createRawDataForArray(*HKNeutral11_3WindBackRaw,1,425,500,463)
+
 ;----HKSide1
 *HKSide1Raw.rawdataArray=createRawDataArray(4)
 createRawDataForArray(*HKSide1Raw,0,355,282,367)
@@ -4470,12 +5945,216 @@ createRawDataForArray(*HKSide1_4WindFrontRaw,0,158,127,192)
 *HKSide1_5WindFrontRaw.rawdataArray=createRawDataArray(2)
 createRawDataForArray(*HKSide1_5WindFrontRaw,0, 67,109,176)
 createRawDataForArray(*HKSide1_5WindFrontRaw,1, 20,155,576)
-createRawDataForArray(*HKSide1_5WindFrontRaw,2,  0,246,808)
+createRawDataForArray(*HKSide1_5WindFrontRaw,2, 75,246+56,808) ; artifact fix
 
 *HKSide1_2WindBackRaw.rawdataArray=createRawDataArray(2)
 createRawDataForArray(*HKSide1_2WindBackRaw,0,321,336,469)
 createRawDataForArray(*HKSide1_2WindBackRaw,1,340,323,449)
 createRawDataForArray(*HKSide1_2WindBackRaw,2,461,298,423)
+
+;----HKSide2
+*HKSide2Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSide2Raw,0,293,403,352)
+createRawDataForArray(*HKSide2Raw,1,321,358,354)
+createRawDataForArray(*HKSide2Raw,2,221,402,362,221,387,580)
+createRawDataForArray(*HKSide2Raw,3,200,422,361,199,492,699)
+
+*HKSide2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide2_1WindFrontRaw,0,174,445,502)
+
+*HKSide2_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSide2_2WindFrontRaw,0,217,329,339)
+createRawDataForArray(*HKSide2_2WindFrontRaw,1,296,328,330)
+createRawDataForArray(*HKSide2_2WindFrontRaw,2,335,349,530)
+
+*HKSide2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide2_3WindFrontRaw,0,192,357,347)
+
+*HKSide2_4WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSide2_4WindFrontRaw,0,156,370,397)
+createRawDataForArray(*HKSide2_4WindFrontRaw,1,112,366,517)
+createRawDataForArray(*HKSide2_4WindFrontRaw,2,103,410,625)
+createRawDataForArray(*HKSide2_4WindFrontRaw,3,103,497,674)
+
+;----HKSide3
+*HKSide3Raw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSide3Raw,0,278,344,358,278,459,665)
+createRawDataForArray(*HKSide3Raw,1,219,406,369,219,493,729)
+
+*HKSide3_1WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSide3_1WindFrontRaw,0,262,311,338)
+createRawDataForArray(*HKSide3_1WindFrontRaw,1,257,300,384)
+createRawDataForArray(*HKSide3_1WindFrontRaw,2,354,302,502)
+
+*HKSide3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide3_2WindFrontRaw,0,258,308,462)
+
+*HKSide3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide3_4WindFrontRaw,0,255,312,330)
+
+*HKSide3_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide3_5WindFrontRaw,0,180,346,279)
+
+*HKSide3_6WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSide3_6WindFrontRaw,0,163,338,321)
+createRawDataForArray(*HKSide3_6WindFrontRaw,1,146,357,408)
+createRawDataForArray(*HKSide3_6WindFrontRaw,2,162,447,536)
+
+;----HKSide4
+*HKSide4Raw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*HKSide4Raw,0,287,369,370)
+createRawDataForArray(*HKSide4Raw,1,323,395,378)
+createRawDataForArray(*HKSide4Raw,2,376,337,319)
+createRawDataForArray(*HKSide4Raw,3,380,201,372,528,200,315)
+createRawDataForArray(*HKSide4Raw,4,308,275,361,307,179,441)
+createRawDataForArray(*HKSide4Raw,5,295,415,350,257,264,589)
+createRawDataForArray(*HKSide4Raw,6,361,426,326,343,477,324)
+
+*HKSide4_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_1WindFrontRaw,0,198,373,483)
+
+*HKSide4_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_2WindFrontRaw,0,226,372,391)
+
+*HKSide4_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_3WindFrontRaw,0,249,313,284)
+
+*HKSide4_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_4WindFrontRaw,0,287,139,223)
+
+*HKSide4_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_5WindFrontRaw,0,254,110,216)
+
+*HKSide4_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_6WindFrontRaw,0,176,61,155)
+
+*HKSide4_7WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKSide4_7WindFrontRaw,0,125,95,201)
+createRawDataForArray(*HKSide4_7WindFrontRaw,1,118,94,189)
+createRawDataForArray(*HKSide4_7WindFrontRaw,2,137,95,209)
+createRawDataForArray(*HKSide4_7WindFrontRaw,3,156,259,191)
+createRawDataForArray(*HKSide4_7WindFrontRaw,4,161,427,187)
+
+*HKSide4_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_1WindBackRaw,0,380,364,486)
+
+*HKSide4_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_2WindBackRaw,0,291,353,481)
+
+*HKSide4_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_3WindBackRaw,0,261,341,491)
+
+*HKSide4_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide4_4WindBackRaw,0,237,352,546)
+
+*HKSide4_5WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSide4_5WindBackRaw,0,270,344,543)
+createRawDataForArray(*HKSide4_5WindBackRaw,1,343,406,549)
+
+;----HKSide5
+*HKSide5Raw.rawdataArray=createRawDataArray(14)
+createRawDataForArray(*HKSide5Raw,0,449,425,324)
+createRawDataForArray(*HKSide5Raw,1,388,393,355,388,428,529)
+createRawDataForArray(*HKSide5Raw,2,413,295,365,381,294,503)
+createRawDataForArray(*HKSide5Raw,3,399,318,369)
+createRawDataForArray(*HKSide5Raw,4,346,372,369)
+createRawDataForArray(*HKSide5Raw,5,381,339,386)
+createRawDataForArray(*HKSide5Raw,6,414,328,370,387,279,371)
+createRawDataForArray(*HKSide5Raw,7,425,329,357,407,356,370)
+createRawDataForArray(*HKSide5Raw,8,336,296,369,335,309,369)
+createRawDataForArray(*HKSide5Raw,9,386,310,365,368,310,381)
+createRawDataForArray(*HKSide5Raw,10,438,258,343,447,389,394)
+createRawDataForArray(*HKSide5Raw,11,385,284,372,384,232,435)
+createRawDataForArray(*HKSide5Raw,12,272,376,382,271,272,513)
+createRawDataForArray(*HKSide5Raw,13,432,423,355,251,424,427)
+createRawDataForArray(*HKSide5Raw,14,418,418,304,496,475,303)
+
+*HKSide5_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSide5_1WindFrontRaw,0,433,417,310)
+createRawDataForArray(*HKSide5_1WindFrontRaw,1,417,431,305)
+
+*HKSide5_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_2WindFrontRaw,0,378,418,505)
+
+*HKSide5_3WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSide5_3WindFrontRaw,0,330,271,360)
+createRawDataForArray(*HKSide5_3WindFrontRaw,1,479,353,339)
+createRawDataForArray(*HKSide5_3WindFrontRaw,2,614,379,334)
+
+*HKSide5_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_4WindFrontRaw,0,319,239,397)
+
+*HKSide5_5WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSide5_5WindFrontRaw,0,310,241,323)
+createRawDataForArray(*HKSide5_5WindFrontRaw,1,380,500,527)
+
+*HKSide5_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_6WindFrontRaw,0,310,317,372)
+
+*HKSide5_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_7WindFrontRaw,0,290,250,346)
+
+*HKSide5_8WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSide5_8WindFrontRaw,0,372,347,327)
+createRawDataForArray(*HKSide5_8WindFrontRaw,1,530,344,323)
+createRawDataForArray(*HKSide5_8WindFrontRaw,2,642,359,319)
+
+*HKSide5_9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_9WindFrontRaw,0,400,289,354)
+
+*HKSide5_10WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_10WindFrontRaw,0,322,281,360)
+
+*HKSide5_11WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_11WindFrontRaw,0,362,249,325)
+
+*HKSide5_12WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSide5_12WindFrontRaw,0,362,178,293)
+createRawDataForArray(*HKSide5_12WindFrontRaw,1,497,428,281)
+createRawDataForArray(*HKSide5_12WindFrontRaw,2,615,437,269)
+
+*HKSide5_13WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_13WindFrontRaw,0,229,171,229)
+
+*HKSide5_14WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_14WindFrontRaw,0,197,157,308)
+
+*HKSide5_15WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSide5_15WindFrontRaw,0,93,198,274)
+createRawDataForArray(*HKSide5_15WindFrontRaw,1,152,196,234)
+createRawDataForArray(*HKSide5_15WindFrontRaw,2,596,445,225)
+createRawDataForArray(*HKSide5_15WindFrontRaw,3,673,444,217)
+
+*HKSide5_1WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSide5_1WindBackRaw,0,420,555,515)
+createRawDataForArray(*HKSide5_1WindBackRaw,1,424,561,529)
+
+*HKSide5_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_2WindBackRaw,0,583,477,323)
+
+*HKSide5_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_3WindBackRaw,0,406,412,318)
+
+*HKSide5_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_4WindBackRaw,0,374,428,333)
+
+*HKSide5_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_5WindBackRaw,0,321,401,353)
+
+*HKSide5_6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_6WindBackRaw,0,325,226,285)
+
+*HKSide5_7WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_7WindBackRaw,0,335,221,272)
+
+*HKSide5_8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSide5_8WindBackRaw,0,295,236,294)
+
+*HKSide5_9WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSide5_9WindBackRaw,0,320,236,281)
+createRawDataForArray(*HKSide5_9WindBackRaw,1,283,232,307)
+createRawDataForArray(*HKSide5_9WindBackRaw,2,275,326,328)
+createRawDataForArray(*HKSide5_9WindBackRaw,3,287,359,356)
 
 ;----HKBack1
 *HKBack1Raw.rawdataArray=createRawDataArray(11)
@@ -4570,6 +6249,53 @@ createRawDataForArray(*HKBack2_3WindFrontRaw,0,341,362,283)
 createRawDataForArray(*HKBack2_3WindFrontRaw,1,596,368,246)
 createRawDataForArray(*HKBack2_3WindFrontRaw,2,727,416,225)
 
+;----HKBack3
+*HKBack3Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*HKBack3Raw,0,308,389,384,311,508,513)
+createRawDataForArray(*HKBack3Raw,1,255,384,366,256,512,636)
+createRawDataForArray(*HKBack3Raw,2,345,342,355,219,376,396)
+createRawDataForArray(*HKBack3Raw,3,424,385,325,325,385,324)
+createRawDataForArray(*HKBack3Raw,4,460,386,289,416,417,288)
+createRawDataForArray(*HKBack3Raw,5,451,344,364,474,470,411)
+
+*HKBack3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_1WindFrontRaw,0,296,377,489)
+
+*HKBack3_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKBack3_2WindFrontRaw,0,236,354,441)
+createRawDataForArray(*HKBack3_2WindFrontRaw,1,228,359,522)
+createRawDataForArray(*HKBack3_2WindFrontRaw,2,225,406,668)
+
+*HKBack3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_3WindFrontRaw,0,219,330,341)
+
+*HKBack3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_4WindFrontRaw,0,206,329,332)
+
+*HKBack3_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_5WindFrontRaw,0,196,339,258)
+
+*HKBack3_6WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKBack3_6WindFrontRaw,0,533,317,270)
+createRawDataForArray(*HKBack3_6WindFrontRaw,1,657,339,246)
+createRawDataForArray(*HKBack3_6WindFrontRaw,2,722,387,240)
+createRawDataForArray(*HKBack3_6WindFrontRaw,3,744,420,240)
+
+*HKBack3_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_3WindBackRaw,0,453,357,382)
+
+*HKBack3_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_4WindBackRaw,0,408,359,299)
+
+*HKBack3_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKBack3_5WindBackRaw,0,367,379,276)
+
+*HKBack3_6WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKBack3_6WindBackRaw,0,288,334,281)
+createRawDataForArray(*HKBack3_6WindBackRaw,1,449,319,277)
+createRawDataForArray(*HKBack3_6WindBackRaw,2,601,311,256)
+createRawDataForArray(*HKBack3_6WindBackRaw,3,654,362,252)
+
 ;----HKUp1
 *HKUp1Raw.rawdataArray=createRawDataArray(3)
 createRawDataForArray(*HKUp1Raw,0,351,259,348)
@@ -4637,6 +6363,46 @@ createRawDataForArray(*HKUp2_6WindBackRaw,0,373,322,439)
 *HKUp2_7WindBackRaw.rawdataArray=createRawDataArray(1)
 createRawDataForArray(*HKUp2_7WindBackRaw,0,414,338,408)
 createRawDataForArray(*HKUp2_7WindBackRaw,1,486,358,423)
+
+;----HKUp3
+*HKUp3Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*HKUp3Raw,0,307,428,357,306,536,405)
+createRawDataForArray(*HKUp3Raw,1,282,444,377,273,472,407)
+createRawDataForArray(*HKUp3Raw,2,226,368,366,214,334,482)
+createRawDataForArray(*HKUp3Raw,3,447,165,314,243,143,313)
+createRawDataForArray(*HKUp3Raw,4,398,279,308)
+createRawDataForArray(*HKUp3Raw,5,322,275,377)
+
+*HKUp3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKUp3_1WindFrontRaw,0,285,497,317)
+
+*HKUp3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKUp3_2WindFrontRaw,0,218,445,405)
+
+*HKUp3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKUp3_3WindFrontRaw,0,186,313,368)
+
+*HKUp3_4WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKUp3_4WindFrontRaw,0,165,92,328)
+createRawDataForArray(*HKUp3_4WindFrontRaw,1,140,69,258)
+createRawDataForArray(*HKUp3_4WindFrontRaw,2,178,77,197)
+createRawDataForArray(*HKUp3_4WindFrontRaw,3,174,58,182)
+createRawDataForArray(*HKUp3_4WindFrontRaw,4,485,57,224)
+
+*HKUp3_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKUp3_1WindBackRaw,0,339,367,349)
+
+*HKUp3_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKUp3_2WindBackRaw,0,314,419,317)
+
+*HKUp3_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKUp3_3WindBackRaw,0,255,350,311)
+
+*HKUp3_4WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKUp3_4WindBackRaw,0,228,190,281)
+createRawDataForArray(*HKUp3_4WindBackRaw,1,221,183,245)
+createRawDataForArray(*HKUp3_4WindBackRaw,2,241,207,228)
+createRawDataForArray(*HKUp3_4WindBackRaw,3,681,385,253)
 
 ;----HKDown1
 *HKDown1Raw.rawdataArray=createRawDataArray(4)
@@ -4714,6 +6480,145 @@ createRawDataForArray(*HKDown3_2WindFrontRaw,0,195,233,498)
 createRawDataForArray(*HKDown3_3WindFrontRaw,0,157,236,556)
 createRawDataForArray(*HKDown3_3WindFrontRaw,1,197,384,536)
 createRawDataForArray(*HKDown3_3WindFrontRaw,2,170,471,682)
+
+;----HKDown4
+*HKDown4Raw.rawdataArray=createRawDataArray(7)
+createRawDataForArray(*HKDown4Raw,0,364,236,357)
+createRawDataForArray(*HKDown4Raw,1,375,296,355)
+createRawDataForArray(*HKDown4Raw,2,390,364,353)
+createRawDataForArray(*HKDown4Raw,3,417,364,372,480,470,350)
+createRawDataForArray(*HKDown4Raw,4,335,339,368,333,522,499)
+createRawDataForArray(*HKDown4Raw,5,343,373,341,316,392,542)
+createRawDataForArray(*HKDown4Raw,6,453,244,308,342,237,450)
+createRawDataForArray(*HKDown4Raw,7,431,256,334)
+
+*HKDown4_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_1WindFrontRaw,0,264,221,515)
+
+*HKDown4_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_2WindFrontRaw,0,265,205,432)
+
+*HKDown4_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_3WindFrontRaw,0,266,192,321)
+
+*HKDown4_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_4WindFrontRaw,0,308,324,484)
+
+*HKDown4_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_5WindFrontRaw,0,294,259,338)
+
+*HKDown4_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_6WindFrontRaw,0,316,221,284)
+
+*HKDown4_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKDown4_7WindFrontRaw,0,313,224,255)
+createRawDataForArray(*HKDown4_7WindFrontRaw,1,664,270,239)
+createRawDataForArray(*HKDown4_7WindFrontRaw,2,716,399,235)
+
+*HKDown4_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_2WindBackRaw,0,363,468,421)
+
+*HKDown4_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_3WindBackRaw,0,318,397,413)
+
+*HKDown4_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_4WindBackRaw,0,262,202,243)
+
+*HKDown4_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_5WindBackRaw,0,283,204,235)
+
+*HKDown4_6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown4_6WindBackRaw,0,275,350,245)
+
+*HKDown4_7WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKDown4_7WindBackRaw,0,240,173,224)
+createRawDataForArray(*HKDown4_7WindBackRaw,1,214,148,346)
+createRawDataForArray(*HKDown4_7WindBackRaw,2,229,136,328)
+createRawDataForArray(*HKDown4_7WindBackRaw,3,208,132,312)
+createRawDataForArray(*HKDown4_7WindBackRaw,4,450,116,339)
+
+;----HKDown5
+*HKDown5Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKDown5Raw,0,435,289,320)
+createRawDataForArray(*HKDown5Raw,1,368,376,390,369,282,351)
+createRawDataForArray(*HKDown5Raw,2,396,425,352,365,409,498)
+createRawDataForArray(*HKDown5Raw,3,426,391,347,425,572,400)
+
+*HKDown5_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown5_1WindFrontRaw,0,415,261,239)
+
+*HKDown5_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown5_2WindFrontRaw,0,337,207,231)
+
+*HKDown5_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown5_3WindFrontRaw,0,347,356,376)
+
+*HKDown5_4WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKDown5_4WindFrontRaw,0,361,369,433)
+createRawDataForArray(*HKDown5_4WindFrontRaw,1,345,530,458)
+
+*HKDown5_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown5_3WindBackRaw,0,305,200,237)
+
+*HKDown5_4WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKDown5_4WindBackRaw,0,273,197,266)
+createRawDataForArray(*HKDown5_4WindBackRaw,1,260,194,272)
+createRawDataForArray(*HKDown5_4WindBackRaw,2,300,308,244)
+createRawDataForArray(*HKDown5_4WindBackRaw,3,289,416,251)
+createRawDataForArray(*HKDown5_4WindBackRaw,4,651,556,242)
+
+;----HKDown6
+*HKDown6Raw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*HKDown6Raw,0,321,305,377)
+createRawDataForArray(*HKDown6Raw,1,336,407,378)
+createRawDataForArray(*HKDown6Raw,2,348,353,360)
+createRawDataForArray(*HKDown6Raw,3,350,204,382)
+createRawDataForArray(*HKDown6Raw,4,196,312,390,194,143,469)
+createRawDataForArray(*HKDown6Raw,5,194,434,370,175,347,619)
+createRawDataForArray(*HKDown6Raw,6,236,449,355)
+createRawDataForArray(*HKDown6Raw,7,291,455,364)
+createRawDataForArray(*HKDown6Raw,8,323,301,374)
+
+*HKDown6_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown6_1WindFrontRaw,0,383,284,357)
+
+*HKDown6_2WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKDown6_2WindFrontRaw,0,297,318,353)
+createRawDataForArray(*HKDown6_2WindFrontRaw,1,285,290,455)
+createRawDataForArray(*HKDown6_2WindFrontRaw,2,257,285,607)
+
+*HKDown6_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown6_3WindFrontRaw,0,299,303,226)
+
+*HKDown6_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown6_4WindFrontRaw,0,279,135,143)
+
+*HKDown6_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown6_5WindFrontRaw,0,123,69,211)
+
+*HKDown6_6WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKDown6_6WindFrontRaw,0,48,77,177)
+createRawDataForArray(*HKDown6_6WindFrontRaw,1,42,69,175)
+createRawDataForArray(*HKDown6_6WindFrontRaw,2,61,54,333)
+createRawDataForArray(*HKDown6_6WindFrontRaw,3,75,60,348)
+createRawDataForArray(*HKDown6_6WindFrontRaw,4,128,602,580)
+
+*HKDown6_8WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown6_8WindFrontRaw,0,217,476,585)
+
+*HKDown6_9WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKDown6_9WindFrontRaw,0,190,265,512)
+createRawDataForArray(*HKDown6_9WindFrontRaw,1,183,235,407)
+createRawDataForArray(*HKDown6_9WindFrontRaw,2,288,243,396)
+
+*HKDown6_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKDown6_1WindBackRaw,0,413,294,325)
+
+*HKDown6_2WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKDown6_2WindBackRaw,0,343,285,332)
+createRawDataForArray(*HKDown6_2WindBackRaw,1,290,297,323)
+createRawDataForArray(*HKDown6_2WindBackRaw,2,282,311,386)
+createRawDataForArray(*HKDown6_2WindBackRaw,3,279,439,645)
 
 ;----HKHeavy1
 *HKHeavy1Raw.rawdataArray=createRawDataArray(5)
@@ -4794,6 +6699,129 @@ createRawDataForArray(*HKHeavy2_5WindFront2Raw,0,329,654,575)
 createRawDataForArray(*HKHeavy2_5WindFront2Raw,1,277,602,545)
 createRawDataForArray(*HKHeavy2_5WindFront2Raw,2,173,548,516)
 createRawDataForArray(*HKHeavy2_5WindFront2Raw,3,145,537,729)
+
+;----HKHeavy3
+*HKHeavy3Raw.rawdataArray=createRawDataArray(18)
+createRawDataForArray(*HKHeavy3Raw,0,371,380,331)
+createRawDataForArray(*HKHeavy3Raw,1,446,359,374,462,344,338)
+createRawDataForArray(*HKHeavy3Raw,2,361,394,339,332,366,525)
+createRawDataForArray(*HKHeavy3Raw,3,430,327,347)
+createRawDataForArray(*HKHeavy3Raw,4,397,321,345,396,322,400)
+createRawDataForArray(*HKHeavy3Raw,5,282,347,341,275,318,359)
+createRawDataForArray(*HKHeavy3Raw,6,401,358,343)
+createRawDataForArray(*HKHeavy3Raw,7,378,417,357,377,375,374)
+createRawDataForArray(*HKHeavy3Raw,8,411,365,362,576,364,363)
+createRawDataForArray(*HKHeavy3Raw,9,372,323,401,384,309,369)
+createRawDataForArray(*HKHeavy3Raw,10,302,337,361,301,317,521)
+createRawDataForArray(*HKHeavy3Raw,11,439,341,361,297,389,481)
+createRawDataForArray(*HKHeavy3Raw,12,439,361,319,469,436,318)
+createRawDataForArray(*HKHeavy3Raw,13,431,284,357,565,282,259)
+createRawDataForArray(*HKHeavy3Raw,14,305,403,353,303,245,329)
+createRawDataForArray(*HKHeavy3Raw,15,328,438,347,302,426,521)
+createRawDataForArray(*HKHeavy3Raw,16,332,376,371)
+createRawDataForArray(*HKHeavy3Raw,17,373,278,381)
+createRawDataForArray(*HKHeavy3Raw,18,317,276,381)
+
+*HKHeavy3_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_1WindFrontRaw,0,339,236,310)
+
+*HKHeavy3_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_2WindFrontRaw,0,315,229,302)
+
+*HKHeavy3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_3WindFrontRaw,0,294,281,291)
+
+*HKHeavy3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_4WindFrontRaw,0,261,304,314)
+
+*HKHeavy3_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_5WindFrontRaw,0,255,285,306)
+
+*HKHeavy3_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_6WindFrontRaw,0,203,213,288)
+
+*HKHeavy3_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_7WindFrontRaw,0,192,216,282)
+
+*HKHeavy3_8WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKHeavy3_8WindFrontRaw,0,171,212,341)
+createRawDataForArray(*HKHeavy3_8WindFrontRaw,1,224,209,392)
+createRawDataForArray(*HKHeavy3_8WindFrontRaw,2,212,313,470)
+createRawDataForArray(*HKHeavy3_8WindFrontRaw,3,219,497,553)
+createRawDataForArray(*HKHeavy3_8WindFrontRaw,4,218,539,635)
+
+*HKHeavy3_11WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKHeavy3_11WindFrontRaw,0,235,239,226)
+createRawDataForArray(*HKHeavy3_11WindFrontRaw,1,507,364,335)
+createRawDataForArray(*HKHeavy3_11WindFrontRaw,2,633,403,335)
+
+*HKHeavy3_12WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_12WindFrontRaw,0,223,281,294)
+
+*HKHeavy3_13WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_13WindFrontRaw,0,185,269,242)
+
+*HKHeavy3_14WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_14WindFrontRaw,0,258,247,145)
+
+*HKHeavy3_15WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_15WindFrontRaw,0,270,155,133)
+
+*HKHeavy3_16WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKHeavy3_16WindFrontRaw,0,179,172,118)
+createRawDataForArray(*HKHeavy3_16WindFrontRaw,1,137,174,108)
+createRawDataForArray(*HKHeavy3_16WindFrontRaw,2,132,158,374)
+createRawDataForArray(*HKHeavy3_16WindFrontRaw,3,166,151,433)
+createRawDataForArray(*HKHeavy3_16WindFrontRaw,4,162,162,437)
+
+*HKHeavy3_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_3WindBackRaw,0,238,261,338)
+
+*HKHeavy3_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_4WindBackRaw,0,254,260,290)
+
+*HKHeavy3_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_5WindBackRaw,0,248,243,262)
+
+*HKHeavy3_6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_6WindBackRaw,0,217,282,215)
+
+*HKHeavy3_7WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_7WindBackRaw,0,243,303,250)
+
+*HKHeavy3_8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_8WindBackRaw,0,214,237,255)
+
+*HKHeavy3_9WindBackRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*HKHeavy3_9WindBackRaw,0,274,284,250)
+createRawDataForArray(*HKHeavy3_9WindBackRaw,1,252,262,278)
+createRawDataForArray(*HKHeavy3_9WindBackRaw,2,261,259,307)
+createRawDataForArray(*HKHeavy3_9WindBackRaw,3,285,387,466)
+createRawDataForArray(*HKHeavy3_9WindBackRaw,4,278,532,514)
+
+*HKHeavy3_10WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_10WindBackRaw,0,352,250,315)
+
+*HKHeavy3_13WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_13WindBackRaw,0,428,337,492)
+
+*HKHeavy3_14WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_14WindBackRaw,0,390,343,464)
+
+*HKHeavy3_15WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKHeavy3_15WindBackRaw,0,429,356,387)
+
+*HKHeavy3_16WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKHeavy3_16WindBackRaw,0,446,379,302)
+createRawDataForArray(*HKHeavy3_16WindBackRaw,1,447,507,292)
+createRawDataForArray(*HKHeavy3_16WindBackRaw,2,552,482,281)
+
+;----HKShockwave1
+*HKShockwave1Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKShockwave1Raw,0,265,576,637,268,579,638)
+createRawDataForArray(*HKShockwave1Raw,1,205,569,624,241,588,626)
+createRawDataForArray(*HKShockwave1Raw,2,167,534,605,165,528,607)
+createRawDataForArray(*HKShockwave1Raw,3,206,551,584)
 
 ;----HKJump
 *HKJumpRaw.rawdataArray=createRawDataArray(5)
@@ -4902,6 +6930,860 @@ createRawDataForArray(*HKDeath8WindBackRaw,2, 75,472,328)
 createRawDataForArray(*HKDodgeRaw,0,443,246,371)
 createRawDataForArray(*HKDodgeRaw,1,482,322,273)
 
+;----HKParry
+*HKParryRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*HKParryRaw,0,359,381,383)
+createRawDataForArray(*HKParryRaw,1,377,324,374)
+createRawDataForArray(*HKParryRaw,2,354,345,385)
+createRawDataForArray(*HKParryRaw,3,393,338,384)
+createRawDataForArray(*HKParryRaw,4,391,385,334)
+createRawDataForArray(*HKParryRaw,5,405,387,320)
+
+;----HKSelection
+*HKSelectionRaw.rawdataArray=createRawDataArray(13)
+createRawDataForArray(*HKSelectionRaw,0,375,411,336)
+createRawDataForArray(*HKSelectionRaw,1,359,403,344)
+createRawDataForArray(*HKSelectionRaw,2,343,356,357)
+createRawDataForArray(*HKSelectionRaw,3,401,297,386)
+createRawDataForArray(*HKSelectionRaw,4,370,284,376)
+createRawDataForArray(*HKSelectionRaw,5,362,286,379)
+createRawDataForArray(*HKSelectionRaw,6,320,282,377)
+createRawDataForArray(*HKSelectionRaw,7,319,273,370)
+createRawDataForArray(*HKSelectionRaw,8,321,310,367)
+createRawDataForArray(*HKSelectionRaw,9,328,306,375)
+createRawDataForArray(*HKSelectionRaw,10,337,306,366)
+createRawDataForArray(*HKSelectionRaw,11,331,308,365)
+createRawDataForArray(*HKSelectionRaw,12,328,306,362)
+createRawDataForArray(*HKSelectionRaw,13,323,301,371)
+
+*HKSelection_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelection_2WindFrontRaw,0,340,445,584)
+
+*HKSelection_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelection_3WindFrontRaw,0,319,357,547)
+
+*HKSelection_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelection_4WindFrontRaw,0,311,275,492)
+
+*HKSelection_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSelection_5WindFrontRaw,0,306,245,466)
+createRawDataForArray(*HKSelection_5WindFrontRaw,1,391,244,459)
+createRawDataForArray(*HKSelection_5WindFrontRaw,2,523,285,455)
+
+*HKSelection_7WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSelection_7WindFrontRaw,0,299,243,428)
+createRawDataForArray(*HKSelection_7WindFrontRaw,1,280,257,445)
+createRawDataForArray(*HKSelection_7WindFrontRaw,2,276,260,504)
+createRawDataForArray(*HKSelection_7WindFrontRaw,3,274,371,498)
+
+*HKSelection_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelection_2WindBackRaw,0,590,439,320)
+
+*HKSelection_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelection_3WindBackRaw,0,403,348,317)
+
+*HKSelection_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelection_4WindBackRaw,0,387,300,324)
+
+*HKSelection_5WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSelection_5WindBackRaw,0,347,268,377)
+createRawDataForArray(*HKSelection_5WindBackRaw,1,338,254,365)
+createRawDataForArray(*HKSelection_5WindBackRaw,2,337,289,360)
+createRawDataForArray(*HKSelection_5WindBackRaw,3,332,423,554)
+
+;----HKSelected
+*HKSelectedRaw.rawdataArray=createRawDataArray(13)
+createRawDataForArray(*HKSelectedRaw,0,331,307,378)
+createRawDataForArray(*HKSelectedRaw,1,362,334,381)
+createRawDataForArray(*HKSelectedRaw,2,347,353,383)
+createRawDataForArray(*HKSelectedRaw,3,362,340,381)
+createRawDataForArray(*HKSelectedRaw,4,367,350,343)
+createRawDataForArray(*HKSelectedRaw,5,363,354,352)
+createRawDataForArray(*HKSelectedRaw,6,335,319,346)
+createRawDataForArray(*HKSelectedRaw,7,324,301,346)
+createRawDataForArray(*HKSelectedRaw,8,330,297,345)
+createRawDataForArray(*HKSelectedRaw,9,330,299,342)
+createRawDataForArray(*HKSelectedRaw,10,323,304,345)
+createRawDataForArray(*HKSelectedRaw,11,328,316,346)
+createRawDataForArray(*HKSelectedRaw,12,328,316,348)
+createRawDataForArray(*HKSelectedRaw,13,317,300,355)
+
+*HKSelected_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_2WindFrontRaw,0,384,458,495)
+
+*HKSelected_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_3WindFrontRaw,0,338,333,450)
+
+*HKSelected_4WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSelected_4WindFrontRaw,0,343,349,461)
+createRawDataForArray(*HKSelected_4WindFrontRaw,1,444,409,454)
+
+*HKSelected_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_5WindFrontRaw,0,342,369,574)
+
+*HKSelected_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_6WindFrontRaw,0,344,344,529)
+
+*HKSelected_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*HKSelected_7WindFrontRaw,0,315,375,548)
+createRawDataForArray(*HKSelected_7WindFrontRaw,1,302,437,539)
+createRawDataForArray(*HKSelected_7WindFrontRaw,2,300,478,677)
+
+*HKSelected_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_2WindBackRaw,0,329,307,516)
+
+*HKSelected_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*HKSelected_3WindBackRaw,0,322,325,534)
+createRawDataForArray(*HKSelected_3WindBackRaw,1,314,394,564)
+
+*HKSelected_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_4WindBackRaw,0,394,436,489)
+
+*HKSelected_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_5WindBackRaw,0,396,446,413)
+
+*HKSelected_6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*HKSelected_6WindBackRaw,0,485,337,354)
+
+*HKSelected_7WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*HKSelected_7WindBackRaw,0,439,302,354)
+createRawDataForArray(*HKSelected_7WindBackRaw,1,421,298,369)
+createRawDataForArray(*HKSelected_7WindBackRaw,2,419,283,381)
+createRawDataForArray(*HKSelected_7WindBackRaw,3,426,277,448)
+
+;----RUIdle1
+*RUIdle1Raw.rawdataArray=createRawDataArray(9)
+createRawDataForArray(*RUIdle1Raw,0,219,357,193)
+createRawDataForArray(*RUIdle1Raw,1,226,363,195)
+createRawDataForArray(*RUIdle1Raw,2,225,366,169)
+createRawDataForArray(*RUIdle1Raw,3,210,358,161)
+createRawDataForArray(*RUIdle1Raw,4,190,349,153)
+createRawDataForArray(*RUIdle1Raw,5,184,351,167)
+createRawDataForArray(*RUIdle1Raw,6,187,347,169)
+createRawDataForArray(*RUIdle1Raw,7,195,353,156)
+createRawDataForArray(*RUIdle1Raw,8,227,362,175)
+createRawDataForArray(*RUIdle1Raw,9,232,360,203)
+
+*RUIdle1_2WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_2WindFrontRaw,0,428,485,467)
+createRawDataForArray(*RUIdle1_2WindFrontRaw,1,427,503,479)
+
+*RUIdle1_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_3WindFrontRaw,0,473,357,157)
+createRawDataForArray(*RUIdle1_3WindFrontRaw,1,530,407,158)
+
+*RUIdle1_4WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_4WindFrontRaw,0,619,358,152)
+createRawDataForArray(*RUIdle1_4WindFrontRaw,1,724,350,150)
+
+*RUIdle1_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUIdle1_5WindFrontRaw,0,623,357,142)
+createRawDataForArray(*RUIdle1_5WindFrontRaw,1,641,402,133)
+createRawDataForArray(*RUIdle1_5WindFrontRaw,2,659,430,191)
+
+*RUIdle1_7WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_7WindFrontRaw,0,536,344,168)
+createRawDataForArray(*RUIdle1_7WindFrontRaw,1,657,343,207)
+
+*RUIdle1_8WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUIdle1_8WindFrontRaw,0,435,357,150)
+
+*RUIdle1_9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUIdle1_9WindFrontRaw,0,444,372,156)
+
+*RUIdle1_10WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUIdle1_10WindFrontRaw,0,602,356,177)
+createRawDataForArray(*RUIdle1_10WindFrontRaw,1,531,361,239)
+createRawDataForArray(*RUIdle1_10WindFrontRaw,2,519,376,277)
+
+*RUIdle1_2WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_2WindBackRaw,0,217,435,606)
+createRawDataForArray(*RUIdle1_2WindBackRaw,1,213,519,664)
+
+*RUIdle1_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUIdle1_3WindBackRaw,0,218,495,717)
+
+*RUIdle1_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUIdle1_5WindBackRaw,0,183,459,621)
+
+*RUIdle1_6WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_6WindBackRaw,0,170,483,625)
+createRawDataForArray(*RUIdle1_6WindBackRaw,1,166,517,645)
+
+*RUIdle1_9WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUIdle1_9WindBackRaw,0,191,504,706)
+createRawDataForArray(*RUIdle1_9WindBackRaw,1,219,508,699)
+
+;----RUMoveFront
+*RUMoveFrontRaw.rawdataArray=createRawDataArray(9)
+createRawDataForArray(*RUMoveFrontRaw,0,87,352,182)
+createRawDataForArray(*RUMoveFrontRaw,1,94,349,173)
+createRawDataForArray(*RUMoveFrontRaw,2,112,348,158)
+createRawDataForArray(*RUMoveFrontRaw,3,105,347,170)
+createRawDataForArray(*RUMoveFrontRaw,4,110,356,190)
+createRawDataForArray(*RUMoveFrontRaw,5,112,359,160)
+createRawDataForArray(*RUMoveFrontRaw,6,111,362,161)
+createRawDataForArray(*RUMoveFrontRaw,7,119,367,187)
+createRawDataForArray(*RUMoveFrontRaw,8,121,381,177)
+createRawDataForArray(*RUMoveFrontRaw,9,112,367,174)
+
+;----RUMoveBack
+*RUMoveBackRaw.rawdataArray=createRawDataArray(8)
+createRawDataForArray(*RUMoveBackRaw,0,226,381,295)
+createRawDataForArray(*RUMoveBackRaw,1,257,377,326)
+createRawDataForArray(*RUMoveBackRaw,2,230,375,279)
+createRawDataForArray(*RUMoveBackRaw,3,190,368,228)
+createRawDataForArray(*RUMoveBackRaw,4,172,366,207)
+createRawDataForArray(*RUMoveBackRaw,5,196,370,252)
+createRawDataForArray(*RUMoveBackRaw,6,192,371,247)
+createRawDataForArray(*RUMoveBackRaw,7,258,385,316)
+createRawDataForArray(*RUMoveBackRaw,8,276,392,338)
+
+;----RUNeutral1
+*RUNeutral1Raw.rawdataArray=createRawDataArray(10)
+createRawDataForArray(*RUNeutral1Raw,0,643,863,701)
+createRawDataForArray(*RUNeutral1Raw,1,645,876,742)
+createRawDataForArray(*RUNeutral1Raw,2,572,903,784,571,905,1242)
+createRawDataForArray(*RUNeutral1Raw,3,587,878,762)
+createRawDataForArray(*RUNeutral1Raw,4,669,862,725)
+createRawDataForArray(*RUNeutral1Raw,5,571,852,789,572,874,1096)
+createRawDataForArray(*RUNeutral1Raw,6,579,843,777)
+createRawDataForArray(*RUNeutral1Raw,7,681,842,717)
+createRawDataForArray(*RUNeutral1Raw,8,569,900,766,570,936,1120)
+createRawDataForArray(*RUNeutral1Raw,9,707,897,772,611,975,1129)
+createRawDataForArray(*RUNeutral1Raw,10,713,904,800)
+
+*RUNeutral1_1WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_1WindFrontRaw,0,635,873,681)
+createRawDataForArray(*RUNeutral1_1WindFrontRaw,1,615,889,671)
+createRawDataForArray(*RUNeutral1_1WindFrontRaw,2,620,889,677)
+
+*RUNeutral1_2WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral1_2WindFrontRaw,0,937,926,853)
+createRawDataForArray(*RUNeutral1_2WindFrontRaw,1,1019,913,837)
+createRawDataForArray(*RUNeutral1_2WindFrontRaw,2,1138,916,822)
+createRawDataForArray(*RUNeutral1_2WindFrontRaw,3,1200,953,819)
+
+*RUNeutral1_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral1_3WindFrontRaw,0,561,900,691)
+createRawDataForArray(*RUNeutral1_3WindFrontRaw,1,521,897,874)
+createRawDataForArray(*RUNeutral1_3WindFrontRaw,2,495,917,934)
+createRawDataForArray(*RUNeutral1_3WindFrontRaw,3,487,935,1184)
+
+*RUNeutral1_5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_5WindFrontRaw,0,555,842,714)
+createRawDataForArray(*RUNeutral1_5WindFrontRaw,1,649,833,695)
+createRawDataForArray(*RUNeutral1_5WindFrontRaw,2,1024,845,692)
+
+*RUNeutral1_6WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*RUNeutral1_6WindFrontRaw,0,558,841,675)
+createRawDataForArray(*RUNeutral1_6WindFrontRaw,1,539,874,899)
+createRawDataForArray(*RUNeutral1_6WindFrontRaw,2,523,904,1066)
+createRawDataForArray(*RUNeutral1_6WindFrontRaw,3,815,928,1147)
+createRawDataForArray(*RUNeutral1_6WindFrontRaw,4,804,942,1203)
+
+*RUNeutral1_8WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_8WindFrontRaw,0,532,830,706)
+createRawDataForArray(*RUNeutral1_8WindFrontRaw,1,611,818,688)
+createRawDataForArray(*RUNeutral1_8WindFrontRaw,2,1081,832,685)
+
+*RUNeutral1_9WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral1_9WindFrontRaw,0,560,831,659)
+createRawDataForArray(*RUNeutral1_9WindFrontRaw,1,529,917,991)
+createRawDataForArray(*RUNeutral1_9WindFrontRaw,2,519,952,1052)
+createRawDataForArray(*RUNeutral1_9WindFrontRaw,3,516,962,1175)
+
+*RUNeutral1_10WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_10WindFrontRaw,0,1023,844,645)
+createRawDataForArray(*RUNeutral1_10WindFrontRaw,1,1006,942,661)
+createRawDataForArray(*RUNeutral1_10WindFrontRaw,2,1061,1036,773)
+
+*RUNeutral1_3WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_3WindBackRaw,0,871,861,901)
+createRawDataForArray(*RUNeutral1_3WindBackRaw,1,853,857,953)
+createRawDataForArray(*RUNeutral1_3WindBackRaw,2,843,875,1052)
+
+*RUNeutral1_5WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUNeutral1_5WindBackRaw,0,849,880,1072)
+createRawDataForArray(*RUNeutral1_5WindBackRaw,1,883,863,1057)
+
+*RUNeutral1_6WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_6WindBackRaw,0,864,889,1060)
+createRawDataForArray(*RUNeutral1_6WindBackRaw,1,852,909,1074)
+createRawDataForArray(*RUNeutral1_6WindBackRaw,2,853,951,1113)
+
+*RUNeutral1_8WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUNeutral1_8WindBackRaw,0,820,891,1076)
+createRawDataForArray(*RUNeutral1_8WindBackRaw,1,857,879,1067)
+
+*RUNeutral1_9WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral1_9WindBackRaw,0,866,922,1045)
+createRawDataForArray(*RUNeutral1_9WindBackRaw,1,852,938,1087)
+createRawDataForArray(*RUNeutral1_9WindBackRaw,2,839,966,1163)
+
+; From Side 2
+*RUNeutral1_1AltWindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUNeutral1_1AltWindFrontRaw,0,556,882,680)
+createRawDataForArray(*RUNeutral1_1AltWindFrontRaw,1,600,868,661)
+
+;----RUNeutral2
+*RUNeutral2Raw.rawdataArray=createRawDataArray(9)
+createRawDataForArray(*RUNeutral2Raw,0,764,857,653)
+createRawDataForArray(*RUNeutral2Raw,1,766,862,645)
+createRawDataForArray(*RUNeutral2Raw,2,668,868,743,668,931,1058)
+createRawDataForArray(*RUNeutral2Raw,3,697,869,725)
+createRawDataForArray(*RUNeutral2Raw,4,760,876,656)
+createRawDataForArray(*RUNeutral2Raw,5,644,870,762,646,923,1031)
+createRawDataForArray(*RUNeutral2Raw,6,708,886,755)
+createRawDataForArray(*RUNeutral2Raw,7,776,906,644)
+createRawDataForArray(*RUNeutral2Raw,8,635,938,785,632,969,994)
+createRawDataForArray(*RUNeutral2Raw,9,658,929,760)
+
+*RUNeutral2_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUNeutral2_1WindFrontRaw,0,939,862,636)
+createRawDataForArray(*RUNeutral2_1WindFrontRaw,1,964,852,625)
+
+*RUNeutral2_3WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral2_3WindFrontRaw,0,661,851,811)
+createRawDataForArray(*RUNeutral2_3WindFrontRaw,1,609,856,842)
+createRawDataForArray(*RUNeutral2_3WindFrontRaw,2,584,863,885)
+createRawDataForArray(*RUNeutral2_3WindFrontRaw,3,568,969,1417)
+
+*RUNeutral2_5WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral2_5WindFrontRaw,0,896,865,637)
+createRawDataForArray(*RUNeutral2_5WindFrontRaw,1,1022,844,611)
+createRawDataForArray(*RUNeutral2_5WindFrontRaw,2,1183,858,599)
+createRawDataForArray(*RUNeutral2_5WindFrontRaw,3,1227,937,604)
+
+*RUNeutral2_6WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral2_6WindFrontRaw,0,638,850,890)
+createRawDataForArray(*RUNeutral2_6WindFrontRaw,1,593,852,935)
+createRawDataForArray(*RUNeutral2_6WindFrontRaw,2,570,864,1065)
+createRawDataForArray(*RUNeutral2_6WindFrontRaw,3,567,873,1131)
+
+*RUNeutral2_8WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral2_8WindFrontRaw,0,911,877,604)
+createRawDataForArray(*RUNeutral2_8WindFrontRaw,1,947,864,582)
+createRawDataForArray(*RUNeutral2_8WindFrontRaw,2,1160,885,576)
+
+*RUNeutral2_9WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral2_9WindFrontRaw,0,615,918,1019)
+createRawDataForArray(*RUNeutral2_9WindFrontRaw,1,584,907,1017)
+createRawDataForArray(*RUNeutral2_9WindFrontRaw,2,575,939,1037)
+createRawDataForArray(*RUNeutral2_9WindFrontRaw,3,575,1106,1304)
+
+*RUNeutral2_3WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral2_3WindBackRaw,0,989,921,560)
+createRawDataForArray(*RUNeutral2_3WindBackRaw,1,979,919,556)
+createRawDataForArray(*RUNeutral2_3WindBackRaw,2,994,922,572)
+createRawDataForArray(*RUNeutral2_3WindBackRaw,3,998,925,695)
+
+*RUNeutral2_5WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral2_5WindBackRaw,0,622,916,1074)
+createRawDataForArray(*RUNeutral2_5WindBackRaw,1,622,902,1045)
+createRawDataForArray(*RUNeutral2_5WindBackRaw,2,668,905,1033)
+
+*RUNeutral2_6WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral2_6WindBackRaw,0,1013,918,642)
+createRawDataForArray(*RUNeutral2_6WindBackRaw,1,987,922,640)
+createRawDataForArray(*RUNeutral2_6WindBackRaw,2,993,917,670)
+
+*RUNeutral2_8WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUNeutral2_8WindBackRaw,0,648,954,1045)
+createRawDataForArray(*RUNeutral2_8WindBackRaw,1,655,933,1019)
+createRawDataForArray(*RUNeutral2_8WindBackRaw,2,726,933,1021)
+
+*RUNeutral2_9WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUNeutral2_9WindBackRaw,0,1024,908,589)
+createRawDataForArray(*RUNeutral2_9WindBackRaw,1,923,927,596)
+createRawDataForArray(*RUNeutral2_9WindBackRaw,2,871,1073,628)
+createRawDataForArray(*RUNeutral2_9WindBackRaw,3,852,1118,688)
+
+;----RUSide1
+*RUSide1Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSide1Raw,0,790,935,895,790,878,686)
+createRawDataForArray(*RUSide1Raw,1,609,877,890,609,933,1097)
+createRawDataForArray(*RUSide1Raw,2,655,865,743,639,935,745)
+createRawDataForArray(*RUSide1Raw,3,808,871,652,657,941,1060)
+
+*RUSide1_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide1_1WindFrontRaw,0,776,806,693)
+
+*RUSide1_2WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*RUSide1_2WindFrontRaw,0,582,754,612)
+createRawDataForArray(*RUSide1_2WindFrontRaw,1,529,731,618)
+createRawDataForArray(*RUSide1_2WindFrontRaw,2,513,771,797)
+createRawDataForArray(*RUSide1_2WindFrontRaw,3,491,765,871)
+createRawDataForArray(*RUSide1_2WindFrontRaw,4,479,849,1476)
+
+*RUSide1_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide1_3WindFrontRaw,0,1144,926,729)
+
+*RUSide1_4WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSide1_4WindFrontRaw,0,1135,890,634)
+createRawDataForArray(*RUSide1_4WindFrontRaw,1,1158,887,614)
+createRawDataForArray(*RUSide1_4WindFrontRaw,2,1219,954,607)
+createRawDataForArray(*RUSide1_4WindFrontRaw,3,1226,980,632)
+
+*RUSide1_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide1_1WindBackRaw,0,815,997,1085)
+
+*RUSide1_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide1_2WindBackRaw,0,844,934,871)
+
+*RUSide1_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide1_3WindBackRaw,0,876,920,717)
+
+*RUSide1_4WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSide1_4WindBackRaw,0,904,909,614)
+createRawDataForArray(*RUSide1_4WindBackRaw,1,908,908,583)
+createRawDataForArray(*RUSide1_4WindBackRaw,2,1148,908,576)
+createRawDataForArray(*RUSide1_4WindBackRaw,3,1365,897,596)
+
+;----RUSide2
+*RUSide2Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*RUSide2Raw,0,656,878,776)
+createRawDataForArray(*RUSide2Raw,1,661,899,907)
+createRawDataForArray(*RUSide2Raw,2,818,852,889)
+createRawDataForArray(*RUSide2Raw,3,654,878,746,656,852,746)
+createRawDataForArray(*RUSide2Raw,4,603,887,745,604,902,744)
+createRawDataForArray(*RUSide2Raw,5,585,887,800,605,938,747)
+
+*RUSide2_1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_1WindFrontRaw,0,648,904,1089)
+
+*RUSide2_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_2WindFrontRaw,0,628,904,1070)
+
+*RUSide2_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_3WindFrontRaw,0,643,834,877)
+
+*RUSide2_4WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*RUSide2_4WindFrontRaw,0,648,823,721)
+createRawDataForArray(*RUSide2_4WindFrontRaw,1,748,815,678)
+createRawDataForArray(*RUSide2_4WindFrontRaw,2,1237,826,650)
+createRawDataForArray(*RUSide2_4WindFrontRaw,3,1352,838,648)
+createRawDataForArray(*RUSide2_4WindFrontRaw,4,1385,866,644)
+
+*RUSide2_5WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*RUSide2_5WindFrontRaw,0,581,883,1035)
+createRawDataForArray(*RUSide2_5WindFrontRaw,1,575,874,1041)
+createRawDataForArray(*RUSide2_5WindFrontRaw,2,567,862,1001)
+createRawDataForArray(*RUSide2_5WindFrontRaw,3,574,944,914)
+createRawDataForArray(*RUSide2_5WindFrontRaw,4,645,974,1047)
+
+*RUSide2_1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_1WindBackRaw,0,1052,878,643)
+
+*RUSide2_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_2WindBackRaw,0,933,879,645)
+
+*RUSide2_3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_3WindBackRaw,0,798,941,667)
+
+*RUSide2_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide2_4WindBackRaw,0,650,915,671)
+
+;----RUSide3
+*RUSide3Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*RUSide3Raw,0,662,861,706)
+createRawDataForArray(*RUSide3Raw,1,735,669,726)
+createRawDataForArray(*RUSide3Raw,2,872,591,906,918,568,758)
+createRawDataForArray(*RUSide3Raw,3,737,686,858,738,578,859)
+createRawDataForArray(*RUSide3Raw,4,650,909,776,643,661,776)
+createRawDataForArray(*RUSide3Raw,5,676,947,724,665,921,872)
+
+*RUSide3_1WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSide3_1WindFrontRaw,0,582,853,694)
+createRawDataForArray(*RUSide3_1WindFrontRaw,1,585,875,1252)
+
+*RUSide3_2WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSide3_2WindFrontRaw,0,660,645,598)
+createRawDataForArray(*RUSide3_2WindFrontRaw,1,984,861,956)
+
+*RUSide3_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide3_3WindFrontRaw,0,659,429,550)
+
+*RUSide3_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide3_4WindFrontRaw,0,661,277,497)
+
+*RUSide3_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSide3_5WindFrontRaw,0,583,262,514)
+
+*RUSide3_6WindFront1Raw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*RUSide3_6WindFront1Raw,0,503,276,474)
+createRawDataForArray(*RUSide3_6WindFront1Raw,1,463,344,760)
+createRawDataForArray(*RUSide3_6WindFront1Raw,2,435,323,825)
+createRawDataForArray(*RUSide3_6WindFront1Raw,3,456,305,921)
+createRawDataForArray(*RUSide3_6WindFront1Raw,4,439,845,1141)
+createRawDataForArray(*RUSide3_6WindFront1Raw,5,459,1053,1261)
+
+*RUSide3_6WindFront2Raw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSide3_6WindFront2Raw,0,649,1077,1047)
+createRawDataForArray(*RUSide3_6WindFront2Raw,1,581,1014,1068)
+createRawDataForArray(*RUSide3_6WindFront2Raw,2,568,999,1088)
+createRawDataForArray(*RUSide3_6WindFront2Raw,3,585,1019,1086)
+
+*RUSide3_4WindBackRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*RUSide3_4WindBackRaw,0,692,1000,828)
+createRawDataForArray(*RUSide3_4WindBackRaw,1,755,920,758)
+createRawDataForArray(*RUSide3_4WindBackRaw,2,740,905,711)
+createRawDataForArray(*RUSide3_4WindBackRaw,3,1150,915,686)
+createRawDataForArray(*RUSide3_4WindBackRaw,4,1199,913,676)
+createRawDataForArray(*RUSide3_4WindBackRaw,5,1295,1100,698)
+
+;----RUSpawn
+*RUSpawnRaw.rawdataArray=createRawDataArray(10)
+createRawDataForArray(*RUSpawnRaw,0,458,30,362)
+createRawDataForArray(*RUSpawnRaw,1,400,74,361)
+createRawDataForArray(*RUSpawnRaw,2,286,165,355)
+createRawDataForArray(*RUSpawnRaw,3,314,237,319)
+createRawDataForArray(*RUSpawnRaw,4,379,320,284)
+createRawDataForArray(*RUSpawnRaw,5,243,81,177)
+createRawDataForArray(*RUSpawnRaw,6,168,134,206)
+createRawDataForArray(*RUSpawnRaw,7,166,216,215)
+createRawDataForArray(*RUSpawnRaw,8,87,359,231)
+createRawDataForArray(*RUSpawnRaw,9,102,339,236)
+createRawDataForArray(*RUSpawnRaw,10,199,356,209)
+
+*RUSpawn_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_2WindFrontRaw,0,393,28,449)
+
+*RUSpawn_3WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSpawn_3WindFrontRaw,0,275,38,349)
+createRawDataForArray(*RUSpawn_3WindFrontRaw,1,260,137,611)
+
+*RUSpawn_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_4WindFrontRaw,0,292,191,387)
+
+*RUSpawn_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_5WindFrontRaw,0,324,250,361)
+
+*RUSpawn_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_6WindFrontRaw,0,230,12,351)
+
+*RUSpawn_7WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_7WindFrontRaw,0,143,71,369)
+
+*RUSpawn_8WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_8WindFrontRaw,0,147,138,198)
+
+*RUSpawn_9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_9WindFrontRaw,0,53,221,222)
+
+*RUSpawn_10WindFront1Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUSpawn_10WindFront1Raw,0,27,228,185)
+createRawDataForArray(*RUSpawn_10WindFront1Raw,1,8,289,166)
+createRawDataForArray(*RUSpawn_10WindFront1Raw,2,54,273,177)
+
+*RUSpawn_10WindFront2Raw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUSpawn_10WindFront2Raw,0,359,349,447)
+createRawDataForArray(*RUSpawn_10WindFront2Raw,1,331,388,507)
+createRawDataForArray(*RUSpawn_10WindFront2Raw,2,311,434,619)
+
+*RUSpawn_4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_4WindBackRaw,0,605,694,309)
+
+*RUSpawn_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_5WindBackRaw,0,625,715,267)
+
+*RUSpawn_6WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUSpawn_6WindBackRaw,0,638,363,156)
+createRawDataForArray(*RUSpawn_6WindBackRaw,1,745,410,142)
+createRawDataForArray(*RUSpawn_6WindBackRaw,2,817,504,136)
+
+*RUSpawn_7WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSpawn_7WindBackRaw,0,751,444,185)
+
+;----RUDeath
+*RUDeathRaw.rawdataArray=createRawDataArray(11)
+createRawDataForArray(*RUDeathRaw,0,234,338,126)
+createRawDataForArray(*RUDeathRaw,1,151,355,268)
+createRawDataForArray(*RUDeathRaw,2,82,373,361)
+createRawDataForArray(*RUDeathRaw,3,59,369,333)
+createRawDataForArray(*RUDeathRaw,4,10,342,328)
+createRawDataForArray(*RUDeathRaw,5,17,363,324)
+createRawDataForArray(*RUDeathRaw,6,18,347,284)
+createRawDataForArray(*RUDeathRaw,7,18,390,318)
+createRawDataForArray(*RUDeathRaw,8,18,390,333)
+createRawDataForArray(*RUDeathRaw,9,18,417,366)
+createRawDataForArray(*RUDeathRaw,10,18,452,387)
+createRawDataForArray(*RUDeathRaw,11,18,431,365)
+
+*RUDeath_2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_2WindFrontRaw,0,149,345,152)
+
+*RUDeath_3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_3WindFrontRaw,0,78,372,286)
+
+*RUDeath_4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_4WindFrontRaw,0,436,396,387)
+
+*RUDeath_5WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_5WindFrontRaw,0,429,347,311)
+
+*RUDeath_6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_6WindFrontRaw,0,259,458,400)
+
+*RUDeath_7WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUDeath_7WindFrontRaw,0,203,523,432)
+createRawDataForArray(*RUDeath_7WindFrontRaw,1,189,485,401)
+createRawDataForArray(*RUDeath_7WindFrontRaw,2,205,458,394)
+
+*RUDeath_10WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_10WindFrontRaw,0,392,373,441)
+
+*RUDeath_11WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUDeath_11WindFrontRaw,0,324,385,356)
+createRawDataForArray(*RUDeath_11WindFrontRaw,1,308,447,331)
+createRawDataForArray(*RUDeath_11WindFrontRaw,2,297,514,325)
+createRawDataForArray(*RUDeath_11WindFrontRaw,3,336,513,320)
+
+*RUDeath_2WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_2WindBackRaw,0,141,342,440)
+
+*RUDeath_3WindBackRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUDeath_3WindBackRaw,0,78,343,550)
+createRawDataForArray(*RUDeath_3WindBackRaw,1,356,418,605)
+
+*RUDeath_4WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUDeath_4WindBackRaw,0,32,414,809)
+createRawDataForArray(*RUDeath_4WindBackRaw,1,25,407,888)
+createRawDataForArray(*RUDeath_4WindBackRaw,2,21,403,901)
+
+*RUDeath_5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUDeath_5WindBackRaw,0,0,430,905)
+
+*RUDeath_7WindBackRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUDeath_7WindBackRaw,0,238,478,448)
+createRawDataForArray(*RUDeath_7WindBackRaw,1,235,468,429)
+createRawDataForArray(*RUDeath_7WindBackRaw,2,325,471,426)
+
+;----RUJump
+*RUJumpRaw.rawdataArray=createRawDataArray(10)
+createRawDataForArray(*RUJumpRaw,0,212,360,242)
+createRawDataForArray(*RUJumpRaw,1,232,397,354)
+createRawDataForArray(*RUJumpRaw,2,260,325,317)
+createRawDataForArray(*RUJumpRaw,3,156,376,373)
+createRawDataForArray(*RUJumpRaw,4,205,279,324)
+createRawDataForArray(*RUJumpRaw,5,379,138,305)
+createRawDataForArray(*RUJumpRaw,6,234,143,282)
+createRawDataForArray(*RUJumpRaw,7,270,201,159)
+createRawDataForArray(*RUJumpRaw,8,209,234,187)
+createRawDataForArray(*RUJumpRaw,9,220,186,183)
+createRawDataForArray(*RUJumpRaw,10,224,252,140)
+
+;----RULand
+*RULandRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*RULandRaw,0,72,281,249)
+createRawDataForArray(*RULandRaw,1,71,350,287)
+createRawDataForArray(*RULandRaw,2,336,378,290)
+createRawDataForArray(*RULandRaw,3,294,264,375)
+createRawDataForArray(*RULandRaw,4,267,318,357)
+createRawDataForArray(*RULandRaw,5,222,343,212)
+
+;----RUHit
+*RUHitRaw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*RUHitRaw,0,196,393,139)
+createRawDataForArray(*RUHitRaw,1,176,345,163)
+createRawDataForArray(*RUHitRaw,2,206,411,374)
+createRawDataForArray(*RUHitRaw,3,140,425,218)
+createRawDataForArray(*RUHitRaw,4,198,387,146)
+createRawDataForArray(*RUHitRaw,5,407,248,308)
+createRawDataForArray(*RUHitRaw,6,395,335,338)
+
+;----RUDodge
+*RUDodgeRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*RUDodgeRaw,0,147,296,241)
+createRawDataForArray(*RUDodgeRaw,1,166,338,234)
+createRawDataForArray(*RUDodgeRaw,2,182,414,228)
+createRawDataForArray(*RUDodgeRaw,3,212,462,212)
+createRawDataForArray(*RUDodgeRaw,4,211,482,191)
+
+;----RUParry
+*RUParryRaw.rawdataArray=createRawDataArray(6)
+createRawDataForArray(*RUParryRaw,0,84,233,299)
+createRawDataForArray(*RUParryRaw,1,126,186,321)
+createRawDataForArray(*RUParryRaw,2,142,197,310)
+createRawDataForArray(*RUParryRaw,3,202,208,275)
+createRawDataForArray(*RUParryRaw,4,243,256,234)
+createRawDataForArray(*RUParryRaw,5,261,283,214)
+createRawDataForArray(*RUParryRaw,6,264,321,224)
+
+;----RUSelection
+*RUSelectionRaw.rawdataArray=createRawDataArray(12)
+createRawDataForArray(*RUSelectionRaw,0,427,453,351)
+createRawDataForArray(*RUSelectionRaw,1,389,431,365)
+createRawDataForArray(*RUSelectionRaw,2,358,419,366)
+createRawDataForArray(*RUSelectionRaw,3,246,404,379)
+createRawDataForArray(*RUSelectionRaw,4,210,401,383)
+createRawDataForArray(*RUSelectionRaw,5,210,399,371)
+createRawDataForArray(*RUSelectionRaw,6,176,394,366)
+createRawDataForArray(*RUSelectionRaw,7,182,398,367)
+createRawDataForArray(*RUSelectionRaw,8,191,404,372)
+createRawDataForArray(*RUSelectionRaw,9,192,404,371)
+createRawDataForArray(*RUSelectionRaw,10,186,400,366)
+createRawDataForArray(*RUSelectionRaw,11,189,402,373)
+createRawDataForArray(*RUSelectionRaw,12,197,406,378)
+
+*RUSelection2WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSelection2WindFrontRaw,0,408,421,402)
+createRawDataForArray(*RUSelection2WindFrontRaw,1,414,497,515)
+
+*RUSelection3WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelection3WindFrontRaw,0,347,409,420)
+
+*RUSelection4WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelection4WindFrontRaw,0,235,380,396)
+
+*RUSelection5WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUSelection5WindFrontRaw,0,198,380,457)
+createRawDataForArray(*RUSelection5WindFrontRaw,1,167,366,463)
+createRawDataForArray(*RUSelection5WindFrontRaw,2,165,367,688)
+
+*RUSelection6WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSelection6WindFrontRaw,0,369,447,475)
+createRawDataForArray(*RUSelection6WindFrontRaw,1,362,444,554)
+
+*RUSelection6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelection6WindBackRaw,0,340,428,499)
+
+*RUSelection7WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSelection7WindBackRaw,0,337,387,504)
+createRawDataForArray(*RUSelection7WindBackRaw,1,315,376,496)
+createRawDataForArray(*RUSelection7WindBackRaw,2,332,375,495)
+createRawDataForArray(*RUSelection7WindBackRaw,3,399,372,513)
+
+;----RUSelected
+*RUSelectedRaw.rawdataArray=createRawDataArray(21)
+createRawDataForArray(*RUSelectedRaw,0,160,335,382)
+createRawDataForArray(*RUSelectedRaw,1,371,118,390)
+createRawDataForArray(*RUSelectedRaw,2,264,74,278)
+createRawDataForArray(*RUSelectedRaw,3,142,224,227)
+createRawDataForArray(*RUSelectedRaw,4,259,225,308)
+createRawDataForArray(*RUSelectedRaw,5,345,259,281)
+createRawDataForArray(*RUSelectedRaw,6,138,254,192)
+createRawDataForArray(*RUSelectedRaw,7,222,216,201)
+createRawDataForArray(*RUSelectedRaw,8,370,324,390)
+createRawDataForArray(*RUSelectedRaw,9,186,310,400)
+createRawDataForArray(*RUSelectedRaw,10,165,325,292)
+createRawDataForArray(*RUSelectedRaw,11,192,352,237)
+createRawDataForArray(*RUSelectedRaw,12,200,342,241)
+createRawDataForArray(*RUSelectedRaw,13,196,346,239)
+createRawDataForArray(*RUSelectedRaw,14,194,350,239)
+createRawDataForArray(*RUSelectedRaw,15,196,349,244)
+createRawDataForArray(*RUSelectedRaw,16,184,347,240)
+createRawDataForArray(*RUSelectedRaw,17,187,349,244)
+createRawDataForArray(*RUSelectedRaw,18,190,357,245)
+createRawDataForArray(*RUSelectedRaw,19,184,354,252)
+createRawDataForArray(*RUSelectedRaw,20,198,361,259)
+createRawDataForArray(*RUSelectedRaw,21,184,362,252)
+
+*RUSelected1WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected1WindFrontRaw,0,145,314,720)
+
+*RUSelected2WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected2WindFrontRaw,0,123,76,382)
+
+*RUSelected3WindFrontRaw.rawdataArray=createRawDataArray(2)
+createRawDataForArray(*RUSelected3WindFrontRaw,0,109,4,233)
+createRawDataForArray(*RUSelected3WindFrontRaw,1,584,341,282)
+createRawDataForArray(*RUSelected3WindFrontRaw,2,699,406,275)
+
+*RUSelected4WindFrontRaw.rawdataArray=createRawDataArray(4)
+createRawDataForArray(*RUSelected4WindFrontRaw,0,127,37,122)
+createRawDataForArray(*RUSelected4WindFrontRaw,1,460,7,103)
+createRawDataForArray(*RUSelected4WindFrontRaw,2,660,26,97)
+createRawDataForArray(*RUSelected4WindFrontRaw,3,706,73,58)
+createRawDataForArray(*RUSelected4WindFrontRaw,4,832,174,53)
+
+*RUSelected5WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSelected5WindFrontRaw,0,105,163,169)
+createRawDataForArray(*RUSelected5WindFrontRaw,1,82,226,176)
+
+*RUSelected6WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected6WindFrontRaw,0,69,231,237)
+
+*RUSelected7WindFrontRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSelected7WindFrontRaw,0,98,220,107)
+createRawDataForArray(*RUSelected7WindFrontRaw,1,60,217,104)
+createRawDataForArray(*RUSelected7WindFrontRaw,2,58,241,105)
+createRawDataForArray(*RUSelected7WindFrontRaw,3,91,339,98)
+
+*RUSelected8WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected8WindFrontRaw,0,345,201,156)
+
+*RUSelected9WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected9WindFrontRaw,0,321,106,154)
+
+*RUSelected10WindFrontRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected10WindFrontRaw,0,68,76,191)
+
+*RUSelected11WindFrontRaw.rawdataArray=createRawDataArray(5)
+createRawDataForArray(*RUSelected11WindFrontRaw,0,2,47,209)
+createRawDataForArray(*RUSelected11WindFrontRaw,1,7,71,370)
+createRawDataForArray(*RUSelected11WindFrontRaw,2,45,73,462)
+createRawDataForArray(*RUSelected11WindFrontRaw,3,34,225,502)
+createRawDataForArray(*RUSelected11WindFrontRaw,4,34,361,549)
+createRawDataForArray(*RUSelected11WindFrontRaw,5,35,486,692)
+
+*RUSelected12WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSelected12WindFrontRaw,0,305,394,568)
+createRawDataForArray(*RUSelected12WindFrontRaw,1,299,487,567)
+
+*RUSelected18WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSelected18WindFrontRaw,0,179,520,575)
+createRawDataForArray(*RUSelected18WindFrontRaw,1,172,511,686)
+
+*RUSelected19WindFrontRaw.rawdataArray=createRawDataArray(1)
+createRawDataForArray(*RUSelected19WindFrontRaw,0,183,521,591)
+createRawDataForArray(*RUSelected19WindFrontRaw,1,206,617,590)
+
+*RUSelected1WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected1WindBackRaw,0,177,404,515)
+
+*RUSelected2WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSelected2WindBackRaw,0,238,168,378)
+createRawDataForArray(*RUSelected2WindBackRaw,1,406,248,349)
+createRawDataForArray(*RUSelected2WindBackRaw,2,506,271,341)
+createRawDataForArray(*RUSelected2WindBackRaw,3,652,401,338)
+
+*RUSelected3WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected3WindBackRaw,0,259,415,525)
+
+*RUSelected4WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected4WindBackRaw,0,140,319,558)
+
+*RUSelected5WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected5WindBackRaw,0,178,217,250)
+
+*RUSelected6WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected6WindBackRaw,0,323,191,197)
+
+*RUSelected7WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSelected7WindBackRaw,0,132,201,378)
+createRawDataForArray(*RUSelected7WindBackRaw,1,98,192,529)
+createRawDataForArray(*RUSelected7WindBackRaw,2,80,205,626)
+createRawDataForArray(*RUSelected7WindBackRaw,3,78,208,676)
+
+*RUSelected8WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected8WindBackRaw,0,133,385,599)
+
+*RUSelected9WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected9WindBackRaw,0,140,398,443)
+
+*RUSelected10WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected10WindBackRaw,0,317,363,362)
+
+*RUSelected11WindBackRaw.rawdataArray=createRawDataArray(0)
+createRawDataForArray(*RUSelected11WindBackRaw,0,476,350,244)
+
+*RUSelected12WindBackRaw.rawdataArray=createRawDataArray(3)
+createRawDataForArray(*RUSelected12WindBackRaw,0,568,366,173)
+createRawDataForArray(*RUSelected12WindBackRaw,1,685,363,174)
+createRawDataForArray(*RUSelected12WindBackRaw,2,743,405,166)
+createRawDataForArray(*RUSelected12WindBackRaw,3,790,461,160)
+
 ;----land light front
 *landLightFront1Raw.rawdataArray=createRawDataArray(3)
 createRawDataForArray(*landLightFront1Raw,0,455,622,367)
@@ -4954,17 +7836,17 @@ createRawDataForArray(*loading2Raw,2, 85, 92, 89)
 createRawDataForArray(*loading2Raw,3, 80, 86, 88)
 createRawDataForArray(*loading2Raw,4, 62, 87, 91)
 
-Procedure destroyAllRawData(*whatRDAL.rawdataarraylist)
-	ForEach *whatRDAL\rda()
-		destroyRawDataArray(*whatRDAL\rda())
+Macro destroyAllRawData(what)
+	ForEach what\rda()
+		destroyRawDataArray(what\rda())
 	Next
-	ClearList(*whatRDAL\rda())
-	FreeList(*whatRDAL\rda())
-	FreeStructure(*whatRDAL)
-EndProcedure
+	ClearList(what\rda())
+	FreeList(what\rda())
+	FreeStructure(what)
+EndMacro
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 2981
-; FirstLine = 2961
+; CursorPosition = 7300
+; FirstLine = 7210
 ; Folding = --
 ; EnableXP
 ; CPU = 1

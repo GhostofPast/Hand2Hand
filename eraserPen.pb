@@ -7,7 +7,7 @@ ReDim *tmpArray(1)
 statisticCreate(*eraserpen_stance_dry\modificator,0,0,1,-1,0,0,0,0,0,0)
 
 *eraserpen.class=classCreate(0,"Eraser pen",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
-*eraserpen\toBeAdded=1
+classSetToBeAdded(*eraserpen,1)
 *eraserpen\allStances(0)\name="(Default)"
 *eraserpen\allStances(0)\specialcolor=#H2H_STANCE_COLOR_BLUE
 classAddStance(*eraserpen,*eraserpen_stance_dry)
@@ -16,7 +16,8 @@ classAddStance(*eraserpen,*eraserpen_stance_dry)
 *eraserpen\iconPath$="image\Eraserpen.png"
 spriteIndex+1
 *eraserpen\stat=*eraserpen_stat
-*eraserpen\desc$="Defender with good reach, blunt, speed and defenses. Harasses the ennemy with fast attacks.\ Excels at parying and doing light attacks for continuous aggression."
+; *eraserpen\desc$="Defender with good reach, blunt, speed and defenses. Harasses the ennemy with fast attacks.\ Excels at parying and doing light attacks for continuous aggression."
+*eraserpen\desc$="Defender with good reach, blunt damage and speed. Excels at parying and repeating lots of light attacks."
 
 ReDim *eraserpen\allStances(0)\materialClass(ArraySize(*tmpArray()))
 For i=0 To ArraySize(*tmpArray())
@@ -24,6 +25,6 @@ For i=0 To ArraySize(*tmpArray())
 Next
 
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 8
+; CursorPosition = 19
 ; EnableXP
 ; CPU = 1

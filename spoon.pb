@@ -23,7 +23,7 @@ statisticCreate(*Spoon_stance_silver\modificator,1,-1,-1,1,1,-1,0,0,0,0)
 *spoon.class=classCreate(0,"Spoon",#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null,#Null)
 *spoon\allStances(0)\specialcolor=#H2H_STANCE_COLOR_METAL
 *spoon\allStances(0)\specialcolor=#H2H_STANCE_COLOR_DARKMETAL
-*spoon\toBeAdded=1
+classSetToBeAdded(*spoon,1)
 *spoon\allStances(0)\name="Stainless (Default)"
 
 Dim *spoon\allStances(0)\materialClass(ArraySize(*tmpArray()))
@@ -37,8 +37,9 @@ classAddStance(*spoon,*Spoon_stance_wood)
 *spoon\iconPath$="image\Spoon.png"
 spriteIndex+1
 *spoon\stat=*Spoon_stat
-*spoon\desc$="Shovel like fighter with good reach and defensive abilities\His combos hits easily but have low control of the ennemy."
+; *spoon\desc$="Shovel like fighter with good reach and defensive abilities\His combos hits easily but have low control of the ennemy."
+*spoon\desc$="Shovel fighter with good reach, coverage and defensive abilities ; but a bit slow on the pursuit."
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 26
+; CursorPosition = 40
 ; EnableXP
 ; CPU = 1

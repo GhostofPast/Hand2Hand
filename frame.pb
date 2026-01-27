@@ -1,19 +1,32 @@
-﻿XIncludeFile "frameshift.pb"
+﻿; XIncludeFile "frameshift.pb"
 ;- Frame struct
+
+; Enumeration 0 ; 8 bit values
+; 	#H2H_FRAME_DATA_LENGTH
+; 	#H2H_FRAME_DATA_DAMAGE
+; 	#H2H_FRAME_DATA_STUN
+; 	#H2H_FRAME_DATA_DAMAGE_SIDE
+; 	#H2H_FRAME_DATA_DAMAGE_TYPE
+; 	#H2H_FRAME_DATA_DAMAGE_DURATION
+; 	#H2H_FRAME_DATA_SHAKE
+; 	#H2H_FRAME_DATA_OPACITY
+; EndEnumeration
+
 Structure frame
 	id.i ; What sprite is used
 	length.i ; number of frames
 	hurtId.i ;used for the corresponding hurtbox
 	hurtFlip.i ;used for the correspinding mirrored hurtbox
 	soundId.i  ; if >0 then play the coresponding sound
+	Array alternateSoundId.i(0) ; sound id for other stances, stance 1 2 index is 0 1, stance 0 is just soundId
 	damage.c	 ; if >0 inflict damage in collision
 	canDoNext.b			   ; if >0 indicates the combo can start from here, at the specified frame indicator if needed
 	canMove.b				; if >0 the player can move after this frame indicator
 	*movement.location	   ; indicates the forced movement at each frames.
 	*movementD.location	   ; indicates the added delta at each frames
-	*shift.location		   ; coordinates of the 0x0 based on the 1000x1000 image. The flip must be get with a /1000 and the normal %1000
-	*hurtShift.location	   ; same but for the hurtbox
-	*pushPower.location	   ; applies a specific movement to the target
+	*shift.locationI		   ; coordinates of the 0x0 based on the 1000x1000 image. The flip must be get with a /1000 and the normal %1000
+	*hurtShift.locationI   ; same but for the hurtbox
+	*pushPower.location	   ; applies a specific movement to the target per frame of contact
 	*instantPush.location  ; applies an instant movement to the target once
 	*moveTargetTo.location ; When hit the target will be moved relative to the player
 	
@@ -25,11 +38,12 @@ Structure frame
 	damageDuration.c ; if >0, indicates when the frames no longer checks damage
 	shake.c			 ; when reaching this frame, will shake with this intensity, cumulates
 
-	*shadowShift.location ; changes the shadow sprite display depending on the position of the hand, only relevant for spawn & death animations
+	*shadowShift.locationI ; changes the shadow sprite display depending on the position of the hand, only relevant for spawn & death animations
 	path$
 	bufferTimeout.i
 	
 	hurtPath$ ; if specified, will pick this path for the hurt
+	opacity.i ; if specified, will have a specific opacity ; only for wind effects
 ; 	isBuffed.i
 ; 	isLoaded.i
 ; 	isFliped.i
@@ -42,7 +56,7 @@ Structure frame
 ; 	windNeedCatch.b ; bitwise mask for which wind effect is being used, from front wind to back wind ; only if it has hit before
 ;	movementDNeedCatch.i   ; enables the delta movement
 	
-	flag.c
+	flag.l
 EndStructure
 
 EnumerationBinary
@@ -60,6 +74,11 @@ EnumerationBinary
 	#H2H_FRAME_FLAG_SHIFT_X_NEGATIVE
 	#H2H_FRAME_FLAG_SHIFT_X_FLIP_NEGATIVE
 	#H2H_FRAME_FLAG_SHIFT_Y_NEGATIVE
+	#H2H_FRAME_FLAG_HURT_X_NEGATIVE
+	#H2H_FRAME_FLAG_HURT_X_FLIP_NEGATIVE
+	#H2H_FRAME_FLAG_HURT_Y_NEGATIVE
+; 	#H2H_FRAME_FLAG_ONE_HIT_VALID
+ 	#H2H_FRAME_FLAG_EXTENDED
 EndEnumeration
 
 Macro frameIsLoaded(f)
@@ -104,8 +123,20 @@ EndMacro
 Macro frameShiftYNegative(f)
 	(f\flag&#H2H_FRAME_FLAG_SHIFT_Y_NEGATIVE)
 EndMacro
-Macro frameShiftYFlipNegative(f)
-	(f\flag&#H2H_FRAME_FLAG_SHIFT_Y_FLIP_NEGATIVE)
+Macro frameHurtXNegative(f)
+	(f\flag&#H2H_FRAME_FLAG_HURT_X_NEGATIVE)
+EndMacro
+Macro frameHurtXFlipNegative(f)
+	(f\flag&#H2H_FRAME_FLAG_HURT_X_FLIP_NEGATIVE)
+EndMacro
+Macro frameHurtYNegative(f)
+	(f\flag&#H2H_FRAME_FLAG_HURT_Y_NEGATIVE)
+EndMacro
+; Macro frameNeedOneHit(f)
+; 	(f\flag&#H2H_FRAME_FLAG_ONE_HIT_VALID)
+; EndMacro
+Macro frameExtended(f)
+	(f\flag&#H2H_FRAME_FLAG_EXTENDED)
 EndMacro
 
 Macro frameSetLoaded(f,v=1)
@@ -164,6 +195,42 @@ Macro frameSetShiftXFlipNegative(f,v=1)
 	If v:f\flag|#H2H_FRAME_FLAG_SHIFT_X_FLIP_NEGATIVE:Else:f\flag&(~#H2H_FRAME_FLAG_SHIFT_X_FLIP_NEGATIVE):EndIf
 EndMacro
 
+Macro frameSetHurtXNegative(f,v=1)
+	If v:f\flag|#H2H_FRAME_FLAG_HURT_X_NEGATIVE:Else:f\flag&(~#H2H_FRAME_FLAG_HURT_X_NEGATIVE):EndIf
+EndMacro
+
+Macro frameSetHurtYNegative(f,v=1)
+	If v:f\flag|#H2H_FRAME_FLAG_HURT_Y_NEGATIVE:Else:f\flag&(~#H2H_FRAME_FLAG_HURT_Y_NEGATIVE):EndIf
+EndMacro
+
+Macro frameSetHurtXFlipNegative(f,v=1)
+	If v:f\flag|#H2H_FRAME_FLAG_HURT_X_FLIP_NEGATIVE:Else:f\flag&(~#H2H_FRAME_FLAG_HURT_X_FLIP_NEGATIVE):EndIf
+EndMacro
+
+; Macro frameSetNeedOneHit(f,v=1)
+; 	If v:f\flag|#H2H_FRAME_FLAG_ONE_HIT_VALID:Else:f\flag&(~#H2H_FRAME_FLAG_ONE_HIT_VALID):EndIf
+; EndMacro
+
+Macro frameSetExtended(f,v=1)
+	If v:f\flag|#H2H_FRAME_FLAG_EXTENDED:Else:f\flag&(~#H2H_FRAME_FLAG_EXTENDED):EndIf
+EndMacro
+
+Procedure frameSetSound(*f.frame,newSoundId.i,stanceId=0)
+	If Not stanceId
+		*f\soundId=newSoundId
+	Else
+		If Not *f\alternateSoundId()
+			Dim *f\alternateSoundId(stanceId-1)
+		Else
+			If stanceId>ArraySize(*f\alternateSoundId())
+				ReDim *f\alternateSoundId(stanceId-1)
+			EndIf
+		EndIf
+		*f\alternateSoundId(stanceId-1)=newSoundId
+		Debug "set alternate "+*f\path$
+	EndIf
+EndProcedure
+
 Global Dim *allFrames.frame(1)
 Global nbFrame.i=0
 Global NewList *frameBuffer.frame()
@@ -184,15 +251,11 @@ EndEnumeration
 Global buffedFrames.i=#H2H_FRAME_BUFFER_DEFAULT
 Global frameAlternator.i=0
 
-Macro fileExist(FileName)
-	Bool(FileSize(FileName)>0)
-EndMacro
-
 #H2H_FRAME_MODE_CLASSIC=1
 #H2H_FRAME_MODE_ATLAS=2
 #H2H_FRAME_MODE=#H2H_FRAME_MODE_CLASSIC
 
-Procedure.i importFrame(FileName$)
+Procedure.i frameImport(FileName$)
 	If FileSize(FileName$)>0
 		LoadSprite(spriteIndex,FileName$,#PB_Sprite_AlphaBlending)
 		ProcedureReturn #True
@@ -200,28 +263,39 @@ Procedure.i importFrame(FileName$)
 	ProcedureReturn #False
 EndProcedure
 
-#H2H_DATA_FRAME_BASE=$1000 ; increase if needed
-Global dataFrameSize.i=#H2H_DATA_FRAME_BASE*SizeOf(frame)
+#H2H_DATA_FRAME_BASE=$2000 ; increase if needed
+Global DATA_FRAME_BASE=#H2H_DATA_FRAME_BASE
+CompilerIf #H2H_MODE=#H2H_MODE_LOAD
+	LoadJSON(0,"data.json")
+	*parent=GetJSONMember(JSONValue(0),#H2H_JSON_MEMORY_KEY)
+	If *parent
+		DATA_FRAME_BASE=loadJSONInteger(*parent,"frame")
+	EndIf
+	FreeJSON(0)
+CompilerEndIf
+Global dataFrameSize.i=DATA_FRAME_BASE*SizeOf(frame)
 Global *dataFrame=AllocateMemory(dataFrameSize)
 Global dataFrameindex=0
 ; Debug "size of frame : "+SizeOf(frame)
 Procedure.i frameDataGive()
-	*f.frame=*dataFrame+dataFrameindex*SizeOf(frame)
+	*f.frame
 	dataFrameindex+1
-	If dataFrameindex>=#H2H_DATA_FRAME_BASE
+	If dataFrameindex>=DATA_FRAME_BASE
 		Debug "Not enough frames !"
-		MessageRequester("H2H Error","Not enough frames !")
-		End
+; 		MessageRequester("H2H Error","Not enough frames !")
+; 		End
+		*f=AllocateStructure(frame)
+	Else
+		*f=*dataFrame+dataFrameindex*SizeOf(frame)
 	EndIf
 	ProcedureReturn *f
 EndProcedure
 
-Procedure.i frameCreate(*f.frame,length.i,path.s,	 hasHurt.i,*sound.soundPool,needFlip.i,newDamage.i=0,newDamageCut.i=0,newDamageType.i=0,newDamageSide.i=0)
+Procedure.i frameCreate(*f.frame,length.i,path.s,hasHurt.i,*sound.soundPool,needFlip.i,newDamage.i=0,newDamageCut.i=0,newDamageType.i=0,newDamageSide.i=0)
 	If Not *f
 		*f=frameDataGive()
 	EndIf
-	spriteIndex+1
-	*f\id=spriteIndex
+	*f\id=spriteIndexAdd()
 	*f\length=length
 	*f\damage=newDamage
 	frameSetDamageCut(*f,newDamageCut)
@@ -229,14 +303,10 @@ Procedure.i frameCreate(*f.frame,length.i,path.s,	 hasHurt.i,*sound.soundPool,ne
 	*f\canDoNext=0
 	If *sound
 		soundId=*sound\id
-	EndIf	
-	ReDim isSpriteSwaped(spriteIndex)
-	spriteIndex+1
+	EndIf
 	If hasHurt
 		If FileSize(*f\path$+"hurt.png")>0
-			*f\hurtId=spriteIndex
-			ReDim isSpriteSwaped(spriteIndex)
-			spriteIndex+1
+			*f\hurtId=spriteIndexAdd()
 		Else
 			*f\hurtId=0
 			*f\damage=0
@@ -246,7 +316,6 @@ Procedure.i frameCreate(*f.frame,length.i,path.s,	 hasHurt.i,*sound.soundPool,ne
 		If hasHurt
 			If FileSize(*f\path$+"hurt.png")>0
 				*f\hurtFlip=spriteIndexAdd()
-				ReDim isSpriteSwaped(spriteIndex-1)
 			Else
 				*f\hurtFlip=0
 				*f\damage=0
@@ -266,41 +335,45 @@ Procedure.i frameCreate(*f.frame,length.i,path.s,	 hasHurt.i,*sound.soundPool,ne
 	frameSetBuffed(*f,1)
 	frameSetLoaded(*f,0)
 	*f\shadowShift=locationCreate()
+	FreeArray(*f\alternateSoundId())
 	ProcedureReturn *f
 EndProcedure
 #H2H_FRAME_BUFFER_DURATION_MAX=10000
 #H2H_FRAME_BUFFER_DURATION_INCREMENT=2000
 EnableDebugger
-Declare framePuke(*f.frame,export.i=#False)
-Declare framePukeThread(*f.frame)
 
 #H2H_FRAME_PUKE_ENABLE=#False
+CompilerIf #H2H_FRAME_PUKE_ENABLE
+Declare framePuke(*f.frame,export.i=#False)
+Declare framePukeThread(*f.frame)
+CompilerEndIf
 
 ; Returns true if flipped
-Procedure.i spriteFlip(what.i,mirrored.i=0)
+Procedure.i spriteFlip(what.i,mirrored.i=0,special.i=1)
 	If IsSprite(what)
-		If what>ArraySize(isSpriteSwaped())
-			ReDim isSpriteSwaped(what)
-		EndIf
+; 		If what>ArraySize(isSpriteSwaped())
+; 			ReDim isSpriteSwaped(what)
+; 		EndIf
+		mirrored=Bool(mirrored)
 		If isSpriteSwaped(what)<>mirrored
-			isSpriteSwaped(what)=mirrored
+			setSpriteSwaped(what,mirrored)
 			If mirrored
 				TransformSprite(what,
-				                SpriteWidth(what),0,
-				                0,					0,
-				                0,					SpriteHeight(what)-1,
-				                SpriteWidth(what),SpriteHeight(what)-1)
+				                SpriteWidth(what),0,1,
+				                0,					0,1,
+				                0,					SpriteHeight(what)-special,1,
+				                SpriteWidth(what),SpriteHeight(what)-special,1)
 			Else
 				TransformSprite(what,
-				                0,					0,
-				                SpriteWidth(what)-1,0,
-				                SpriteWidth(what)-1,SpriteHeight(what)-1,
-				                0,					SpriteHeight(what)-1)
+				                0,					0,1,
+				                SpriteWidth(what)-special,0,1,
+				                SpriteWidth(what)-special,SpriteHeight(what)-special,1,
+				                0,					SpriteHeight(what)-special,1)
 			EndIf
-			ProcedureReturn 1
+			ProcedureReturn #True
 		EndIf
 	EndIf
-	ProcedureReturn 0
+	ProcedureReturn #False
 EndProcedure
 Declare putSpriteInImage(sprite.i,image.i=0)
 Procedure spriteSaveMirror(what.i,toWhat.i,collision.i=0)
@@ -365,11 +438,11 @@ Procedure.d frameLoad(*f.frame,path.s="",onlyFlip.i=0,parallel.i=#False)
 		EndIf
 	CompilerElse
 		If Not IsSprite(*f\id)
-			;Debug "loading "+*f\path$
-			If *f\id>ArraySize(isSpriteSwaped())
-				ReDim isSpriteSwaped(*f\id)
-			EndIf
-			isSpriteSwaped(*f\id)=0
+;  			Debug "loading "+*f\path$
+; 			If *f\id>ArraySize(isSpriteSwaped())
+; 				ReDim isSpriteSwaped(*f\id)
+; 			EndIf
+			setSpriteSwaped(*f\id,0)
 			LoadSprite(*f\id,*f\path$+".png",#PB_Sprite_AlphaBlending)
 		EndIf
 		If *f\hurtId
@@ -432,30 +505,133 @@ EndProcedure
 
 Procedure DisplaySpriteOptional(sprite.i,x.i,y.i,opacity.i=-1,c.i=0)
 	If IsSprite(sprite)
-		If opacity<=0
-			opacity=255
-		EndIf
 		If sprite>0
+			If opacity<0
+				opacity=255
+			EndIf
 			If c>0
 				DisplayTransparentSprite(sprite,x,y,opacity,c)
 			Else
 				DisplayTransparentSprite(sprite,x,y,opacity)
 			EndIf
-		Else
-			Debug "error 2"
 		EndIf
-	Else
-		Debug "error"
 	EndIf
 EndProcedure
 
-Procedure frameDisplay(*f.frame,x.i,y.i,opacity.i=255,color.i=0,mirrored.i=0,colorIntensity.i=128)
+#HITBOX_SHIFT_X=500.0-50.0*(200.0/#HITBOX_SIZE)-#HITBOX_SIZE+200
+; #HITBOX_SHIFT_Y=#HITBOX_SHIFT_X
+#HITBOX_SHIFT_Y=500.0-75.0*(200.0/#HITBOX_SIZE)-#HITBOX_SIZE+200
+#HITBOX_BACKSHIFT_X=1000-#HITBOX_SHIFT_X-#HITBOX_SIZE
+#HITBOX_BACKSHIFT_Y=#HITBOX_SHIFT_Y
+#H2H_SHADOW_WIDTH=(#HITBOX_SIZE*3)/2
+#H2H_SHADOW_HEIGHT=#HITBOX_SIZE/5
+#H2H_FRAME_SHIFT=0; -50;50.0*(#HITBOX_SIZE/300.0)
+; Debug "frame shift "+#H2H_FRAME_SHIFT
+
+Procedure frameDisplay(*f.frame,x.i,y.i,opacity.i=255,color.i=0,mirrored.i=0)
 	frameLoad(*f)
 	frameFlip(*f,mirrored)
 	what.i=*f\id
-	DisplaySpriteOptional(what,x,y,opacity)
-	If color
-		DisplaySpriteOptional(what,x,y,colorIntensity,color)
+	If *f\opacity
+		opacity=(opacity**f\opacity)/255
+	EndIf
+	If mirrored
+		If frameShiftXFlipNegative(*f)
+			x-shiftFlip(*f\shift)
+		Else
+			x+shiftFlip(*f\shift)
+		EndIf
+	Else
+		If frameShiftXNegative(*f)
+			x-shiftN(*f\shift)
+		Else
+			x+shiftN(*f\shift)
+		EndIf
+	EndIf
+	If frameShiftYNegative(*f)
+		y-*f\shift\y
+	Else
+		y+*f\shift\y
+	EndIf
+	If frameExtended(*f)
+		x+#H2H_LOCATION_SHIFT_CONVERT
+		y+#H2H_LOCATION_SHIFT_CONVERT
+	EndIf
+	colorIntensity.i=color>>24
+	If mirrored
+		DisplaySpriteOptional(what,x-#H2H_FRAME_SHIFT,y,opacity)
+		If color
+			DisplaySpriteOptional(what,x-#H2H_FRAME_SHIFT,y,(colorIntensity*opacity)/255,color)
+		EndIf
+	Else
+		DisplaySpriteOptional(what,x+#H2H_FRAME_SHIFT,y,opacity)
+		If color
+			DisplaySpriteOptional(what,x+#H2H_FRAME_SHIFT,y,(colorIntensity*opacity)/255,color)
+		EndIf
+	EndIf
+EndProcedure
+Procedure frameDisplayNoShift(*f.frame,x.i,y.i,opacity.i=255,color.i=0,mirrored.i=0)
+	frameLoad(*f)
+	frameFlip(*f,mirrored)
+	colorIntensity.i=color>>24
+	what.i=*f\id
+	If *f\opacity
+		opacity=(opacity**f\opacity)/255
+	EndIf
+	If mirrored
+		DisplaySpriteOptional(what,x-#H2H_FRAME_SHIFT,y,opacity)
+		If color
+			DisplaySpriteOptional(what,x-#H2H_FRAME_SHIFT,y,(colorIntensity*opacity)/255,color)
+		EndIf
+	Else
+		DisplaySpriteOptional(what,x+#H2H_FRAME_SHIFT,y,opacity)
+		If color
+			DisplaySpriteOptional(what,x+#H2H_FRAME_SHIFT,y,(colorIntensity*opacity)/255,color)
+		EndIf
+	EndIf
+EndProcedure
+
+Procedure frameHurtDisplay(*f.frame,x.i,y.i,opacity.i=255,color.i=0,mirrored.i=0,colorIntensity.i=128)
+	frameLoad(*f)
+	frameFlip(*f,mirrored)
+	what.i=*f\hurtId
+	If *f\opacity
+		opacity=(opacity**f\opacity)/255
+	EndIf
+	If mirrored
+		what=*f\hurtFlip
+		If frameHurtXFlipNegative(*f)
+			x-shiftFlip(*f\hurtShift)
+		Else
+			x+shiftFlip(*f\hurtShift)
+		EndIf
+	Else
+		If frameShiftXNegative(*f)
+			x-shiftN(*f\hurtShift)
+		Else
+			x+shiftN(*f\hurtShift)
+		EndIf
+	EndIf
+	If frameHurtYNegative(*f)
+		y-*f\hurtShift\y
+	Else
+		y+*f\hurtShift\y
+	EndIf
+		
+	If frameExtended(*f)
+		x+#H2H_LOCATION_SHIFT_CONVERT
+		y+#H2H_LOCATION_SHIFT_CONVERT
+	EndIf
+	If mirrored
+		DisplaySpriteOptional(what,x-#H2H_FRAME_SHIFT,y,opacity)
+		If color
+			DisplaySpriteOptional(what,x-#H2H_FRAME_SHIFT,y,(colorIntensity*opacity)/255,color)
+		EndIf
+	Else
+		DisplaySpriteOptional(what,x+#H2H_FRAME_SHIFT,y,opacity)
+		If color
+			DisplaySpriteOptional(what,x+#H2H_FRAME_SHIFT,y,(colorIntensity*opacity)/255,color)
+		EndIf
 	EndIf
 EndProcedure
 
@@ -466,7 +642,7 @@ Procedure.d frameUnload(*f.frame)
 	stamp.d=ElapsedMillisecondsPrecise()
 	frameSetLoaded(*f,0)
 	If *f\id And IsSprite(*f\id)
-		isSpriteSwaped(*f\id)=0
+		setSpriteSwaped(*f\id,0)
 		FreeSprite(*f\id)
 	EndIf
 	If *f\hurtId And IsSprite(*f\hurtId)
@@ -478,15 +654,35 @@ Procedure.d frameUnload(*f.frame)
 	ProcedureReturn ElapsedMillisecondsPrecise()-stamp
 EndProcedure
 
-Procedure.i framePlaySound(*f.frame,where.i)
-	If *f\soundId
-		If frameIsNoRecSound(*f)
-			playPoolSoundNoRec(*allSoundPool(*f\soundId),where)
+Procedure.i framePlaySound(*f.frame,where.i,stanceId.i=0)
+	If Not demoFight
+		Protected s=0
+		If stanceId=0 And *f\soundId
+			s=*f\soundId
 		Else
-			playPoolSound(*allSoundPool(*f\soundId),where)
+			If *f\alternateSoundId() And (stanceId-1)<=ArraySize(*f\alternateSoundId())
+				s=*f\alternateSoundId(stanceId-1)
+				If s=0
+					s=*f\soundId
+				Else
+					If s<0
+						s=0
+					EndIf
+				EndIf
+			Else
+				s=*f\soundId
+			EndIf
+		EndIf
+		If s
+			Protected ss=*allSoundPool(Str(s))
+			If frameIsNoRecSound(*f)
+				playPoolSoundNoRec(ss,where)
+			Else
+				playPoolSound(ss,where)
+			EndIf
 		EndIf
 	EndIf
-	ProcedureReturn *f\soundId
+	ProcedureReturn s
 EndProcedure
 
 Procedure frameCopy(*fDestination.frame,*fSource.frame,deep.i=#False)
@@ -499,10 +695,10 @@ Procedure frameCopy(*fDestination.frame,*fSource.frame,deep.i=#False)
 			*fDestination\movementD=locationCreate(*fSource\movementD\x,*fSource\movementD\y)
 		EndIf
 		If *fSource\shift
-			*fDestination\shift=locationCreate(*fSource\shift\x,*fSource\shift\y)
+			*fDestination\shift=locationCreateI(*fSource\shift\x,*fSource\shift\y)
 		EndIf
 		If *fSource\hurtShift
-			*fDestination\hurtShift=locationCreate(*fSource\hurtShift\x,*fSource\hurtShift\y)
+			*fDestination\hurtShift=locationCreateI(*fSource\hurtShift\x,*fSource\hurtShift\y)
 		EndIf
 		If *fSource\pushPower
 			*fDestination\pushPower=locationCreate(*fSource\pushPower\x,*fSource\pushPower\y)
@@ -517,39 +713,40 @@ Procedure frameCopy(*fDestination.frame,*fSource.frame,deep.i=#False)
 			*fDestination\instantPush=locationCreate(*fSource\instantPush\x,*fSource\instantPush\y)
 		EndIf
 		If *fSource\shadowShift
-			*fDestination\shadowShift=locationCreate(*fSource\shadowShift\x,*fSource\shadowShift\y)
+			*fDestination\shadowShift=locationCreateI(*fSource\shadowShift\x,*fSource\shadowShift\y)
 		EndIf
 	EndIf
 EndProcedure
 CompilerIf #H2H_MODE=#H2H_MODE_SAVE
-	Procedure decodeShift(*f.frame,*item.rawdata)
-		;XXX-YYY-FXX-HXX-HYY-HFX
-		If *item=#Null Or *f=#Null
-			ProcedureReturn
-		EndIf
-		x1=*item\item[0]
-		If x1<0
-			x1=-x1
-			frameSetShiftXNegative(*f)
-		EndIf
-		x2=*item\item[2]
-		If x2<0
-			x2=-x2
-			frameSetShiftXFlipNegative(*f)
-		EndIf
-		y1=*item\item[1]
-		If y1<0
-			y1=-y1
-			frameSetShiftYNegative(*f)
-		EndIf
-		set(*f\shift,x1+x2*1000,y1)
-		If *item\item[3] Or *item\item[4] Or *item\item[5]
-			*f\hurtShift=locationCreate(*item\item[3]+*item\item[5]*1000,*item\item[4])
-		EndIf
-	EndProcedure
+Procedure decodeShift(*f.frame,*item.rawdata)
+	;XXX-YYY-FXX-HXX-HYY-HFX
+	If *item=#Null Or *f=#Null
+		ProcedureReturn
+	EndIf
+	x1.q=*item\item[0]
+	If x1<0
+		x1=-x1
+		frameSetShiftXNegative(*f)
+	EndIf
+	x2.q=*item\item[2]
+	If x2<0
+		x2=-x2
+		frameSetShiftXFlipNegative(*f)
+	EndIf
+	y1.q=*item\item[1]
+	If y1<0
+		y1=-y1
+		frameSetShiftYNegative(*f)
+	EndIf
+	set(*f\shift,shiftCreate(x1,x2),y1)
+	If *item\item[3] Or *item\item[4] Or *item\item[5]
+		s=shiftCreate(*item\item[3],*item\item[5])
+		*f\hurtShift=locationCreateI(s,*item\item[4])
+	EndIf
+EndProcedure
 
 Procedure shiftShift(*f.frame,x.i,y.i)
-	x1=Mod(*f\shift\x,1000)
+	x1=shiftN(*f\shift)
 	If frameShiftXNegative(*f)
 		x1=-x1
 	EndIf
@@ -561,7 +758,7 @@ Procedure shiftShift(*f.frame,x.i,y.i)
 		frameSetShiftXNegative(*f,0)
 	EndIf
 	
-	x2=Int(*f\shift\x)/1000
+	x2=shiftFlip(*f\shift)
 	If frameShiftXFlipNegative(*f)
 		x2=-x2
 	EndIf
@@ -585,33 +782,36 @@ Procedure shiftShift(*f.frame,x.i,y.i)
 		frameSetShiftYNegative(*f,0)
 	EndIf
 	
-	set(*f\shift,x1+x2*1000,y1)
+	set(*f\shift,shiftCreate(x1,x2),y1)
 	If *f\hurtId
-		locationAdd(*f\hurtShift,x-x*1000,y)
+		locationAdd(*f\hurtShift,x-x*#H2H_LOCATION_SHIFT,y) ; ???????
 	EndIf
 EndProcedure
 CompilerEndIf
-#H2H_JSON_FRAME_LENGTH="length"
-#H2H_JSON_FRAME_DAMAGE="damage"
-#H2H_JSON_FRAME_DAMAGECUT="damageCut"
-#H2H_JSON_FRAME_MOVEMENT="movement"
-#H2H_JSON_FRAME_MOVEMENTDELTA="movementDelta"
-#H2H_JSON_FRAME_SHIFT="shift"
-#H2H_JSON_FRAME_HURTSHIFT="hurtShift"
-#H2H_JSON_FRAME_DAMAGETYPE="damageType"
-#H2H_JSON_FRAME_DAMAGESIDE="damageSide"
-#H2H_JSON_FRAME_SOUND="sound"
-#H2H_JSON_FRAME_CANDONEXT="canDoNext"
-#H2H_JSON_FRAME_PUSH="pushPower"
-#H2H_JSON_FRAME_PUSHINSTANT="pushInstant"
-#H2H_JSON_FRAME_PUSHDELTA="pushPowerDelta"
-#H2H_JSON_FRAME_PUSHRELATIVE="moveTargetTo"
-#H2H_JSON_FRAME_STUN="stun"
-#H2H_JSON_FRAME_SHAKE="shake"
-#H2H_JSON_FRAME_PATH="path"
-#H2H_JSON_FRAME_SHADOW_SHIFT="shadowShift"
-#H2H_JSON_FRAME_CANMOVE="canMove"
-#H2H_JSON_FRAME_FLAG="flag"
+#H2H_JSON_FRAME_LENGTH="l";"length"
+#H2H_JSON_FRAME_DAMAGE="d";"damage"
+#H2H_JSON_FRAME_DAMAGECUT="dc";"damageCut"
+#H2H_JSON_FRAME_MOVEMENT="m";"movement"
+#H2H_JSON_FRAME_MOVEMENTDELTA="md";"movementDelta"
+#H2H_JSON_FRAME_SHIFT="sh";"shift"
+#H2H_JSON_FRAME_HURTSHIFT="hsh";"hurtShift"
+#H2H_JSON_FRAME_DAMAGETYPE="dt";"damageType"
+#H2H_JSON_FRAME_DAMAGESIDE="ds";"damageSide"
+#H2H_JSON_FRAME_SOUND="sd";"sound"
+#H2H_JSON_FRAME_SOUND_ALTERNATE="sda";"soundakternate"
+#H2H_JSON_FRAME_CANDONEXT="cdn";"canDoNext"
+#H2H_JSON_FRAME_PUSH="pp";"pushPower"
+#H2H_JSON_FRAME_PUSHINSTANT="pi";"pushInstant"
+#H2H_JSON_FRAME_PUSHDELTA="ppd";"pushPowerDelta"
+#H2H_JSON_FRAME_PUSHRELATIVE="mtt";"moveTargetTo"
+#H2H_JSON_FRAME_STUN="st";"stun"
+#H2H_JSON_FRAME_SHAKE="sk";"shake"
+#H2H_JSON_FRAME_PATH="p";"path"
+#H2H_JSON_FRAME_SHADOW_SHIFT="ss";"shadowShift"
+#H2H_JSON_FRAME_CANMOVE="cm";"canMove"
+#H2H_JSON_FRAME_FLAG="f";"flag"
+#H2H_JSON_FRAME_OPACITY="o";"opacity"
+#H2H_JSON_FRAME_DAMAGE_DURATION="dd";"damageDuration"
 CompilerIf #H2H_MODE=#H2H_MODE_SAVE
 Procedure frameExportJSON(*f.frame,*parent=0)
 	current=0
@@ -620,9 +820,17 @@ Procedure frameExportJSON(*f.frame,*parent=0)
 		*parent=CreateJSONObject()
 	EndIf
 	addJSONInteger(*parent,#H2H_JSON_FRAME_LENGTH,*f\length)
-	addJSONInteger(*parent,#H2H_JSON_FRAME_SHIFT,*f\shift\x*1000+*f\shift\y)
+	If *f\opacity And *f\opacity<255
+		addJSONInteger(*parent,#H2H_JSON_FRAME_OPACITY,*f\opacity)
+	EndIf
+	If *f\damageDuration And *f\damageDuration>=0
+		addJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGE_DURATION,*f\damageDuration)
+	EndIf
+	addJSONCoordI(*parent,#H2H_JSON_FRAME_SHIFT,*f\shift,#True)
+; 	addJSONInteger(*parent,#H2H_JSON_FRAME_SHIFT,*f\shift\x*1000+*f\shift\y)
 	If *f\hurtShift
-		addJSONInteger(*parent,#H2H_JSON_FRAME_HURTSHIFT,*f\hurtShift\x*1000+*f\hurtShift\y)
+; 		addJSONInteger(*parent,#H2H_JSON_FRAME_HURTSHIFT,*f\hurtShift\x*1000+*f\hurtShift\y)
+		addJSONCoordI(*parent,#H2H_JSON_FRAME_HURTSHIFT,*f\hurtShift,#True)
 	EndIf
 	If *f\movement
 		addJSONCoord(*parent,#H2H_JSON_FRAME_MOVEMENT,*f\movement)
@@ -643,7 +851,7 @@ Procedure frameExportJSON(*f.frame,*parent=0)
 		addJSONCoord(*parent,#H2H_JSON_FRAME_PUSHRELATIVE,*f\moveTargetTo)
 	EndIf
 	If *f\shadowShift
-		addJSONCoord(*parent,#H2H_JSON_FRAME_SHADOW_SHIFT,*f\shadowShift)
+		addJSONCoordI(*parent,#H2H_JSON_FRAME_SHADOW_SHIFT,*f\shadowShift)
 	EndIf
 	If *f\path$<>""
 		addJSONString(*parent,#H2H_JSON_FRAME_PATH,Mid(*f\path$,7))
@@ -652,11 +860,18 @@ Procedure frameExportJSON(*f.frame,*parent=0)
 	addJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGESIDE,*f\damageSide						,#True)
 	addJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGETYPE,*f\damageType						,#True)
 	addJSONInteger(*parent,#H2H_JSON_FRAME_SOUND,*f\soundId								,#True)
+	If *f\alternateSoundId()
+		*array=SetJSONArray(AddJSONMember(*parent,#H2H_JSON_FRAME_SOUND_ALTERNATE))
+		For i=0 To ArraySize(*f\alternateSoundId())
+			SetJSONInteger(AddJSONElement(*array),*f\alternateSoundId(i))
+		Next
+	EndIf
 	addJSONInteger(*parent,#H2H_JSON_FRAME_CANDONEXT,*f\canDoNext						,#True)
 	addJSONInteger(*parent,#H2H_JSON_FRAME_STUN,*f\stunDuration							,#True)
 	addJSONInteger(*parent,#H2H_JSON_FRAME_SHAKE,*f\shake								,#True)
 	addJSONInteger(*parent,#H2H_JSON_FRAME_CANMOVE,*f\canMove							,#True)
-	addJSONInteger(*parent,#H2H_JSON_FRAME_FLAG,*f\flag&(~(#H2H_FRAME_FLAG_LOADED|#H2H_FRAME_FLAG_FLIPED|#H2H_FRAME_FLAG_BUFFED)),#True)
+	t.q=~(#H2H_FRAME_FLAG_LOADED|#H2H_FRAME_FLAG_FLIPED|#H2H_FRAME_FLAG_BUFFED)
+	addJSONQuad(*parent,#H2H_JSON_FRAME_FLAG,*f\flag&t,#True)
 	ProcedureReturn *parent
 EndProcedure
 CompilerEndIf
@@ -668,22 +883,36 @@ Procedure frameImportJSON(*parent,*f.frame=0)
 	EndIf
 	
 	*f\length=				loadJSONInteger(*parent,#H2H_JSON_FRAME_LENGTH)
+	*f\opacity=				loadJSONInteger(*parent,#H2H_JSON_FRAME_LENGTH)
 	*f\damage=				loadJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGE)
 	*f\damageSide=			loadJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGESIDE)
 	*f\damageType=			loadJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGETYPE)
 	*f\soundId=				loadJSONInteger(*parent,#H2H_JSON_FRAME_SOUND)
+	*array=GetJSONMember(*parent,#H2H_JSON_FRAME_SOUND_ALTERNATE)
+	Protected size=0
+	If *array
+		size=JSONArraySize(*array)
+		If *array
+			Dim *f\alternateSoundId(size-1)
+			For i=0 To size-1
+				*f\alternateSoundId(i)=GetJSONInteger(GetJSONElement(*array,i))
+			Next
+		EndIf
+	EndIf
+	
 	*f\canDoNext=			loadJSONInteger(*parent,#H2H_JSON_FRAME_CANDONEXT)
 	*f\stunDuration=		loadJSONInteger(*parent,#H2H_JSON_FRAME_STUN)
 	*f\shake=				loadJSONInteger(*parent,#H2H_JSON_FRAME_SHAKE)
 	*f\canMove=				loadJSONInteger(*parent,#H2H_JSON_FRAME_CANMOVE)
-	*f\flag=				loadJSONInteger(*parent,#H2H_JSON_FRAME_FLAG)
+	*f\flag=				LoadJSONQuad(*parent,#H2H_JSON_FRAME_FLAG)
 	*f\id=spriteIndexAdd()
 	*f\path$=				"image/"+loadJSONString(*parent,#H2H_JSON_FRAME_PATH)
-	i=loadJSONInteger(*parent,#H2H_JSON_FRAME_SHIFT)
-	*f\shift=				locationCreate(i/1000,Mod(i,1000))
-	i=loadJSONInteger(*parent,#H2H_JSON_FRAME_HURTSHIFT)
-	If i
-		*f\hurtShift=locationCreate(i/1000,Mod(i,1000))
+; 	i=loadJSONInteger(*parent,#H2H_JSON_FRAME_SHIFT)
+	*f\shift=				loadJSONCoordI(*parent,#H2H_JSON_FRAME_SHIFT,#False)
+; 	Debug "loaded "+toString(*f\shift)
+	If GetJSONMember(*parent,#H2H_JSON_FRAME_HURTSHIFT)
+; 		*f\hurtShift=locationCreate(i/#H2H_LOCATION_SHIFT,Mod(i,#H2H_LOCATION_SHIFT))
+		*f\hurtShift=loadJSONCoordI(*parent,#H2H_JSON_FRAME_HURTSHIFT,#False)
 		*f\hurtId=spriteIndexAdd()
 		*f\hurtFlip=spriteIndexAdd()
 	EndIf
@@ -693,7 +922,9 @@ Procedure frameImportJSON(*parent,*f.frame=0)
 	*f\pushPowerD=			loadJSONCoord(*parent,#H2H_JSON_FRAME_PUSHDELTA,#True)
 	*f\instantPush=			loadJSONCoord(*parent,#H2H_JSON_FRAME_PUSHINSTANT,#True)
 	*f\moveTargetTo=		loadJSONCoord(*parent,#H2H_JSON_FRAME_PUSHRELATIVE,#True)
-	*f\shadowShift=			loadJSONCoord(*parent,#H2H_JSON_FRAME_SHADOW_SHIFT,#True)
+	*f\shadowShift=			loadJSONCoordI(*parent,#H2H_JSON_FRAME_SHADOW_SHIFT,#True)
+	*f\opacity=				loadJSONInteger(*parent,#H2H_JSON_FRAME_OPACITY)
+	*f\damageDuration=		loadJSONInteger(*parent,#H2H_JSON_FRAME_DAMAGE_DURATION)
 	ProcedureReturn *f
 EndProcedure
 CompilerEndIf
@@ -749,12 +980,9 @@ EndMacro
 
 Global NewList *frameToLoad.frame()
 
-Procedure frameAddToLoad(*f.frame)
-	If *f
-		AddElement(*frameToLoad())
-		*frameToLoad()=*f
-	EndIf
-EndProcedure
+Macro frameAddToLoad(f)
+	AddElement(*frameToLoad()):*frameToLoad()=f
+EndMacro
 
 Procedure.i frameLoadLoop(loadLimit.i=999)
 	Protected stamp.d=0
@@ -775,12 +1003,9 @@ EndProcedure
 
 Global NewList *frameToUnLoad.frame()
 
-Procedure frameAddToUnload(*f.frame)
-	If *f
-		AddElement(*frameToUnLoad())
-		*frameToUnLoad()=*f
-	EndIf
-EndProcedure
+Macro frameAddToUnload(f)
+	AddElement(*frameToUnLoad()):*frameToUnLoad()=f
+EndMacro
 
 Procedure.i frameUnloadLoop()
 	Protected stamp.d=0
@@ -791,7 +1016,6 @@ Procedure.i frameUnloadLoop()
 	Protected previous.i=ListSize(*frameToUnLoad())
 	ResetList(*frameToUnLoad())
 	While stamp<limit And NextElement(*frameToUnLoad())
-;  		Debug "unloading "+*frameToUnLoad()\path$
 		stamp+frameUnload(*frameToUnLoad())
 		DeleteElement(*frameToUnLoad())
 		amount+1
@@ -804,8 +1028,9 @@ CompilerIf #H2H_FRAME_HURTBOX_COMPACT
 Structure hurtBox
 	width.i
 	height.i
-	start.i
-	Array bits.q(0)
+	start.i ; pixel of the first opaque
+	Array bits.q(0) ; each array index contains the consecutive pixels of the same type
+					; it always start with opaque
 EndStructure
 
 Procedure.i loadhurtFromFrame(*hb.hurtBox,*f.frame)
@@ -837,6 +1062,8 @@ Procedure.i loadhurtFromFrame(*hb.hurtBox,*f.frame)
 	ProcedureReturn 0
 EndProcedure
 
+; take a x y coordinate and returns the bits index
+; O(n)
 Procedure.i hurtBoxGetIndex(*hb.hurtBox,x.i,y.i)
 	spot.i=x+y**hb\width
 	at.i=0
@@ -848,6 +1075,16 @@ Procedure.i hurtBoxGetIndex(*hb.hurtBox,x.i,y.i)
 	ProcedureReturn index
 EndProcedure
 
+; 1 is opaque
+; 2 is transparent
+Procedure.i hurtBoxGetValue(*hb.hurtBox,x.i,y.i)
+	ProcedureReturn Bool(Not hurtBoxGetIndex(*hb,x,y)&1) ; starts opaque so index = 0 is opaque
+EndProcedure
+
+Macro hurtBoxIndexIsOpaque(hb,index)
+	(Bool(Not hb\bits(index)&1)
+EndMacro
+
 Procedure.i hurtBoxMoveBy(*hb.hurtbox,startIndex.i,from.i,by.i)
 	by-from
 	While by>*hb\bits(startIndex)
@@ -858,28 +1095,39 @@ Procedure.i hurtBoxMoveBy(*hb.hurtbox,startIndex.i,from.i,by.i)
 EndProcedure
 
 Procedure.i hasCollisionWith(*hb1.hurtBox,x1.i,y1.i,*hb2.hurtBox,x2.i,y2.i)
-	; TODO
+	If x1<=(x2+*hb2\width) And (x1+*hb1\width)>=x2 And y1<=(y2+*hb2\height) And (y1+*hb1\height)>=y1
+		; Intersected !
+		; First get the coordinate of the square
+		x3=max(x1,x2)
+		y3=max(y1,y2)
+		width=min(x1+*hb1\width,x2+*hb2\width)-max(x1,x2)
+		height=min(y1+*hb1\height,y2+*hb2\height)-max(y1,y2)
+		
+		i1=hurtBoxGetIndex(*hb1,x1-x3,y1-y3)
+		i2=hurtBoxGetIndex(*hb2,x2-x3,y2-y3)
+		ox3=x3
+		oy3=y3
+	EndIf
 	ProcedureReturn 0
 EndProcedure
 CompilerEndIf
-#HITBOX_SHIFT_X=450
-#HITBOX_SHIFT_Y=425
-#HITBOX_BACKSHIFT_X=1000-#HITBOX_SHIFT_X-#HITBOX_SIZE
-#HITBOX_BACKSHIFT_Y=#HITBOX_SHIFT_Y
-#H2H_SHADOW_WIDTH=(#HITBOX_SIZE*3)/2
-#H2H_SHADOW_HEIGHT=#HITBOX_SIZE/5
-Global groundLevel
-Procedure displayFrameShadow(*f.frame,x.i,y.i,direction.i,checkHeight=#True,color.i=0,intensity.i=128)
+
+#H2H_SHADOW_Y_SHIFT=#HITBOX_SIZE*2+200
+#H2H_SHADOW_X_SHIFT=(#H2H_SHADOW_WIDTH-#HITBOX_SIZE)/2
+#heightProportion=1000.0
+Procedure frameDisplayShadow(*f.frame,x.i,y.i,direction.i,checkHeight=#True,color.i=0)
 	If *f
-		intensity/32
+		Protected intensity=128
+		If color>0
+			intensity=((color>>24)/32)
+		EndIf
 		Protected displayX.i
 		If checkHeight
 			displayY.i=y+*f\shift\y+*screenShake\y-screenFocusHeight
-			Protected heightProportion.f=1000
-			Protected heightFactor.f=1-(Abs(y-groundLevel))/heightProportion
+			Protected heightFactor.f=1-(Abs(y-groundLevel))/#heightProportion
 			Protected shadowShiftX=0
 			If *f\shadowShift
-				heightFactor+*f\shadowShift\y/heightProportion
+				heightFactor+*f\shadowShift\y/#heightProportion
 				shadowShiftX=*f\shadowShift\x
 			EndIf
 			If heightFactor<0.1
@@ -888,55 +1136,60 @@ Procedure displayFrameShadow(*f.frame,x.i,y.i,direction.i,checkHeight=#True,colo
 			ZoomSprite(shadowSprite,#PB_Default,#PB_Default)
 			ZoomSprite(shadowSprite,SpriteWidth(shadowSprite)*heightFactor,SpriteHeight(shadowSprite)*heightFactor)
 			If direction
-				displayX=x+*f\shift\x/1000+shift+*screenShake\x
-				DisplaySpriteOptional(shadowSprite,x+#HITBOX_BACKSHIFT_X-20+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2-shadowShiftX,
-				                      groundLevel+#HITBOX_SIZE*2+200+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
+				DisplaySpriteOptional(shadowSprite,x+#HITBOX_BACKSHIFT_X-#H2H_SHADOW_X_SHIFT+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2-shadowShiftX,
+				                      groundLevel+#H2H_SHADOW_Y_SHIFT+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
 				                      128*heightFactor)
 				If color>0
-					DisplaySpriteOptional(shadowSprite,x+#HITBOX_BACKSHIFT_X-20+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2-shadowShiftX,
-					                      groundLevel+#HITBOX_SIZE*2+200+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
+					DisplaySpriteOptional(shadowSprite,x+#HITBOX_BACKSHIFT_X-#H2H_SHADOW_X_SHIFT+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2-shadowShiftX,
+					                      groundLevel+#H2H_SHADOW_Y_SHIFT+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
 					                      intensity*heightFactor,color)
 				EndIf
 			Else
-				displayX=x+Mod(*f\shift\x,1000+shift)+*screenShake\x
-				DisplaySpriteOptional(shadowSprite,x+#HITBOX_SHIFT_X-20+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2+shadowShiftX,
-				                      groundLevel+#HITBOX_SIZE*2+200+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
+				DisplaySpriteOptional(shadowSprite,x+#HITBOX_SHIFT_X-#H2H_SHADOW_X_SHIFT+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2+shadowShiftX,
+				                      groundLevel+#H2H_SHADOW_Y_SHIFT+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
 				                      128*heightFactor)
 				If color>0
-					DisplaySpriteOptional(shadowSprite,x+#HITBOX_SHIFT_X-20+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2+shadowShiftX,
-					                      groundLevel+#HITBOX_SIZE*2+200+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
+					DisplaySpriteOptional(shadowSprite,x+#HITBOX_SHIFT_X-#H2H_SHADOW_X_SHIFT+*screenShake\x+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2+shadowShiftX,
+					                      groundLevel+#H2H_SHADOW_Y_SHIFT+*screenShake\y-screenFocusHeight+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
 					                      intensity*heightFactor,color)
 				EndIf
 			EndIf
 		Else
-			ZoomSprite(shadowSprite,#PB_Default,#PB_Default)
-			displayX=x-20
+			displayX=x-#H2H_SHADOW_X_SHIFT
 			If direction
 				displayX+#HITBOX_BACKSHIFT_X
 			Else
 				displayX+#HITBOX_SHIFT_X
 			EndIf
+			heightFactor.f=1
 			If *f\shadowShift
+				heightFactor+*f\shadowShift\y/#heightProportion
 				If direction
 					displayX-*f\shadowShift\x
 				Else
 					displayX+*f\shadowShift\x
 				EndIf
 			EndIf
+			If heightFactor<0.1
+				heightFactor=0.1
+			EndIf
+			ZoomSprite(shadowSprite,#PB_Default,#PB_Default)
+			If heightFactor<>1
+				displayX+(#H2H_SHADOW_WIDTH-#H2H_SHADOW_WIDTH*heightFactor)/2
+				ZoomSprite(shadowSprite,SpriteWidth(shadowSprite)*heightFactor,SpriteHeight(shadowSprite)*heightFactor)
+			EndIf
 			DisplaySpriteOptional(shadowSprite,displayX,
-			                      y+#HITBOX_SIZE*2+200+#H2H_SHADOW_HEIGHT/2,
+			                      y+#H2H_SHADOW_Y_SHIFT+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
 			                      128)
 			DisplaySpriteOptional(shadowSprite,displayX,
-			                      y+#HITBOX_SIZE*2+200+#H2H_SHADOW_HEIGHT/2,
+			                      y+#H2H_SHADOW_Y_SHIFT+(#H2H_SHADOW_HEIGHT-#H2H_SHADOW_HEIGHT*heightFactor)/2,
 			                      intensity,color)
 		EndIf
 	EndIf
 EndProcedure
-
-
 ; IDE Options = PureBasic 6.01 LTS (Windows - x64)
-; CursorPosition = 377
-; FirstLine = 355
-; Folding = ---------z--
+; CursorPosition = 1126
+; FirstLine = 1075
+; Folding = -----------6--
 ; EnableXP
 ; CPU = 1
